@@ -19,7 +19,7 @@ import {AccountMenu} from './AccountMenu'
 import Image from 'next/image'
 
 
-interface event {
+type Event = {
     currentTarget: any
 }
 
@@ -70,7 +70,7 @@ export default function PrimarySearchAppBar() {
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
 
-  const handleProfileMenuOpen = (event: event) => {
+  const handleProfileMenuOpen = (event: Event) => {
     setAnchorEl(event.currentTarget);
   };
 
@@ -83,7 +83,7 @@ export default function PrimarySearchAppBar() {
     handleMobileMenuClose();
   };
 
-  const handleMobileMenuOpen = (event: event) => {
+  const handleMobileMenuOpen = (event: Event) => {
     setMobileMoreAnchorEl(event.currentTarget);
   };
 
@@ -91,11 +91,10 @@ export default function PrimarySearchAppBar() {
   const mobileMenuId = 'primary-search-account-menu-mobile';
 
   return (
-    <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="static">
+    <Box position="static" pb={15} sx={{flexGrow: 1}}>
+      <AppBar sx={{ backgroundColor: 'rgba(30, 30, 30)', paddingY: 1.5 }} position="fixed">
         <Toolbar>
           <Typography
-            variant="h6"
             noWrap
             component="div"
             sx={{ display: { xs: 'none', sm: 'block' } }}
@@ -110,12 +109,13 @@ export default function PrimarySearchAppBar() {
               <SearchIcon />
             </SearchIconWrapper>
             <StyledInputBase
-              placeholder="Search…"
+              placeholder="Search BLDR..."
               inputProps={{ 'aria-label': 'search' }}
             />
           </Search>
-          <Box sx={{ flexGrow: 1 }} />
-          <Box sx={{ display: { xs: 'flex', md: 'flex' } }}>
+
+          {/*<Box sx={{ flexGrow: 1 }} />
+           <Box sx={{ display: { xs: 'flex', md: 'flex' } }}>
             <IconButton size="large" aria-label="show 4 new mails" color="inherit" sx={{ display: { xs: 'none', sm: 'flex' } }}>
               <Badge badgeContent={4} color="error">
                 <MailIcon />
@@ -131,7 +131,7 @@ export default function PrimarySearchAppBar() {
               </Badge>
             </IconButton>
            <AccountMenu />
-          </Box>
+          </Box> */}
         </Toolbar>
       </AppBar>
     </Box>
