@@ -66,7 +66,7 @@ const pages = [
   },
   {
     label: 'Submit',
-    route: '/documentation/getting-started'
+    route: '/submit'
   },
   {
     label: 'Login',

@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, {ReactNode} from 'react';
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
@@ -9,6 +9,8 @@ import { styled } from '@mui/material/styles';
 import { Paper, Grid, Divider } from '@mui/material';
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
+import * as Icons from '@mui/icons-material'
+
 
 interface Props {
   elevation?: number | 1,
@@ -16,6 +18,7 @@ interface Props {
     src: string,
     width?: string | 'auto'
   },
+  icon?: ReactNode,
   subtext?: string | any,
   copy?: string | any,
   buttons?: Array<{
@@ -60,6 +63,7 @@ export default function Section(props: Props) {
       <Box maxWidth="md" mt={5}>
         <Grid>
           {image}
+          {props.icon}
           <Typography textAlign="center" pt={5} fontSize={20}>
           {props.subtext}
           </Typography>

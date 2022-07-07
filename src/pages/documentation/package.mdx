@@ -1,0 +1,17 @@
+import Layout from '../../components/layouts/MainLayout'
+import DocumentationLayout from '../../components/layouts/DocumentationLayout'
+
+export const meta = {
+  author: 'Rich Haines'
+}
+
+
+# My MDX page
+
+This is a list in markdown:
+
+- One
+- Two
+- Three
+
+export default ({ children }) => <Layout> <DocumentationLayout meta={meta}>{children}</DocumentationLayout></Layout>

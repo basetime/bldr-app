@@ -5,6 +5,8 @@ const InlineCode = styled.code`
     font-size:1rem;
     overflow-x: auto;
     font-family: Roboto;
+    padding: 0px 10px;
+    background-color:#F0F0F0;
 `
 
 export default InlineCode;

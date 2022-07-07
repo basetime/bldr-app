@@ -6,8 +6,12 @@ import Grid from '@mui/material/Grid';
 import DocumentationNavigation from '../pages/documentation/DocumentationNavigation'
 import { MDXProvider } from '@mdx-js/react'
 import CodeBlock from '../mdx/Pre'
-import InlineCode from '../mdx/Code'
+import InlineCode from '../mdx/InlineCode'
 import Paragraph from '../mdx/P'
+import Table from '../mdx/Table'
+import List from '../mdx/List'
+import Headers from '../mdx/Headers'
+import Link from '../mdx/Link'
 
 type Props = {
   children: ReactNode;
@@ -24,9 +28,16 @@ const Item = styled(Paper)(({ theme }) => ({
 
 
 const components = {
+  a: Link,
+  li: List.LI,
+  ol: List.OL, 
+  table: Table,
   p: Paragraph,
   pre: CodeBlock,
-  code: InlineCode
+  code: InlineCode,
+  h1: Headers.H1,
+  h2: Headers.H2,
+  h3: Headers.H3
 }
 
 const Layout = ({

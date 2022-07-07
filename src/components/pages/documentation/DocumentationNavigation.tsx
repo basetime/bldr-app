@@ -30,7 +30,6 @@ export default function DocumentationNavigation() {
     setOpen(!open);
   };
 
-
   const documentationItems = [
     {
       type: 'item',
@@ -42,7 +41,7 @@ export default function DocumentationNavigation() {
       type: 'item',
       label: 'Contexts',
       icon: <SwitchLeftIcon />,
-      doc: 'context'
+      doc: 'contexts'
     },
     {
       type: 'divider'

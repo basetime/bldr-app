@@ -97,7 +97,7 @@ const Index: NextPage = () => {
                   [Client Id]: Client Id from Installed Package <br />
                   [Client Secret]: Client Secret from Installed Package <br />
                   [Auth URI]: Auth URI from Installed Package
-                  <br /><br />
+            
                 </code></pre>
             
 
@@ -109,7 +109,7 @@ const Index: NextPage = () => {
               <Typography variant='body1' maxWidth={'80%'} textAlign="left" pb={3}>
                 The BLDR CLI allows you to configure multiple SFMC instances so you can use the same CLI commands for any instance you need to work in.
                 Currently Content Builder and Automation Studio are supported; code samples below work for both based on a context flag <code>--cb or --as</code>.
-                <br /><br />
+      
               </Typography>
 
               <Typography color="#357eC8" variant='h6' textAlign="left" py={3}>
@@ -131,7 +131,7 @@ const Index: NextPage = () => {
 
                   // Set Instance Mid <br />
                   bldr config -s [instance name] -m [mid]
-                  <br /><br />
+           
                 </code></pre>
          
 
@@ -155,7 +155,7 @@ const Index: NextPage = () => {
 
                   // Clone Asset Locally <br />
                   bldr clone --cb -a [asset Id]
-                  <br /><br />
+            
 
                 </code></pre>
         
@@ -170,7 +170,7 @@ const Index: NextPage = () => {
 
                   // Update Assets <br />
                   bldr push
-                  <br /><br />
+               
                 </code></pre>
             
             </Item>
@@ -203,9 +203,7 @@ const Index: NextPage = () => {
                 Packaged projects result in a compiled JSON file and is stored in your Git repository. The package command will gather all assets within your project, remove SFMC instance specific values (Asset Id, Customer Key), locate and grab dependency references that don&rsquo;t exist in your project.
                 <br /><br />
                 After you have packaged and committed your project to a public GitHub repository (support for other Git providers to come) you can <a href='#' >submit your package</a> to the registry so community members can search and use your package.
-                <br /><br />
-                BLDR currently supports Content Builder and Automation Studio; code samples below work for both based on a context flag <code>--cb or --as</code>.
-                <br /><br />
+              
               </Typography>
               <Typography color="#357eC8" variant='h6' textAlign="left" py={3}>
                 Package
