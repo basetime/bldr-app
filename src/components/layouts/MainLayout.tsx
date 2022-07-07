@@ -10,7 +10,7 @@ type Props = {
 
 const Layout = ({
   children,
-  title = 'TypeScript Next.js Stripe Example',
+  title = 'TypeScript Next.js Stripe Example'
 }: Props) => (
   <>
     <Box>

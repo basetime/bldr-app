@@ -7,7 +7,6 @@ import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import InputBase from '@mui/material/InputBase';
 import Badge from '@mui/material/Badge';
-import MenuItem from '@mui/material/MenuItem';
 import Menu from '@mui/material/Menu';
 import MenuIcon from '@mui/icons-material/Menu';
 import SearchIcon from '@mui/icons-material/Search';
@@ -15,12 +14,15 @@ import AccountCircle from '@mui/icons-material/AccountCircle';
 import MailIcon from '@mui/icons-material/Mail';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import MoreIcon from '@mui/icons-material/MoreVert';
-import {AccountMenu} from './AccountMenu'
+import { AccountMenu } from './AccountMenu'
 import Image from 'next/image'
-
+import Stack from '@mui/material/Stack';
+import Paper from '@mui/material/Paper';
+import Button from '@mui/material/Button'
+import Link from 'next/link'
 
 type Event = {
-    currentTarget: any
+  currentTarget: any
 }
 
 const Search = styled('div')(({ theme }) => ({
@@ -45,7 +47,7 @@ const SearchIconWrapper = styled('div')(({ theme }) => ({
   position: 'absolute',
   pointerEvents: 'none',
   display: 'flex',
-  alignItems: 'center',
+  alignNavButtons: 'center',
   justifyContent: 'center',
 }));
 
@@ -62,6 +64,33 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
     },
   },
 }));
+
+const NavButton = styled(Paper)(({ theme }) => ({
+  backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
+  ...theme.typography.body2,
+  padding: theme.spacing(1),
+  textAlign: 'center',
+  color: theme.palette.text.secondary,
+}));
+
+const pages = [
+  {
+    label: 'Home',
+    route: '/'
+  },
+  {
+    label: 'Documentation',
+    route: '/documentation/getting-started'
+  },
+  {
+    label: 'Submit',
+    route: '/documentation/getting-started'
+  },
+  {
+    label: 'Login',
+    route: '/documentation/getting-started'
+  },
+];
 
 export default function PrimarySearchAppBar() {
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -91,16 +120,16 @@ export default function PrimarySearchAppBar() {
   const mobileMenuId = 'primary-search-account-menu-mobile';
 
   return (
-    <Box position="static" pb={15} sx={{flexGrow: 1}}>
-      <AppBar sx={{ backgroundColor: 'rgba(30, 30, 30)', paddingY: 1.5 }} position="fixed">
-        <Toolbar>
+    <Box position="static" pb={25} sx={{ flexGrow: 1 }}>
+      <AppBar position="fixed">
+        <Toolbar sx={{ backgroundColor: 'rgba(30, 30, 30)', paddingY: 1.5 }}>
           <Typography
             noWrap
             component="div"
             sx={{ display: { xs: 'none', sm: 'block' } }}
           >
             {/* update to Next/Image component */}
-            <img alt="bldr logo" src="https://bldr.basetime.io/bldr-logo.png"  height="50" />
+            <img alt="bldr logo" src="https://bldr.basetime.io/bldr-logo.png" height="50" />
 
           </Typography>
           <Box sx={{ flexGrow: 1 }} />
@@ -113,9 +142,8 @@ export default function PrimarySearchAppBar() {
               inputProps={{ 'aria-label': 'search' }}
             />
           </Search>
-
-          {/*<Box sx={{ flexGrow: 1 }} />
-           <Box sx={{ display: { xs: 'flex', md: 'flex' } }}>
+          <Box sx={{ flexGrow: 1 }} />
+          <Box sx={{ display: { xs: 'flex', md: 'flex' } }}>
             <IconButton size="large" aria-label="show 4 new mails" color="inherit" sx={{ display: { xs: 'none', sm: 'flex' } }}>
               <Badge badgeContent={4} color="error">
                 <MailIcon />
@@ -130,10 +158,25 @@ export default function PrimarySearchAppBar() {
                 <NotificationsIcon />
               </Badge>
             </IconButton>
-           <AccountMenu />
-          </Box> */}
+            <AccountMenu />
+          </Box>
+        </Toolbar>
+        <Toolbar sx={{ display: "flex", backgroundColor: '#ffffff' }}>
+          <Box sx={{ maxWidth: 'md', mx: 'auto', flexGrow: 1, justifyContent: 'space-evenly', display: { xs: 'none', md: 'flex' } }}>
+            {pages.map((page) => (
+              <Link key={page.label} passHref href={`${page.route}`}>
+                <Button
+                  sx={{ my: 2, color: 'black', display: 'block' }}
+                >
+                  {page.label}
+                </Button>
+              </Link>
+            ))}
+          </Box>
         </Toolbar>
       </AppBar>
+
     </Box>
+
   );
 }
