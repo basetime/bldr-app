@@ -1,7 +1,7 @@
 import React, { ReactNode } from 'react';
 import NavigationBar from './top_navigation/NavigationBar'
 import Box from '@mui/material/Box';
-
+import "@fontsource/roboto";
 
 type Props = {
   children: ReactNode;
@@ -9,8 +9,7 @@ type Props = {
 };
 
 const Layout = ({
-  children,
-  title = 'TypeScript Next.js Stripe Example'
+  children
 }: Props) => (
   <>
     <Box>

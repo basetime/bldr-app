@@ -1,12 +1,17 @@
 /** @type {import('next').NextConfig} */
-const withPlugins = require('next-compose-plugins');
-const withMDX = require('@next/mdx')({
+import withPlugins from 'next-compose-plugins';
+import remarkGfm from 'remark-gfm'
+import mdx from '@next/mdx'
+
+const withMDX = mdx({
   extension: /\.mdx?$/,
   options: {
-    remarkPlugins: [],
+    remarkPlugins: [
+      remarkGfm
+    ],
     rehypePlugins: [],
     // If you use `MDXProvider`, uncomment the following line.
-    // providerImportSource: "@mdx-js/react",
+    providerImportSource: "@mdx-js/react",
   },
 })
 
@@ -17,7 +22,7 @@ const nextConfig = {
 }
 
 
-module.exports = withPlugins([
+export default withPlugins([
   [
     withMDX, ({
       // Append the default value with md extensions

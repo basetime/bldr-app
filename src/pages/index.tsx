@@ -8,6 +8,7 @@ import Section from '../components/pages/Section';
 import { Divider, Typography } from '@mui/material';
 import Button from '@mui/material/Button';
 import CodeIcon from '@mui/icons-material/Code';
+import axios from 'axios';
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
@@ -33,7 +34,7 @@ const Index: NextPage = () => {
         buttons={[
           {
             label: 'Get BLDR CLI',
-            href: '',
+            href: 'https://www.npmjs.com/package/@basetime/bldr-sfmc',
             variant: 'outlined'
           }
         ]}
@@ -46,7 +47,7 @@ const Index: NextPage = () => {
           width: '20%'
         }}
         subtext='Bring Open-Source Front and Center in SFMC'
-      copy='Basetime.io is passionate about supporting open-source projects and forward focused Salesforce Marketing Cloud initiatives. Creating a way for users to share and deploy SFMC projects easily just made sense. Contributing to the BLDR Package Registry will not only give developers a chance to get their names out in the community but give users a way to accelerate what they are able to learn and achieve in SFMC.'
+        copy='Basetime.io is passionate about supporting open-source projects and forward focused Salesforce Marketing Cloud initiatives. Creating a way for users to share and deploy SFMC projects easily just made sense. Contributing to the BLDR Package Registry will not only give developers a chance to get their names out in the community but give users a way to accelerate what they are able to learn and achieve in SFMC.'
       />
 
       <Box sx={{ flexGrow: 1, mx: 'auto', maxWidth: { xs: 'sm', md: 'md', lg: 'lg', xl: 'xl' } }}>
@@ -70,7 +71,7 @@ const Index: NextPage = () => {
             <Item
               elevation={0}
             >
-              <Typography color="#97d0e8" variant='h5' textAlign="left" pt={3}>
+              <Typography color="#357eC8" variant='h5' textAlign="left" pt={3}>
                 Getting Started with BLDR CLI
               </Typography>
 
@@ -80,27 +81,27 @@ const Index: NextPage = () => {
                 BLDR CLI is the heart of the BLDR project as it allows you to interact with SFMC almost 100% from your local machine. Providing a workflow where you can use your favorite code editor and puts updating assets within SFMC at your fingertips makes developing for the platform more efficient.
               </Typography>
 
-              <Typography color="#97d0e8" variant='h6' textAlign="left" py={3}>
+              <Typography color="#357eC8" variant='h6' textAlign="left" py={3}>
                 Install & Configure
               </Typography>
 
-              <Typography variant='body1' maxWidth={'80%'} textAlign="left" pb={3}>
-                <code>
-                  | Install BLDR <br />
+             
+                <pre><code>
+                  // Install BLDR <br />
                   npm install -g @basetime/bldr-sfmc
                   <br /><br />
 
-                  | Configure SFMC Instance & Get MIDs <br />
+                  // Configure SFMC Instance & Get MIDs <br />
                   bldr config -n <br />
                   [Instance Name]: Instance Name <br />
                   [Client Id]: Client Id from Installed Package <br />
                   [Client Secret]: Client Secret from Installed Package <br />
                   [Auth URI]: Auth URI from Installed Package
                   <br /><br />
-                </code>
-              </Typography>
+                </code></pre>
+            
 
-              <Typography color="#97d0e8" variant='h5' textAlign="left" pt={3}>
+              <Typography color="#357eC8" variant='h5' textAlign="left" pt={3}>
                 Using BLDR
               </Typography>
 
@@ -111,67 +112,67 @@ const Index: NextPage = () => {
                 <br /><br />
               </Typography>
 
-              <Typography color="#97d0e8" variant='h6' textAlign="left" py={3}>
+              <Typography color="#357eC8" variant='h6' textAlign="left" py={3}>
                 List & Set Configuration
               </Typography>
-              <Typography>
-                <code>
-                  | List All Instance Configurations <br />
+         
+                <pre><code>
+                  // List All Instance Configurations <br />
                   bldr config -l
                   <br /><br />
 
-                  | Check Current Set Configuration <br />
+                  // Check Current Set Configuration <br />
                   bldr status
                   <br /><br />
 
-                  | Set Instance <br />
+                  // Set Instance <br />
                   bldr config -s [instance name]
                   <br /><br />
 
-                  | Set Instance Mid <br />
+                  // Set Instance Mid <br />
                   bldr config -s [instance name] -m [mid]
                   <br /><br />
-                </code>
-              </Typography>
+                </code></pre>
+         
 
-              <Typography color="#97d0e8" variant='h6' textAlign="left" py={3}>
+              <Typography color="#357eC8" variant='h6' textAlign="left" py={3}>
                 Search & Clone
               </Typography>
 
-              <Typography>
-                <code>
-                  | Search for Folder by Name <br />
+       
+                <pre><code>
+                  // Search for Folder by Name <br />
                   bldr search --cb -f [folder name]
                   <br /><br />
 
-                  | Clone Folder (+ subfolders) and Assets Locally <br />
+                  // Clone Folder (+ subfolders) and Assets Locally <br />
                   bldr clone --cb -f [folder Id]
                   <br /><br />
 
-                  | Search for Asset by Name <br />
+                  // Search for Asset by Name <br />
                   bldr search --cb -a [asset name]
                   <br /><br />
 
-                  | Clone Asset Locally <br />
+                  // Clone Asset Locally <br />
                   bldr clone --cb -a [asset Id]
                   <br /><br />
 
-                </code>
-              </Typography>
-              <Typography color="#97d0e8" variant='h6' textAlign="left" py={3}>
+                </code></pre>
+        
+              <Typography color="#357eC8" variant='h6' textAlign="left" py={3}>
                 Add & Push
               </Typography>
-              <Typography>
-                <code>
-                  | Prepare Assets to Update <br />
+       
+                <pre><code>
+                  // Prepare Assets to Update <br />
                   bldr add [path to file]
                   <br /><br />
 
-                  | Update Assets <br />
+                  // Update Assets <br />
                   bldr push
                   <br /><br />
-                </code>
-              </Typography>
+                </code></pre>
+            
             </Item>
           </Grid>
           <Grid
@@ -192,7 +193,7 @@ const Index: NextPage = () => {
               sx={{
                 px: { xs: 1, md: 3, xl: 4 }
               }}>
-              <Typography color="#97d0e8" variant='h5' textAlign="left" pt={3}>
+              <Typography color="#357eC8" variant='h5' textAlign="left" pt={3}>
                 Package & Deploy Projects
               </Typography>
               <Divider sx={{ marginY: 2, maxWidth: '80%' }} />
@@ -206,27 +207,27 @@ const Index: NextPage = () => {
                 BLDR currently supports Content Builder and Automation Studio; code samples below work for both based on a context flag <code>--cb or --as</code>.
                 <br /><br />
               </Typography>
-              <Typography color="#97d0e8" variant='h6' textAlign="left" py={3}>
+              <Typography color="#357eC8" variant='h6' textAlign="left" py={3}>
                 Package
               </Typography>
-              <Typography>
-                <code>
-                | Package Folders, Assets, and Dependencies <br />
+    
+                <pre><code>
+                  // Package Folders, Assets, and Dependencies <br />
                   bldr package
-                </code>
-              </Typography>
-              <Typography color="#97d0e8" variant='h6' textAlign="left" py={3}>
+                </code></pre>
+       
+              <Typography color="#357eC8" variant='h6' textAlign="left" py={3}>
                 Install & Deploy
               </Typography>
-              <Typography>
-                <code>
-                  | Package Folders, Assets, and Dependencies <br />
+        
+                <pre><code>
+                  // Package Folders, Assets, and Dependencies <br />
                   bldr install [GitHub URL]
                   <br /><br />
-                  | Deploy Package to SFMC <br />
+                  // Deploy Package to SFMC <br />
                   bldr deploy
-                </code>
-              </Typography>
+                </code></pre>
+           
             </Item>
           </Grid>
         </Grid>

@@ -4,11 +4,15 @@ import Box from '@mui/material/Box';
 import Paper from '@mui/material/Paper';
 import Grid from '@mui/material/Grid';
 import DocumentationNavigation from '../pages/documentation/DocumentationNavigation'
+import { MDXProvider } from '@mdx-js/react'
+import CodeBlock from '../mdx/Pre'
+import InlineCode from '../mdx/Code'
+import Paragraph from '../mdx/P'
 
 type Props = {
   children: ReactNode;
-  meta?: any;
 };
+
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
@@ -18,18 +22,28 @@ const Item = styled(Paper)(({ theme }) => ({
   color: theme.palette.text.secondary,
 }));
 
+
+const components = {
+  p: Paragraph,
+  pre: CodeBlock,
+  code: InlineCode
+}
+
 const Layout = ({
   children,
-  meta
 }: Props) => (
   <>
-    <Grid container spacing={20} sx={{display: 'flex', justifyContent: 'center'}}>
+    <Grid container spacing={10} sx={{ display: 'flex', justifyContent: 'center' }}>
       <Grid item xs={3}>
         <DocumentationNavigation />
       </Grid>
-      <Grid item xs={6}>
-        {children}
+      <MDXProvider components={components}>
+      <Grid item xs={5}>
+        
+          {children}
+       
       </Grid>
+      </MDXProvider>
     </Grid>
   </>
 );

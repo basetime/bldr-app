@@ -42,7 +42,7 @@ export default function DocumentationNavigation() {
       type: 'item',
       label: 'Contexts',
       icon: <SwitchLeftIcon />,
-      doc: 'getting-started'
+      doc: 'context'
     },
     {
       type: 'divider'
@@ -55,55 +55,55 @@ export default function DocumentationNavigation() {
       type: 'item',
       label: 'config',
       icon: <SettingsIcon />,
-      doc: 'configuration'
+      doc: 'config'
     },
     {
       type: 'item',
       label: 'status',
       icon: <PlaylistAddCheckCircleIcon />,
-      doc: 'configuration'
+      doc: 'status'
     },
     {
       type: 'item',
       label: 'stash',
       icon: <StorageIcon />,
-      doc: 'configuration'
+      doc: 'stash'
     },
     {
       type: 'item',
       label: 'init',
       icon: <StartIcon />,
-      doc: 'configuration'
+      doc: 'init'
     },
     {
       type: 'item',
       label: 'search',
       icon: <SearchIcon />,
-      doc: 'configuration'
+      doc: 'search'
     },
     {
       type: 'item',
       label: 'clone',
       icon: <CopyAllIcon />,
-      doc: 'configuration'
+      doc: 'clone'
     },
     {
       type: 'item',
       label: 'add',
       icon: <AddCircleOutlineIcon />,
-      doc: 'configuration'
+      doc: 'add'
     },
     {
       type: 'item',
       label: 'push',
       icon: <BackupIcon />,
-      doc: 'configuration'
+      doc: 'push'
     },
     {
       type: 'item',
       label: 'package',
       icon: <DynamicFeedIcon />,
-      doc: 'configuration'
+      doc: 'package'
     },
     {
       type: 'item',
@@ -115,7 +115,7 @@ export default function DocumentationNavigation() {
       type: 'item',
       label: 'deploy',
       icon: <SendIcon />,
-      doc: 'configuration'
+      doc: 'deploy'
     },
   ]
 

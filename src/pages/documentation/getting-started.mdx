@@ -1,17 +1,59 @@
 import Layout from '../../components/layouts/MainLayout'
 import DocumentationLayout from '../../components/layouts/DocumentationLayout'
-
-export const meta = {
-  author: 'Rich Haines'
-}
+export const meta = {}
 
 
-# My MDX page
+# Getting Started
+## Installation
 
-This is a list in markdown:
+1. Opening the terminal and check if you have the following:
+    - Ensure you have Node.js installed by typing  `node --version`
+        - If you do not have Node.js installed visit [nodejs.org](https://www.nodejs.org) and follow the instructions for installation
+    - Ensure you have GIT installed by typing `git version`
+        - If you do not have GIT installed go to [git-scm.com/downloads](https://www.git-scm.com/downloads) and follow the instructions for installation
+    - Install BLDR-SFMC CLI
+    - In your terminal run `npm install -g @basetime/bldr-sfmc`
+        - NOTE: You must include the `-g` flag to be able to use this across multiple projects
 
-- One
-- Two
-- Three
+<br />
+
+## Updating BLDR
+
+1. Open your terminal and run `npm update -g @basetime/bldr-sfmc`
+
+<br />
+
+## Setup
+
+BLDR is configured so you can use it across as many SFMC instances as you require. The interactions with SFMC are completed using a Server-to-Server API Package set up within each SFMC Instance. It's recommended that you create an Installed Package specifically for the CLI that can be shared between you and your team members.
+
+<br />
+
+### SFMC Installed Package
+
+1. In SFMC, navigate to `Settings > Setup > Platform Tools > Apps > Installed Packages`
+2. Click on `New` to create a new Package and name it `bldr-cli`
+3. Click on `Add Component` to add a new API Component and select `API Integration` and then `Server-to-Server`
+4. Navigate to `Access` and ensure that the Installed Package is provisioned for all Business Units.
+5. Update the scope of the Installed Package to match the following:
+
+<br />
+
+
+|Scope               | Access    |
+| -------------------- | ----------- |
+| Email                | Read, Write |
+| Web                  | Read, Write |
+| Documents and Images | Read, Write |
+| Saved Content        | Read, Write |
+| Automations          | Read, Write |
+| Journeys             | Read, Write |
+| List and Subscribers | Read        |
+| Data Extensions      | Read, Write |
+| File Locations       | Read, Write |
+| Accounts             | Read        |
+
+
+<br />
 
 export default ({ children }) => <Layout> <DocumentationLayout meta={meta}>{children}</DocumentationLayout></Layout>
