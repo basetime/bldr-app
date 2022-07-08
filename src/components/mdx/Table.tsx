@@ -11,7 +11,7 @@ const Table = styled.table`
     }
 
     tr td {
-      padding-right:6rem;
+      padding-right:4rem;
     }
 
     th, tr, td {

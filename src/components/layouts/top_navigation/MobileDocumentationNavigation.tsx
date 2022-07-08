@@ -6,6 +6,11 @@ import { MenuList } from '@mui/material';
 import DocumentationNavigation from '../../pages/documentation/DocumentationNavigation';
 import ExpandCircleDownIcon from '@mui/icons-material/ExpandCircleDown';
 import Tooltip from '@mui/material/Tooltip';
+import Button from '@mui/material/Button';
+import SendIcon from '@mui/icons-material/Send';
+import ChevronRightIcon from '@mui/icons-material/ChevronRight';
+import Divider from '@mui/material/Divider';
+import Box from '@mui/material/Box';
 
 interface Props {
   navigationItems: object[]
@@ -23,26 +28,27 @@ export default function MobileDocumentationNavigation(props: Props) {
 
   return (
     <>
-    <Tooltip title="Show Documentation">
-      <IconButton
-        aria-label="more"
-        id="long-button"
-        aria-controls={open ? 'long-menu' : undefined}
-        aria-expanded={open ? 'true' : undefined}
-        aria-haspopup="true"
-        onClick={handleClick}
+    <Box
+      sx={{
+        display: {
+          xs: 'flex',
+          md: 'none'
+        },
+        color: '#1e1e1e'
+      }}
+    >
+      <Button variant="text" size='large' startIcon={<ChevronRightIcon />} onClick={handleClick}
         sx={{
           display: {
             xs: 'flex',
             md: 'none'
           },
           justifyContent: 'center',
-          marginX: 'auto'
-        }}
-      >
-        <ExpandCircleDownIcon fontSize='large' />
-      </IconButton>
-      </Tooltip>
+          color: '#1e1e1e'
+        }}>
+        View Documentation
+      </Button>
+        <Divider></Divider>
       <Menu
         id="long-menu"
         MenuListProps={{
@@ -53,10 +59,11 @@ export default function MobileDocumentationNavigation(props: Props) {
         onClose={handleClose}
         PaperProps={{
           style: {
-            marginTop: '2rem',
+            marginTop: '1rem',
             maxHeight: '70%',
             width: '100%',
-          }}
+          }
+        }
         }
         sx={{
           display: {
@@ -69,6 +76,7 @@ export default function MobileDocumentationNavigation(props: Props) {
           <DocumentationNavigation />
         </MenuList>
       </Menu>
+      </Box>
     </>
   );
 }
