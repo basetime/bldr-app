@@ -9,6 +9,7 @@ import { Divider, Typography } from '@mui/material';
 import Button from '@mui/material/Button';
 import CodeIcon from '@mui/icons-material/Code';
 import axios from 'axios';
+import Link from 'next/link'
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
@@ -205,7 +206,7 @@ const Index: NextPage = () => {
                   <br /><br />
                   Packaged projects result in a compiled JSON file and is stored in your Git repository. The package command will gather all assets within your project, remove SFMC instance specific values (Asset Id, Customer Key), locate and grab dependency references that don&rsquo;t exist in your project.
                   <br /><br />
-                  After you have packaged and committed your project to a public GitHub repository (support for other Git providers to come) you can <a href='#' >submit your package</a> to the registry so community members can search and use your package.
+                  After you have packaged and committed your project to a public GitHub repository (support for other Git providers to come) you can <Link href="/submit">submit your package</Link> to the registry so community members can search and use your package.
 
                 </Typography>
                 <Typography color="#357eC8" variant='h6' textAlign="left" py={3}>

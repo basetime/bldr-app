@@ -27,9 +27,13 @@ const Item = styled(Paper)(({ theme }) => ({
   return (
     <Layout>
       
-      {/* <PublicSubmit /> */}
+      <Box 
+      sx={{
+        marginTop: 25
+      }}
+      >
       <Submit />
-
+      </Box>
     </Layout >
   )
 }

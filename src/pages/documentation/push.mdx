@@ -1,5 +1,6 @@
 import Layout from '../../components/layouts/MainLayout'
 import DocumentationLayout from '../../components/layouts/DocumentationLayout'
+import DocumentationLayoutAlt from '../../components/layouts/DocumentationLayoutAlt'
 
 export const meta = {
   author: 'Rich Haines'
@@ -14,4 +15,6 @@ This is a list in markdown:
 - Two
 - Three
 
-export default ({ children }) => <Layout> <DocumentationLayout meta={meta}>{children}</DocumentationLayout></Layout>
+
+
+export default ({ children }) => <Layout> <DocumentationLayoutAlt meta={meta}>{children}</DocumentationLayoutAlt></Layout>
