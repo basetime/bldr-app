@@ -1,14 +1,14 @@
 import Layout from '../../components/layouts/MainLayout'
-import DocumentationLayout from '../../components/layouts/DocumentationLayout'
+import DocumentationLayoutAlt from '../../components/layouts/DocumentationLayoutAlt'
 import { NextPage } from 'next'
 
 const Documentation: NextPage = () => {
 
   return (
     <Layout>
-      <DocumentationLayout>
+      {/* <DocumentationLayoutAlt />
         Get Started With Documentation
-      </DocumentationLayout>
+      </DocumentationLayoutAlt> */}
     </Layout>
   )
 }

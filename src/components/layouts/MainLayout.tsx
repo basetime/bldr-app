@@ -1,6 +1,7 @@
 import React, { ReactNode } from 'react';
 import NavigationBar from './top_navigation/NavigationBar'
 import Box from '@mui/material/Box';
+import Container from '@mui/material/Container';
 import "@fontsource/roboto";
 
 type Props = {
@@ -12,12 +13,20 @@ const Layout = ({
   children
 }: Props) => (
   <>
-    <Box>
+    <Container
+      sx={{
+        overflowX: 'hidden',
+        position: {
+          xs: 'absolute',
+          md: 'static'
+        }
+      }}
+    >
       <NavigationBar />
-      <Box pb={10}>
+      <Box>
         {children}
       </Box>
-    </Box>
+    </Container>
   </>
 );
 

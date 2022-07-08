@@ -1,4 +1,4 @@
-import React, {ReactNode} from 'react';
+import React, { ReactNode } from 'react';
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
@@ -41,12 +41,12 @@ const Item = styled(Paper)(({ theme }) => ({
 export default function Section(props: Props) {
 
   const ctaButtons = props && props.buttons && props.buttons.map(btn => <span key={btn.label}><Button variant={btn.variant} href={btn.href}>{btn.label}</Button></span>)
-  
+
   let image;
 
-  if(props && props.image && props.image.src && props.image.src.includes('http')){
-    image = <img alt="bldr logo" src={props.image.src} width={props.image.width}/>
-  } 
+  if (props && props.image && props.image.src && props.image.src.includes('http')) {
+    image = <img alt="bldr logo" src={props.image.src} width={props.image.width} />
+  }
 
   return (
     <Item
@@ -55,7 +55,7 @@ export default function Section(props: Props) {
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        maxWidth: {xs: 'sm', md:'md', lg: 'lg'},
+        maxWidth: { xs: 'xs', md: 'md', lg: 'lg' },
         mx: 'auto',
         mb: 5
       }}
@@ -64,14 +64,29 @@ export default function Section(props: Props) {
         <Grid>
           {image}
           {props.icon}
-          <Typography textAlign="center" pt={5} fontSize={20}>
-          {props.subtext}
+          <Typography
+            pt={5}
+            fontSize={20}
+            sx={{
+              maxWidth: '75%', 
+              textAlign: 'center',
+              marginX: 'auto'
+            }}
+          >
+            {props.subtext}
           </Typography>
         </Grid>
         <Grid item xs={6}>
           <Divider sx={{ marginY: 4 }} />
-          <Typography textAlign="center" variant="body1" mx="auto" sx={{maxWidth: '75%'}}>
-          {props.copy}
+          <Typography
+            variant="body1"
+            mx="auto"
+            sx={{
+              maxWidth: '75%', textAlign: {
+                xs: 'left', md: 'center'
+              }
+            }}>
+            {props.copy}
           </Typography>
           <Stack
             sx={{
@@ -82,7 +97,7 @@ export default function Section(props: Props) {
             direction="row"
             my={5}
           >
-           {ctaButtons} 
+            {ctaButtons}
           </Stack>
         </Grid>
       </Box>

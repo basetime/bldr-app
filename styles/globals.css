@@ -7,8 +7,12 @@ html,
 body {
   padding: 0;
   margin: 0;
+  overflow-x: hidden;
 }
 
+.css-ngdj6w-MuiPaper-root-MuiAppBar-root {
+  padding-right: 0!important;
+}
 /* 
 p, li, code {
   color: rgba(0, 0, 0, 0.6);

@@ -20,6 +20,8 @@ import Stack from '@mui/material/Stack';
 import Paper from '@mui/material/Paper';
 import Button from '@mui/material/Button'
 import Link from 'next/link'
+import { pages } from './TopNavigationOptions'
+import { MobileNavigationBar } from './MobileNavigationBar'
 
 type Event = {
   currentTarget: any
@@ -28,14 +30,16 @@ type Event = {
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
   borderRadius: theme.shape.borderRadius,
+  border: '2px solid',
+  borderColor: alpha(theme.palette.common.black, 0.15),
   backgroundColor: alpha(theme.palette.common.white, 0.15),
   '&:hover': {
-    backgroundColor: alpha(theme.palette.common.white, 0.25),
+    backgroundColor: alpha(theme.palette.common.white, 0.3),
+    borderColor: alpha(theme.palette.common.black, 0.3),
   },
-  width: '100%',
+  color: '#1e1e1e',
   [theme.breakpoints.up('sm')]: {
     marginLeft: theme.spacing(3),
-    width: 'auto',
   },
 }));
 
@@ -45,34 +49,16 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   '& .MuiInputBase-input': {
     padding: theme.spacing(1),
     // vertical padding + font size from searchIcon
-    // paddingLeft: `calc(1em + ${theme.spacing(4)})`,
     transition: theme.transitions.create('width'),
     width: '100%',
     [theme.breakpoints.up('md')]: {
       width: '20ch',
     },
-  },
+  }
 }));
 
 
-const pages = [
-  {
-    label: 'Home',
-    route: '/'
-  },
-  {
-    label: 'Documentation',
-    route: '/documentation/getting-started'
-  },
-  {
-    label: 'Submit',
-    route: '/submit'
-  },
-  {
-    label: 'Login',
-    route: '/documentation/getting-started'
-  },
-];
+
 
 export default function PrimarySearchAppBar() {
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -102,27 +88,46 @@ export default function PrimarySearchAppBar() {
   const mobileMenuId = 'primary-search-account-menu-mobile';
 
   return (
-    <Box position="static" pb={25} sx={{ flexGrow: 1 }}>
-      <AppBar position="fixed">
+    <Box>
+      <AppBar position='fixed' sx={{ zIndex: (theme) => theme.zIndex.drawer + 1, display: 'block' }}>
         <Toolbar sx={{ backgroundColor: 'rgba(30, 30, 30)', paddingY: 1.5 }}>
           <Typography
             noWrap
             component="div"
-            sx={{ display: { xs: 'none', sm: 'block' } }}
+            sx={{ display: 'block' }}
           >
             {/* update to Next/Image component */}
-            <img alt="bldr logo" src="https://bldr.basetime.io/bldr-logo.png" height="50" />
+            <Link passHref href="/">
+              <Button>
+                <img alt="bldr logo" src="https://bldr.basetime.io/bldr-logo.png" height="50" />
+              </Button>
+            </Link>
 
           </Typography>
           <Box sx={{ flexGrow: 1 }} />
-          <Search>
-            <StyledInputBase
-              placeholder="Search BLDR..."
-              inputProps={{ 'aria-label': 'search' }}
-            />
-          </Search>
-          <Box sx={{ flexGrow: 1 }} />
-          <Box sx={{ display: { xs: 'flex', md: 'flex' } }}>
+          <Box sx={{ maxWidth: 'md', flexGrow: 1, justifyContent: 'end', display: { xs: 'none', md: 'flex' } }}>
+            {pages.map((page) => (
+              <Link key={page.label} passHref href={`${page.route}`}>
+                <Button
+                  sx={{ my: 2, mx: 4, color: 'white', display: 'block', letterSpacing: '.2rem', fontSize: 15 }}
+                >
+                  {page.label}
+                </Button>
+              </Link>
+            ))}
+          </Box>
+          <Box
+            sx={{
+              padding:0,
+              display: {
+                sx: 'flex',
+                md: 'none',
+              }
+            }}
+          >
+            <MobileNavigationBar />
+          </Box>
+          {/* <Box sx={{ display: { xs: 'flex', md: 'flex' } }}>
             <IconButton size="large" aria-label="show 4 new mails" color="inherit" sx={{ display: { xs: 'none', sm: 'flex' } }}>
               <Badge badgeContent={4} color="error">
                 <MailIcon />
@@ -138,23 +143,35 @@ export default function PrimarySearchAppBar() {
               </Badge>
             </IconButton>
             <AccountMenu />
-          </Box>
+          </Box> */}
         </Toolbar>
         <Toolbar sx={{ display: "flex", backgroundColor: '#ffffff' }}>
-          <Box sx={{ maxWidth: 'md', mx: 'auto', flexGrow: 1, justifyContent: 'space-evenly', display: { xs: 'none', md: 'flex' } }}>
-            {pages.map((page) => (
-              <Link key={page.label} passHref href={`${page.route}`}>
-                <Button
-                  sx={{ my: 2, color: 'black', display: 'block' }}
-                >
-                  {page.label}
-                </Button>
-              </Link>
-            ))}
+          <Box
+            sx={{
+              display: {
+                xs: 'block',
+              },
+              width: {
+                xs: '100%'
+              }
+            }}
+
+          >
+            <Search>
+              <StyledInputBase
+                placeholder="Search BLDR..."
+                inputProps={{ 'aria-label': 'search' }}
+                sx={{
+                  paddingRight: {
+                    xs: '1rem',
+                    md: '4rem'
+                  }
+                }}
+              />
+            </Search>
           </Box>
         </Toolbar>
       </AppBar>
-
     </Box>
 
   );

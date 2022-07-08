@@ -45,7 +45,7 @@ const Layout = ({
 }: Props) => (
   <>
     <Grid container spacing={10} sx={{ display: 'flex', justifyContent: 'center' }}>
-      <Grid item xs={3}>
+      <Grid item xs={12} md={5}>
         <DocumentationNavigation />
       </Grid>
       <MDXProvider components={components}>
