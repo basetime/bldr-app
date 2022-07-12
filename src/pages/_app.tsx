@@ -1,8 +1,33 @@
 import '../../styles/globals.css'
 import { AppProps } from 'next/app'
+import AuthContext from '../context/AuthContext'
+import { useState, useMemo } from 'react'
+import firebase from 'firebase/compat/app';
+import 'firebase/compat/auth';
 
 function MyApp({ Component, pageProps }: AppProps) {
-  return <Component {...pageProps} />
+  const [user, setUser] = useState({})
+
+  const value = useMemo(() => ({ user, setUser }), [user, setUser])
+
+  // Configure Firebase.
+  const config = {
+    apiKey: "AIzaSyCwCgOFIuhCD5R6GoY9BW0bMZ7SIhF579c",
+    authDomain: "bldr-io.firebaseapp.com",
+    projectId: "bldr-io",
+    storageBucket: "bldr-io.appspot.com",
+    messagingSenderId: "378041336280",
+    appId: "1:378041336280:web:82500482faf4e879fe72ad",
+    measurementId: "G-ZB2WGJ9QSQ"
+  };
+
+  firebase.initializeApp(config);
+
+  return (
+    <AuthContext.Provider value={value}>
+      <Component {...pageProps} />
+    </AuthContext.Provider>
+  )
 }
 
 export default MyApp

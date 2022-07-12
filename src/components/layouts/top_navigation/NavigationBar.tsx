@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useContext } from 'react';
 import { styled, alpha } from '@mui/material/styles';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
@@ -22,7 +22,7 @@ import Button from '@mui/material/Button'
 import Link from 'next/link'
 import { pages } from './TopNavigationOptions'
 import { MobileNavigationBar } from './MobileNavigationBar'
-
+import AuthContext from '../../../context/AuthContext'
 type Event = {
   currentTarget: any
 }
@@ -59,6 +59,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 
 
 
+// TODO clean up unused handlers
 
 export default function PrimarySearchAppBar() {
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -66,6 +67,8 @@ export default function PrimarySearchAppBar() {
 
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
+
+  const { user } = useContext(AuthContext)
 
   const handleProfileMenuOpen = (event: Event) => {
     setAnchorEl(event.currentTarget);
@@ -96,7 +99,7 @@ export default function PrimarySearchAppBar() {
             component="div"
             sx={{ display: 'block' }}
           >
-            {/* update to Next/Image component */}
+            {/* //TODO update img tags to NextIMG */}
             <Link passHref href="/">
               <Button>
                 <img alt="bldr logo" src="https://bldr.basetime.io/bldr-logo.png" height="50" />
@@ -115,10 +118,22 @@ export default function PrimarySearchAppBar() {
                 </Button>
               </Link>
             ))}
+
+            {
+              !user || !user.isLoggedIn ?
+                <Link key='Login' href='/users/login?returnTo="/"'>
+                  <Button
+                    sx={{ my: 2, mx: 4, color: 'white', display: 'block', letterSpacing: '.2rem', fontSize: 15 }}
+                  >
+                    Login
+                  </Button>
+                </Link> :
+                <AccountMenu user={user}/>
+            }
           </Box>
           <Box
             sx={{
-              padding:0,
+              padding: 0,
               display: {
                 sx: 'flex',
                 md: 'none',

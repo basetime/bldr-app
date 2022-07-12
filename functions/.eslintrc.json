@@ -3,5 +3,6 @@
   "react/jsx-no-comment-textnodes": "off",
   "spaced-comment": ["warning", "always"],
   "object-curly-spacing": "off",
-  "object-curly-newline": "off"
+  "object-curly-newline": "off",
+  "new-cap": ["error", { "capIsNewExceptions": ["Router"] }]
 }

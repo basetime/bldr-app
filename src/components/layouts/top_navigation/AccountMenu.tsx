@@ -11,8 +11,11 @@ import Tooltip from '@mui/material/Tooltip';
 import PersonAdd from '@mui/icons-material/PersonAdd';
 import Settings from '@mui/icons-material/Settings';
 import Logout from '@mui/icons-material/Logout';
+import { userInfo } from 'os';
+import Image from 'next/image'
 
-export const AccountMenu = () => {
+//TODO update TS Props
+export const AccountMenu = (user: any) => {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
   const handleClick = (event: { currentTarget: React.SetStateAction<any>; }) => {
@@ -21,7 +24,8 @@ export const AccountMenu = () => {
   const handleClose = () => {
     setAnchorEl(null);
   };
-  
+
+  const userData = user.user.user[0];
   return (
     <React.Fragment>
       <Box sx={{ display: 'flex', alignItems: 'center', textAlign: 'center' }}>
@@ -34,7 +38,14 @@ export const AccountMenu = () => {
             aria-haspopup="true"
             aria-expanded={open ? 'true' : undefined}
           >
-            <Avatar sx={{ width: 32, height: 32 }}>M</Avatar>
+            <Avatar sx={{ width: 32, height: 32 }}>
+              <Image
+                alt="The guitarist in the concert."
+                src={userData.photoURL}
+                width={25}
+                layout="fill"
+              />
+            </Avatar>
           </IconButton>
         </Tooltip>
       </Box>
@@ -75,9 +86,6 @@ export const AccountMenu = () => {
       >
         <MenuItem>
           <Avatar /> Profile
-        </MenuItem>
-        <MenuItem>
-          <Avatar /> My account
         </MenuItem>
         <Divider />
         <MenuItem>

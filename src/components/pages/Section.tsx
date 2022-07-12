@@ -10,7 +10,7 @@ import { Paper, Grid, Divider } from '@mui/material';
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
 import * as Icons from '@mui/icons-material'
-
+import axios from 'axios'
 
 interface Props {
   elevation?: number | 1,
@@ -47,6 +47,8 @@ export default function Section(props: Props) {
   if (props && props.image && props.image.src && props.image.src.includes('http')) {
     image = <img alt="bldr logo" src={props.image.src} width={props.image.width} />
   }
+
+
 
   return (
     <Item
@@ -98,6 +100,7 @@ export default function Section(props: Props) {
             my={5}
           >
             {ctaButtons}
+
           </Stack>
         </Grid>
       </Box>

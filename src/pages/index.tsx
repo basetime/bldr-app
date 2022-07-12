@@ -10,6 +10,9 @@ import Button from '@mui/material/Button';
 import CodeIcon from '@mui/icons-material/Code';
 import axios from 'axios';
 import Link from 'next/link'
+import AuthContext from '../context/AuthContext';
+
+import {useContext} from 'react'
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
@@ -21,6 +24,16 @@ const Item = styled(Paper)(({ theme }) => ({
 
 const Index: NextPage = () => {
   const heroSubtext = `Development Tool & Package Deployment for Salesforce Marketing Cloud`
+
+  const handleTestClick = async () => {
+    try {
+    const request = await axios.get('http://127.0.0.1:5001/bldr-io/us-central1/bldrAPI/api/v1/authentication/authenticate')
+    console.log(request)
+    } catch(err){
+      console.log(err)
+    }
+  }
+
 
   return (
     <Layout>
@@ -54,12 +67,14 @@ const Index: NextPage = () => {
           copy='Basetime.io is passionate about supporting open-source projects and forward focused Salesforce Marketing Cloud initiatives. Creating a way for users to share and deploy SFMC projects easily just made sense. Contributing to the BLDR Package Registry will not only give developers a chance to get their names out in the community but give users a way to accelerate what they are able to learn and achieve in SFMC.'
         />
 
+    <Button variant="outlined" onClick={handleTestClick}>Test API</Button>
         <Box sx={{ flexGrow: 1, mx: 'auto', maxWidth: { xs: 'sm', md: 'md', lg: 'lg', xl: 'xl' } }}>
           <Grid
             container
             display='flex'
             justifyContent="space-evenly"
           >
+
             <Grid
               alignItems="stretch"
               item

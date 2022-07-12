@@ -76,7 +76,7 @@ export default function PublicSubmit(props: Props) {
               autoComplete="off"
             >
               <FormControl fullWidth>
-                <TextField id="outlined-basic" label="Enter Repository URL" variant="outlined" helperText="https://github.com/{{owner}}/{{repository}}" required/>
+                <TextField id="outlined-basic" label="Enter Repository URL" variant="outlined" helperText="https://github.com/{{owner}}/{{repository}}" required />
 
               </FormControl>
             </Box>
@@ -155,13 +155,14 @@ export default function PublicSubmit(props: Props) {
               <Divider sx={{ marginY: 2, maxWidth: '80%' }} />
               <Typography variant='body1' maxWidth={'80%'} textAlign="left" pb={3} >
                 Prior to submitting your BLDR package, please ensure that you have met the following requirements
-                <ul>
-                  <li>Package has been tested</li>
-                  <li>Configurations have been set using the <Link href="#">.sfmc.config.json file.</Link></li>
-                  <li><code>bldr package</code> has run successfully</li>
-                  <li>Package has been committed to a public GitHub repository on the main branch</li>
-                </ul>
               </Typography>
+              <ul>
+                <li>Package has been tested</li>
+                <li>Configurations have been set using the <Link href="#">.sfmc.config.json file.</Link></li>
+                <li><code>bldr package</code> has run successfully</li>
+                <li>Package has been committed to a public GitHub repository on the main branch</li>
+              </ul>
+
             </Item>
           </Grid>
         </Grid>

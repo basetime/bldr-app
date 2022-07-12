@@ -1,14 +1,21 @@
 module.exports = {
   root: true,
   env: {
-    es6: true,
+    browser: true,
+    commonjs: true,
     node: true,
+    es6: true,
   },
-  extends: [
-    "eslint:recommended",
-    "google",
-  ],
+  extends: ["eslint:recommended", "google"],
   rules: {
-    quotes: ["error", "double"],
+    "quotes": [
+      "error",
+      "double",
+      {
+        "allowTemplateLiterals": true,
+      },
+    ],
+    "object-curly-spacing": 0,
+    "new-cap": 0,
   },
 };

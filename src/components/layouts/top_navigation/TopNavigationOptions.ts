@@ -6,9 +6,5 @@ export const pages = [
   {
     label: 'Submit',
     route: '/submit'
-  },
-  {
-    label: 'Sign In',
-    route: '/documentation/getting-started'
   }
 ];
