@@ -14,22 +14,8 @@ const config = {
   appId: "1:378041336280:web:82500482faf4e879fe72ad",
   measurementId: "G-ZB2WGJ9QSQ"
 };
+
 firebase.initializeApp(config);
-
-
-// Configure FirebaseUI.
-const uiConfig = {
-  // Popup signin flow rather than redirect flow.
-  signInFlow: 'popup',
-  // We will display Google and Facebook as auth providers.
-  signInOptions: [
-    firebase.auth.GoogleAuthProvider.PROVIDER_ID
-  ],
-  callbacks: {
-    // Avoid redirects after sign-in.
-    signInSuccessWithAuthResult: () => false,
-  },
-};
 
 export const Auth = (props) => {
     let isSignedIn = false;

@@ -23,6 +23,8 @@ const router = express.Router();
  */
 router.get("/authenticate", (req, res, next) => {
   try {
+
+    
     console.log(`Authenticate called`);
 
     res.status(200);

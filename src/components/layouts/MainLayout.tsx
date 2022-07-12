@@ -23,7 +23,11 @@ const Layout = ({
       }}
     >
       <NavigationBar />
-      <Box>
+      <Box
+       sx={{
+        marginTop: 25
+      }}
+      >
         {children}
       </Box>
     </Container>

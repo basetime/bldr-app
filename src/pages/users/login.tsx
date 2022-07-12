@@ -27,15 +27,8 @@ const LoginPage: NextPage = () => {
 
   return (
     <Layout>
-      <Box
-        sx={{
-          marginTop: 25
-        }}
-      >
-        <Login />
-      </Box>
+      <Login />
     </Layout >
-
   )
 }
 

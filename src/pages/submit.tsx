@@ -18,8 +18,8 @@ import firebase from 'firebase/compat/app';
 import { useEffect, useContext } from 'react';
 import { useRouter } from 'next/router'
 import AuthContext from '../context/AuthContext'
-import {useNavigate} from 'react-router-dom';
-import {Login} from '../components/pages/users/Login'
+import { useNavigate } from 'react-router-dom';
+import { RouteGuard } from '../components/functional/RouteGuard'
 
 
 const Item = styled(Paper)(({ theme }) => ({
@@ -32,37 +32,15 @@ const Item = styled(Paper)(({ theme }) => ({
 
 
 const Index: NextPage = () => {
-  const { user } = useContext(AuthContext)
-  const router = useRouter();
+  return (
 
-  if (
-    (Object.prototype.hasOwnProperty.call(user, 'isLoggedIn') &&
-    user.isLoggedIn === false) || 
-    !Object.prototype.hasOwnProperty.call(user, 'isLoggedIn')
-  ) {
+    <Layout>
+      <RouteGuard>
+        <Submit />
+      </RouteGuard>
+    </Layout >
 
-    return <Login />
-    // useEffect(()=> {
-    //   router.push({
-    //     pathname: '/users/login',
-    //     query: { returnTo: router.route}
-    //   })
-    // }, [])
-  }
-
-
-    return (
-      <Layout>
-        <Box
-          sx={{
-            marginTop: 25
-          }}
-        >
-          <Submit />
-        </Box>
-      </Layout >
-
-    )
+  )
 }
 
 
