@@ -7,9 +7,10 @@ import StyledFirebaseAuth from 'react-firebaseui/StyledFirebaseAuth';
 import firebase from 'firebase/compat/app';
 import AuthContext from '../../../context/AuthContext'
 import SectionWrapper from '../../../components/pages/SectionWrapper'
-import CircularProgress from '@mui/material/CircularProgress';
+import { useCookies } from 'react-cookie';
 
 export const Login = () => {
+  const [cookies, setCookie] = useCookies(['bldr_session']);
   const { user, setUser } = useContext(AuthContext)
   const router = useRouter();
 
@@ -69,6 +70,17 @@ export const Login = () => {
             isLoggedIn: true,
             profile: userObject
           })
+
+          let date = new Date();
+          date.setDate(date.getDate() + 3);
+
+          //@ts-ignore
+          setCookie('bldr_session', JSON.stringify(userObject), { 
+            path: '/',
+            expires: date,
+            secure: true,
+            sameSite: true
+          });
           //TODO set session cookie
         }
         return false;

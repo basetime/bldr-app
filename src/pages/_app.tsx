@@ -4,6 +4,7 @@ import AuthContext from '../context/AuthContext'
 import { useState, useMemo } from 'react'
 import firebase from 'firebase/compat/app';
 import 'firebase/compat/auth';
+import { CookiesProvider } from 'react-cookie';
 
 function MyApp({ Component, pageProps }: AppProps) {
   const [user, setUser] = useState({})
@@ -26,7 +27,9 @@ function MyApp({ Component, pageProps }: AppProps) {
 
   return (
     <AuthContext.Provider value={authContext}>
-      <Component {...pageProps} />
+      <CookiesProvider>
+        <Component {...pageProps} />
+      </CookiesProvider>
     </AuthContext.Provider>
   )
 }
