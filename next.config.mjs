@@ -24,6 +24,11 @@ const nextConfig = {
       'lh3.googleusercontent.com',
       'avatars.githubusercontent.com'
     ]
+  },
+  experimental: {
+    images: {
+      unoptimized: true
+    }
   }
 }
 
