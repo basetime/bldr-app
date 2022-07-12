@@ -8,8 +8,9 @@ import 'firebase/compat/auth';
 function MyApp({ Component, pageProps }: AppProps) {
   const [user, setUser] = useState({})
 
-  const value = useMemo(() => ({ user, setUser }), [user, setUser])
+  const authContext = useMemo(() => ({ user, setUser }), [user, setUser])
 
+  // TODO move Firebase fetched from serverside
   // Configure Firebase.
   const config = {
     apiKey: "AIzaSyCwCgOFIuhCD5R6GoY9BW0bMZ7SIhF579c",
@@ -24,7 +25,7 @@ function MyApp({ Component, pageProps }: AppProps) {
   firebase.initializeApp(config);
 
   return (
-    <AuthContext.Provider value={value}>
+    <AuthContext.Provider value={authContext}>
       <Component {...pageProps} />
     </AuthContext.Provider>
   )

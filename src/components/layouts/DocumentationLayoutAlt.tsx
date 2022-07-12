@@ -91,7 +91,7 @@ export default function DocumentationLayoutAlt({
         <MDXProvider components={components}>
           <Grid item xs={12} sx={{
             px: {
-              xs: 2,
+              xs: 1,
               md: 0
             }
           }}>

@@ -15,7 +15,6 @@ export const RouteGuard = (props: Props) => {
       user.isLoggedIn === false) ||
     !Object.prototype.hasOwnProperty.call(user, 'isLoggedIn')
   ) {
-
     return <Login />
   }
 

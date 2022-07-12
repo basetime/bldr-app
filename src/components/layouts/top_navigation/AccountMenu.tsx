@@ -6,16 +6,15 @@ import MenuItem from '@mui/material/MenuItem';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
-import Typography from '@mui/material/Typography';
 import Tooltip from '@mui/material/Tooltip';
 import PersonAdd from '@mui/icons-material/PersonAdd';
 import Settings from '@mui/icons-material/Settings';
 import Logout from '@mui/icons-material/Logout';
-import { userInfo } from 'os';
 import Image from 'next/image'
+import AccountBoxIcon from '@mui/icons-material/AccountBox';
 
-//TODO update TS Props
-export const AccountMenu = (user: any) => {
+//TODO update TS Props for user value
+export const AccountMenu = (authContext: any) => {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
   const handleClick = (event: { currentTarget: React.SetStateAction<any>; }) => {
@@ -25,7 +24,8 @@ export const AccountMenu = (user: any) => {
     setAnchorEl(null);
   };
 
-  const userData = user.user.user[0];
+  const { photoURL } = authContext.user;
+
   return (
     <React.Fragment>
       <Box sx={{ display: 'flex', alignItems: 'center', textAlign: 'center' }}>
@@ -39,12 +39,14 @@ export const AccountMenu = (user: any) => {
             aria-expanded={open ? 'true' : undefined}
           >
             <Avatar sx={{ width: 32, height: 32 }}>
-              <Image
-                alt="The guitarist in the concert."
-                src={userData.photoURL}
-                width={25}
-                layout="fill"
-              />
+              {photoURL ?
+                <Image
+                  alt="The guitarist in the concert."
+                  src={photoURL}
+                  layout="fill"
+                /> :
+                <Avatar />
+              }
             </Avatar>
           </IconButton>
         </Tooltip>
@@ -62,6 +64,12 @@ export const AccountMenu = (user: any) => {
             filter: 'drop-shadow(0px 2px 8px rgba(0,0,0,0.32))',
             mt: 1.5,
             '& .MuiAvatar-root': {
+              width: 32,
+              height: 32,
+              ml: -0.5,
+              mr: 1,
+            },
+            '& .MuiSvgIcon-root': {
               width: 32,
               height: 32,
               ml: -0.5,
@@ -85,7 +93,7 @@ export const AccountMenu = (user: any) => {
         anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
       >
         <MenuItem>
-          <Avatar /> Profile
+          <AccountBoxIcon /> Profile
         </MenuItem>
         <Divider />
         <MenuItem>

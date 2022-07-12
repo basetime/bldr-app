@@ -121,7 +121,7 @@ export default function PrimarySearchAppBar() {
 
             {
               !user || !user.isLoggedIn ?
-                <Link key='Login' href='/users/login?returnTo="/"'>
+                <Link key='Login' href='/users/login?returnTo=/'>
                   <Button
                     sx={{ my: 2, mx: 4, color: 'white', display: 'block', letterSpacing: '.2rem', fontSize: 15 }}
                   >
@@ -130,6 +130,7 @@ export default function PrimarySearchAppBar() {
                 </Link> :
                 <AccountMenu user={user}/>
             }
+            
           </Box>
           <Box
             sx={{

@@ -21,7 +21,8 @@ const nextConfig = {
   trailingSlash: true,
   images: {
     domains: [
-      'lh3.googleusercontent.com'
+      'lh3.googleusercontent.com',
+      'avatars.githubusercontent.com'
     ]
   }
 }

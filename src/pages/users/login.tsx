@@ -19,11 +19,14 @@ import { useEffect, useContext } from 'react';
 import { useRouter } from 'next/router'
 import AuthContext from '../../context/AuthContext'
 
-
-
 const LoginPage: NextPage = () => {
   const { user } = useContext(AuthContext)
   const router = useRouter();
+
+  if (user.isLoggedIn) {
+      const returnURL = router.query && `${router.query.returnTo}` || '/'
+      router.push(returnURL)
+  }
 
   return (
     <Layout>

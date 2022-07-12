@@ -27,7 +27,8 @@ export const DocumentationItems = [
     doc: 'contexts'
   },
   {
-    type: 'divider'
+    type: 'divider',
+    label: 'divider'
   },
   {
     type: 'header',

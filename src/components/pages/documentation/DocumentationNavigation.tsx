@@ -4,9 +4,6 @@ import List from '@mui/material/List';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
-import Collapse from '@mui/material/Collapse';
-import InboxIcon from '@mui/icons-material/MoveToInbox';
-import DraftsIcon from '@mui/icons-material/Drafts';
 import { DocumentationItems } from './DocumentationNavigationOptions'
 import { Divider, Typography } from '@mui/material';
 
@@ -32,12 +29,12 @@ export default function DocumentationNavigation() {
     const type = item.type;
 
     if (type === 'divider') {
-      return <Divider sx={{ marginY: 2 }} />
+      return <Divider key={label} sx={{ marginY: 2 }} />
     }
 
     if (type === 'header') {
       return (
-        <Typography variant="button" mb={4} >
+        <Typography key={label} variant="button" mb={4} >
           {label}
         </Typography>
       )

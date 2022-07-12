@@ -40,13 +40,8 @@ export default function PublicSubmit(props: Props) {
         copy={SubmitCopy} 
         buttons={[
           {
-            label: 'Create Account',
-            href: '/signup',
-            variant: 'outlined'
-          },
-          {
-            label: 'Log In',
-            href: '/login',
+            label: 'Create an Account or Log In',
+            href: '/users/login?returnTo=/submit',
             variant: 'outlined'
           }
         ]}
