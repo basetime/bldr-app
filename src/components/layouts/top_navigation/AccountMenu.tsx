@@ -24,7 +24,7 @@ export const AccountMenu = (authContext: any) => {
     setAnchorEl(null);
   };
 
-  const { photoURL } = authContext.user;
+  const { photoURL } = authContext.user.profile;
 
   return (
     <React.Fragment>
