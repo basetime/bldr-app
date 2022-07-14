@@ -1,26 +1,18 @@
-import React, { useContext, ReactNode } from 'react'
-
-import { Login } from '../pages/users/Login'
+import { useContext } from 'react'
+import {useRouter} from 'next/router'
 import AuthContext from '../../context/AuthContext'
 
-interface Props {
-  children: ReactNode
-}
 
-export const RouteGuard = (props: Props) => {
+export const RouteGuard = (returnTo: string) => {
   const { user } = useContext(AuthContext)
+  const router = useRouter();
 
   if (
     (Object.prototype.hasOwnProperty.call(user, 'isLoggedIn') &&
       user.isLoggedIn === false) ||
     !Object.prototype.hasOwnProperty.call(user, 'isLoggedIn')
   ) {
-    return <Login />
+    return router.push(`/users/login?${returnTo}`)
   }
 
-  return (
-    <>
-      {props.children}
-    </>
-  )
 }

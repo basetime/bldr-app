@@ -3,8 +3,8 @@ import DocumentationLayoutAlt from '../../components/layouts/DocumentationLayout
 export const meta = {}
 
 
-# Getting Started
-## Install BLDR CLI
+# Security
+## BLDR CLI
 
 1. Open the terminal and check if you have the following:
     - Ensure you have Node.js installed by typing  `node --version`
@@ -39,20 +39,6 @@ In team secnarios, it's recommended that a shared Installed Package be created f
 5. Update the scope of the Installed Package to match the permissions below
 
 <br />
-
-
-|Scope                 | Access    |
-| -------------------- | ----------- |
-| Email                | Read, Write |
-| Web                  | Read, Write |
-| Documents and Images | Read, Write |
-| Saved Content        | Read, Write |
-| Automations          | Read, Write |
-| Journeys             | Read, Write |
-| List and Subscribers | Read        |
-| Data Extensions      | Read, Write |
-| File Locations       | Read, Write |
-| Accounts             | Read        |
 
 
 export default ({ children }) => <Layout> <DocumentationLayoutAlt meta={meta}>{children}</DocumentationLayoutAlt></Layout>

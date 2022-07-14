@@ -17,8 +17,18 @@ const OL = styled.ol`
 
 `
 
+const UL = styled.ul`
+
+    li {
+      line-height: 1.75rem;
+      font-family: Roboto
+    }
+
+`
+
 const List = {
   LI,
+  UL,
   OL
 }
 

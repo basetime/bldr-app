@@ -8,10 +8,11 @@ import { Divider, Typography } from '@mui/material';
 
 
 interface Props {
-  navigationItems: object[]
+  navigationItems: object[],
+  handleProfileNavigation: any
 }
 
-export default function DocumentationNavigation(props: Props) {
+export default function ProfileNavigation(props: Props) {
   const [open, setOpen] = React.useState(true);
 
   const handleClick = () => {
@@ -43,7 +44,7 @@ export default function DocumentationNavigation(props: Props) {
     }
 
     return (
-      <ListItemButton key={label} href={doc}>
+      <ListItemButton key={label} onClick={props.handleProfileNavigation}>
         <ListItemIcon>
           {item.icon}
         </ListItemIcon>

@@ -11,6 +11,7 @@ const LoginPage: NextPage = () => {
 
   if (user.isLoggedIn) {
       const returnURL = router.query && `${router.query.returnTo}` || '/'
+      console.log(returnURL)
       router.push(returnURL)
   }
 

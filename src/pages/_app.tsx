@@ -1,4 +1,6 @@
 import '../../styles/globals.css'
+// import '../../styles/forms.css'
+
 import { AppProps } from 'next/app'
 import AuthContext from '../context/AuthContext'
 import { useState, useMemo } from 'react'

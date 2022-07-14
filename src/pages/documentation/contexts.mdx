@@ -1,19 +1,70 @@
 import Layout from '../../components/layouts/MainLayout'
-import DocumentationLayout from '../../components/layouts/DocumentationLayout'
 import DocumentationLayoutAlt from '../../components/layouts/DocumentationLayoutAlt'
-
-export const meta = {
-  author: 'Rich Haines'
-}
+export const meta = {}
 
 
-# My MDX page
+# Contexts
 
-This is a list in markdown:
+BLDR defines SFMC Contexts as the _builders/studios_ or _objects/assets_ within SFMC. The processing and BLDR support may vary based on each specific context. In regard to BLDR commands, _search_ and _clone_ require a context flag to be used.
 
-- One
-- Two
-- Three
+<br />
 
+## Context Flags
+
+|Context               | Flag                      |
+| -------------------- | ------------------------- |
+| Content Builder      | --cb, --content-builder   |
+| Automation Studio    | --as, --automation-studio |
+
+
+<br />
+---
+<br />
+
+## Content Builder Support
+
+### Fully Supported Assets
+
+Fully supported assets are asset types that when cloned from SFMC are created as fully editable `.html` files.
+
+- html emails
+- code snippet content blocks
+- html content blocks
+
+<br />
+
+### Partially Supported Assets
+
+Partially supported assets are asset types that when cloned from SFMC are created as `.json` files. These files can still be updated/edited directly in the JSON structure and updated within SFMC. 
+
+Asset types that are partially supported are any not listed in the _Fully Supported Assets_ section above.
+
+<br />
+
+### CloudPages and Code Resource Pages
+
+Support for CloudPages and Code Resource Pages falls somewhere in-between _fully supported_ and _partially supported_.
+
+These asset types will not show up or be cloned down when running the clone command for a folder Id -- these assets are stored under the root _Content Builder_ folder. To access and clone CloudPages and Code Resource Pages, run `bldr search --cb {page/resource name}`. As long as the asset exists it will be displayed, then run `bldr clone --cb -a <assetId>`.
+
+Once cloned, they will be created in the root `Content Builder` folder in your local directory.
+
+Updating these assets in SFMC will be successful up until the point of `publish`. There is currently no API support for publishing CloudPages or Code Resource pages via API, however the code in the resource will be updated.
+
+<br />
+
+## Automation Studio
+### Fully Supported Assets
+
+Fully supported assets are asset types that when cloned from SFMC are created as fully editable `.html/.sql` files.
+
+-   query activities
+-   script activities
+
+<br />
+
+### Partially Supported Assets
+
+Partially supported assets are asset types that when cloned from SFMC are created as `.json` files. These files can still be updated/edited directly in the JSON structure and updated within SFMC. Asset types that are partially supported are any not listed in the **Fully Supported Assets** section above.
 
 export default ({ children }) => <Layout> <DocumentationLayoutAlt meta={meta}>{children}</DocumentationLayoutAlt></Layout>

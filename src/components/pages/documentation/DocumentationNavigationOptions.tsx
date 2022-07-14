@@ -11,7 +11,7 @@ import SendIcon from '@mui/icons-material/Send';
 import SwitchLeftIcon from '@mui/icons-material/SwitchLeft';
 import SearchIcon from '@mui/icons-material/Search';
 import CopyAllIcon from '@mui/icons-material/CopyAll';
-
+import LockIcon from '@mui/icons-material/Lock';
 
 export const DocumentationItems = [
   {
@@ -19,6 +19,12 @@ export const DocumentationItems = [
     label: 'Getting Started',
     icon: <PlayCircleOutlineIcon />,
     doc: 'getting-started'
+  },
+  {
+    type: 'item',
+    label: 'Security',
+    icon: <LockIcon />,
+    doc: 'security'
   },
   {
     type: 'item',

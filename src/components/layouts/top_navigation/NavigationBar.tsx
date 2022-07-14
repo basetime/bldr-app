@@ -52,7 +52,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
     transition: theme.transitions.create('width'),
     width: '100%',
     [theme.breakpoints.up('md')]: {
-      width: '20ch',
+      width: '100%',
     },
   }
 }));
@@ -143,23 +143,6 @@ export default function PrimarySearchAppBar() {
           >
             <MobileNavigationBar />
           </Box>
-          {/* <Box sx={{ display: { xs: 'flex', md: 'flex' } }}>
-            <IconButton size="large" aria-label="show 4 new mails" color="inherit" sx={{ display: { xs: 'none', sm: 'flex' } }}>
-              <Badge badgeContent={4} color="error">
-                <MailIcon />
-              </Badge>
-            </IconButton>
-            <IconButton
-              size="large"
-              aria-label="show 17 new notifications"
-              color="inherit"
-            >
-              <Badge badgeContent={17} color="error" sx={{ display: { xs: 'none', sm: 'flex' } }}>
-                <NotificationsIcon />
-              </Badge>
-            </IconButton>
-            <AccountMenu />
-          </Box> */}
         </Toolbar>
         <Toolbar sx={{ display: "flex", backgroundColor: '#ffffff' }}>
           <Box

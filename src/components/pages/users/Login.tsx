@@ -6,7 +6,7 @@ import Layout from '../../layouts/MainLayout'
 import StyledFirebaseAuth from 'react-firebaseui/StyledFirebaseAuth';
 import firebase from 'firebase/compat/app';
 import AuthContext from '../../../context/AuthContext'
-import SectionWrapper from '../../../components/pages/SectionWrapper'
+import SectionWrapper from '../SectionWrapper'
 import { useCookies } from 'react-cookie';
 
 export const Login = () => {
@@ -30,7 +30,8 @@ export const Login = () => {
         console.log('authResult', authResult)
 
         if (Object.prototype.hasOwnProperty.call(authResult, 'user')) {
-          let provider = authResult.additionalUserInfo.providerId || '';
+          let additionalUserData = authResult.additionalUserInfo;
+          let provider = additionalUserData.providerId || '';
           let authUserData = authResult.user.multiFactor.user || {};
           let userObject;
           let profile;
@@ -71,9 +72,9 @@ export const Login = () => {
             profile: userObject
           })
 
+
           let date = new Date();
           date.setDate(date.getDate() + 3);
-
           //@ts-ignore
           setCookie('bldr_session', JSON.stringify(userObject), { 
             path: '/',
@@ -81,7 +82,10 @@ export const Login = () => {
             secure: true,
             sameSite: true
           });
-          //TODO set session cookie
+          
+
+          //TODO: if additionalUserData.isNewUser === true create doc in fs
+          //TODO: if additionalUserData.isNewUser === false get doc from fs based on uid
         }
         return false;
       }

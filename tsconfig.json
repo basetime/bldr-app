@@ -18,6 +18,6 @@
     "noImplicitThis": true,
     "strictNullChecks": true
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "**/**/*.ts", "**/**/*.tsx", "src/components/pages/user/login.js", "src/context/AuthContext.js", "src/components/authentication/FirebaseAuth.js", "functions/middleware/firebase.js", "src/firebase/clientApp.js", "src/components/authentication/Firebase.js"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "**/**/*.ts", "**/**/*.tsx", "src/components/pages/users", "src/components/pages/user/login.js", "src/context/AuthContext.js", "src/components/authentication/FirebaseAuth.js", "functions/middleware/firebase.js", "src/firebase/clientApp.js", "src/components/authentication/Firebase.js"],
   "exclude": ["node_modules"]
 }

@@ -37,6 +37,7 @@ const components = {
   a: Link,
   li: ListStyle.LI,
   ol: ListStyle.OL,
+  ul: ListStyle.UL,
   table: Table,
   p: Paragraph,
   pre: CodeBlock,
@@ -51,7 +52,7 @@ export default function DocumentationLayoutAlt({
   children,
 }: Props) {
   return (
-    <Grid container sx={{ overflow: 'hidden', display: 'flex', justifyContent: 'center', marginTop: { xs: 20, md: 25} }}>
+    <Grid container sx={{ overflow: 'hidden', display: 'flex', justifyContent: 'center', marginTop: { xs: 20, md: 25}, marginBottom: { xs: 10, md: 15} }}>
       <Grid item xs={12} md={5}>
         <Drawer
           variant="permanent"
@@ -70,7 +71,7 @@ export default function DocumentationLayoutAlt({
           <Toolbar />
           <Box sx={{ overflow: 'auto', marginTop: '7rem' }}>
             <List>
-              <DocumentationNavigation />
+              <DocumentationNavigation navigationItems={DocumentationItems}/>
             </List>
           </Box>
         </Drawer>
