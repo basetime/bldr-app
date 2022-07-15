@@ -1,12 +1,12 @@
-import React, { ReactNode } from 'react';
+import React, { ReactNode, useState, useContext } from 'react';
 import { styled } from '@mui/material/styles';
 import { Paper, Grid, Divider, Box, Typography, Button, Stack } from '@mui/material';
-import LocalShippingIcon from '@mui/icons-material/LocalShipping';
-import DynamicFeedIcon from '@mui/icons-material/DynamicFeed';
-import Section from '../Section'
 import TextField from '@mui/material/TextField';
 import FormControl from '@mui/material/FormControl';
 import Link from 'next/link'
+import axios from 'axios'
+import GlobalContext from '../../../context/GlobalContext';
+import AuthContext from '../../../context/AuthContext';
 
 interface Props {
   elevation?: number | 1,
@@ -24,6 +24,12 @@ interface Props {
   }>
 }
 
+interface Event {
+  target: {
+    value: string
+  }
+}
+
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
   ...theme.typography.body2,
@@ -33,7 +39,51 @@ const Item = styled(Paper)(({ theme }) => ({
 }));
 
 
-export default function PublicSubmit(props: Props) {
+
+export default function SubmitPage(props: Props) {
+  const [packageURL, setPackageURL] = useState('')
+  const [submitStatus, setSubmitStatus] = useState({
+    status: false,
+    statusText: 'https://github.com/{{owner}}/{{repository}}'
+  })
+
+  const { global } = useContext(GlobalContext)
+  const { user } = useContext(AuthContext)
+
+  const handlePackageURLUpdate = (event: Event) => {
+    setPackageURL(event.target.value)
+  }
+
+  const handlePackageURLSubmit = async () => {
+    try {
+      if (!packageURL.includes('github')) {
+
+      }
+
+      const provider =
+        packageURL.includes('github') ? 'github' :
+          packageURL.includes('bitbucket') ? 'bitbucket' :
+            'unknown'
+
+      const submitRequest = await axios.post(`${global.apiBase}/package/submit`, {
+        uid: user.profile.uid,
+        packageURL: packageURL,
+        provider
+      })
+
+      setSubmitStatus({
+        status: submitRequest.data.status === 'ok' ? false : true,
+        statusText: submitRequest.data.statusText
+      })
+
+    } catch (err: any) {
+      console.log(err)
+      let errorStatusText = err && err.response && err.response.data && err.response.data.statusText || 'There was an error with your request'
+      setSubmitStatus({ status: true, statusText: errorStatusText })
+    }
+  }
+
+
 
   return (
     <>
@@ -76,8 +126,15 @@ export default function PublicSubmit(props: Props) {
               autoComplete="off"
             >
               <FormControl fullWidth>
-                <TextField id="outlined-basic" label="Enter Repository URL" variant="outlined" helperText="https://github.com/{{owner}}/{{repository}}" required />
-
+                <TextField
+                  error={submitStatus.status}
+                  onChange={handlePackageURLUpdate}
+                  id="outlined-basic"
+                  label="Enter Repository URL"
+                  variant="outlined"
+                  helperText={submitStatus.statusText}
+                  required
+                />
               </FormControl>
             </Box>
 
@@ -92,6 +149,7 @@ export default function PublicSubmit(props: Props) {
             >
               <Button
                 variant="outlined"
+                onClick={handlePackageURLSubmit}
               >
                 Submit Package
               </Button>

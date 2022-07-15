@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 import Box from '@mui/material/Box';
 import { Typography } from '@mui/material';
@@ -6,12 +6,16 @@ import Layout from '../../layouts/MainLayout'
 import StyledFirebaseAuth from 'react-firebaseui/StyledFirebaseAuth';
 import firebase from 'firebase/compat/app';
 import AuthContext from '../../../context/AuthContext'
+import GlobalContext from '../../../context/GlobalContext'
 import SectionWrapper from '../SectionWrapper'
 import { useCookies } from 'react-cookie';
+import axios from 'axios';
 
 export const Login = () => {
   const [cookies, setCookie] = useCookies(['bldr_session']);
   const { user, setUser } = useContext(AuthContext)
+  const { global } = useContext(GlobalContext)
+
   const router = useRouter();
 
   // Configure FirebaseUI.
@@ -30,6 +34,7 @@ export const Login = () => {
         console.log('authResult', authResult)
 
         if (Object.prototype.hasOwnProperty.call(authResult, 'user')) {
+          console.log(authResult)
           let additionalUserData = authResult.additionalUserInfo;
           let provider = additionalUserData.providerId || '';
           let authUserData = authResult.user.multiFactor.user || {};
@@ -69,9 +74,9 @@ export const Login = () => {
 
           setUser({
             isLoggedIn: true,
+            isNewUser: additionalUserData.isNewUser,
             profile: userObject
           })
-
 
           let date = new Date();
           date.setDate(date.getDate() + 3);
@@ -83,15 +88,23 @@ export const Login = () => {
             sameSite: true
           });
           
-
-          //TODO: if additionalUserData.isNewUser === true create doc in fs
-          //TODO: if additionalUserData.isNewUser === false get doc from fs based on uid
         }
         return false;
       }
     },
   }
 
+
+  useEffect(() => {
+    const createProfile = async () => {
+      const createRequest = await axios.post(`${global.apiBase}/user/create`, user.profile)
+      console.log(createRequest)
+    }
+    if(user.isLoggedIn && user.isNewUser){
+      createProfile()
+    }
+    console.log('trigger user')
+  }, [user, user.isLoggedIn])
 
   return (
     <>

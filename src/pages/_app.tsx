@@ -2,16 +2,42 @@ import '../../styles/globals.css'
 // import '../../styles/forms.css'
 
 import { AppProps } from 'next/app'
+import { useState, useMemo, useEffect } from 'react'
+import { CookiesProvider } from 'react-cookie';
 import AuthContext from '../context/AuthContext'
-import { useState, useMemo } from 'react'
+import GlobalContext from '../context/GlobalContext'
 import firebase from 'firebase/compat/app';
 import 'firebase/compat/auth';
-import { CookiesProvider } from 'react-cookie';
+import axios from 'axios';
 
 function MyApp({ Component, pageProps }: AppProps) {
   const [user, setUser] = useState({})
+  const [global, setGlobal]= useState({
+    env: 'production',
+    apiBase: '/api/v1'
+  })
 
   const authContext = useMemo(() => ({ user, setUser }), [user, setUser])
+  const globalContext = useMemo(() => ({ global, setGlobal }), [global, setGlobal])
+
+  useEffect(() => {
+    if(window.location.href.includes('localhost') || window.location.href.includes('127.0.0.1')){
+      setGlobal({
+        env: 'development',
+        apiBase: 'http://127.0.0.1:5001/bldr-io/us-central1/bldrAPI/api/v1'
+      })
+    } else {
+      setGlobal({
+        env: 'production',
+        apiBase: '/api/v1'
+      })
+    }
+  }, [])
+
+
+  useEffect(() => {
+    const getPackages = async () => await axios.get(`${global.apiBase}/packages`)
+  })
 
   // TODO move Firebase fetched from serverside
   // Configure Firebase.
@@ -28,11 +54,13 @@ function MyApp({ Component, pageProps }: AppProps) {
   firebase.initializeApp(config);
 
   return (
-    <AuthContext.Provider value={authContext}>
-      <CookiesProvider>
-        <Component {...pageProps} />
-      </CookiesProvider>
-    </AuthContext.Provider>
+    <GlobalContext.Provider value={globalContext}>
+      <AuthContext.Provider value={authContext}>
+        <CookiesProvider>
+          <Component {...pageProps} />
+        </CookiesProvider>
+      </AuthContext.Provider>
+    </GlobalContext.Provider>
   )
 }
 

@@ -1,0 +1,63 @@
+// @ts-check
+const axios = require('axios').default
+const express = require("express");
+const router = express.Router();
+const { fs } = require("../utils/database/firebase");
+const utils = require("../utils/index")
+
+// const utils = require("../utils/index");
+
+
+
+
+/**
+ *
+ */
+router.post("/create", async (req, res, next) => {
+  try {
+
+    if (!req.body) {
+      throw new Error('No Payload Provided')
+    }
+
+    if (!req.body.uid) {
+      throw new Error('No User ID Provided')
+    }
+
+    if (!req.body.provider || req.body.provider === 'unknown') {
+      throw new Error('No Git Provider')
+    }
+
+
+    const { provider, uid, github = {} } = req.body;
+    
+        const profileData = {
+          uid,
+          provider,
+          github
+        }
+
+        await fs
+          .collection("users")
+          .doc(uid)
+          .set(profileData)
+      
+
+    res.status(200);
+    res.json({
+      status: "ok",
+      statusText: 'Package Saved.'
+    });
+
+  } catch (err) {
+    err.message;
+
+    next({
+      status: "error",
+      statusCode: 400,
+      statusText: err.message,
+    });
+  }
+});
+
+module.exports = router;

@@ -11,6 +11,8 @@ const cors = require("cors");
 // const syncRoute = require("../routes/sync");
 // const insightRoute = require("../routes/insight");
 const authenticationRoute = require("../routes/authentication");
+const packageRoute = require("../routes/package");
+const userRoute = require("../routes/user");
 
 const app = express();
 
@@ -24,6 +26,8 @@ app.use((req, res, next) => {
 });
 
 app.use("/api/v1/authentication", authenticationRoute);
+app.use("/api/v1/user", userRoute);
+app.use("/api/v1/package", packageRoute);
 
 // app.use("/api/v1/sysadmin", isAdminOrOwner, sysAdminRoute);
 // app.use("/api/v1/admin", requireAuth, adminRoute);
@@ -46,8 +50,6 @@ app.use("*", (req, res, next) => {
  */
 app.use((err, req, res, next) => {
   console.log("Handler Error Catch");
-  console.log(err.statusText || err.message || JSON.stringify(err, null, 2));
-  res.status(err.statusCode || 400);
   res.json(err);
   res.end();
   next();

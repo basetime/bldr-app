@@ -41,7 +41,7 @@ export default function PublicSubmit(props: Props) {
         buttons={[
           {
             label: 'Create an Account or Log In',
-            href: '/users/login?returnTo=/package/submit',
+            href: '/users/login?returnTo=/submit',
             variant: 'outlined'
           }
         ]}

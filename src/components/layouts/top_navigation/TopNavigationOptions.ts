@@ -5,6 +5,10 @@ export const pages = [
   },
   {
     label: 'Submit',
-    route: '/submit'
+    route: '/package/submit'
+  },
+  {
+    label: 'Browse',
+    route: '/package/browse'
   }
 ];
