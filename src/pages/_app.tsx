@@ -2,7 +2,7 @@ import '../../styles/globals.css'
 // import '../../styles/forms.css'
 
 import { AppProps } from 'next/app'
-import { useState, useMemo, useEffect } from 'react'
+import { useState, useMemo, useEffect, useCallback } from 'react'
 import { CookiesProvider } from 'react-cookie';
 import AuthContext from '../context/AuthContext'
 import GlobalContext from '../context/GlobalContext'
@@ -14,30 +14,45 @@ function MyApp({ Component, pageProps }: AppProps) {
   const [user, setUser] = useState({})
   const [global, setGlobal]= useState({
     env: 'production',
-    apiBase: '/api/v1'
+    apiBase: '/api/v1',
+    pkgs: {}
   })
 
   const authContext = useMemo(() => ({ user, setUser }), [user, setUser])
   const globalContext = useMemo(() => ({ global, setGlobal }), [global, setGlobal])
+  
 
-  useEffect(() => {
-    if(window.location.href.includes('localhost') || window.location.href.includes('127.0.0.1')){
-      setGlobal({
-        env: 'development',
-        apiBase: 'http://127.0.0.1:5001/bldr-io/us-central1/bldrAPI/api/v1'
-      })
-    } else {
-      setGlobal({
-        env: 'production',
-        apiBase: '/api/v1'
-      })
-    }
+  const getPackages = useCallback(async (apiBase: string) => {
+    const packageRequest = await axios.get(`${apiBase}/package`)
+    return packageRequest.data
   }, [])
 
 
   useEffect(() => {
-    const getPackages = async () => await axios.get(`${global.apiBase}/packages`)
-  })
+    let env: string;
+    let apiBase: string;
+
+    if(window.location.href.includes('localhost') || window.location.href.includes('127.0.0.1')){
+      env = 'development';
+      apiBase = 'http://127.0.0.1:5001/bldr-io/us-central1/bldrAPI/api/v1';
+    } else {
+      env = 'production';
+      apiBase = '/api/v1';
+    }
+
+    getPackages(apiBase)
+    .then(response => {
+
+      setGlobal({
+        env,
+        apiBase,
+        pkgs: response
+      })
+
+    })
+ 
+  }, [])
+  
 
   // TODO move Firebase fetched from serverside
   // Configure Firebase.

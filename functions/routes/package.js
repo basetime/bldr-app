@@ -10,35 +10,46 @@ const utils = require("../utils/index")
 
 
 /**
- * Request for all organization metadata
+ * Request for all package docs
  */
-// router.get("/", async function (req, res) {
-//   try {
-//     let start = (req.query.start && Number(req.query.start)) || 0;
-//     let end = (req.query.end && Number(req.query.end)) || 0;
-//     let pageSize = (req.query.pagesize && Number(req.query.pagesize)) || 20;
-//     let filterTS = (req.query.since && Number(req.query.since)) || null;
+router.get("/", async function (req, res) {
+  try {
+    let start = (req.query.start && Number(req.query.start)) || 0;
+    let end = (req.query.end && Number(req.query.end)) || 0;
+    let pageSize = (req.query.pagesize && Number(req.query.pagesize)) || 40;
+    let filterTS = (req.query.since) || null;
+    let uid = (req.query.uid) || null;
 
-//     const data = await ins.readCollection(
-//       organizationId,
-//       collection_id,
-//       start,
-//       end,
-//       pageSize,
-//       filterTS
-//     );
+    let data = await utils.readCollection(
+      // @ts-ignore
+      uid,
+      start,
+      end,
+      pageSize,
+      filterTS
+    );
 
-//     res.status(200);
-//     res.json(data);
-//   } catch (err) {
-//     console.log(err);
-//     res.status(400);
-//     res.json({
-//       status: "error",
-//       statusText: err.message,
-//     });
-//   }
-// });
+    if(data.status === 'ok'){
+      let packages = data.data
+      for(const p in packages){
+        let package = packages[p];
+        const uid = package.uid;
+        const profileData = await utils.readProfileData(uid)
+        data.data[p].userData = profileData;
+      }
+    }
+
+    res.status(200);
+    res.json(data);
+  } catch (err) {
+    console.log(err);
+    res.status(400);
+    res.json({
+      status: "error",
+      statusText: err.message,
+    });
+  }
+});
 
 
 /**
@@ -144,6 +155,7 @@ router.post("/submit", async (req, res, next) => {
           packageData = {
             id: packageJSON.name,
             version: packageJSON.version,
+            description: packageJSON.description,
             uid,
             owner,
             repository,
@@ -153,10 +165,16 @@ router.post("/submit", async (req, res, next) => {
             createdAtTS
           }
 
-          await fs
-            .collection("packages")
-            .doc(packageData.id)
-            .set(packageData)
+          
+          for(let i = 1; i < 60; i++){
+            packageData.id = `${packageData.id}_${i}`
+            await fs
+              .collection("packages")
+              .doc(packageData.id)
+              .set(packageData)
+
+            i++
+          }
 
           checkPackage = await doesPackageExist();
           if (checkPackage) {

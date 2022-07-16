@@ -55,6 +55,8 @@ export const Login = () => {
 
               userObject = {
                 uid: authUserData.uid,
+                displayName: authResult.additionalUserInfo.username,
+                photoURL: profile.avatar_url,
                 github: {
                   url: profile.html_url,
                   repos: profile.repos_url,
@@ -66,7 +68,13 @@ export const Login = () => {
             case 'password':
               userObject = {
                 uid: authUserData.uid,
+                displayName: '',
                 photoURL: '',
+                github: {
+                  url: '',
+                  repos: '',
+                  gists: ''
+                },
                 provider
               }
               break;
@@ -100,7 +108,7 @@ export const Login = () => {
       const createRequest = await axios.post(`${global.apiBase}/user/create`, user.profile)
       console.log(createRequest)
     }
-    if(user.isLoggedIn && user.isNewUser){
+    if(user.isLoggedIn && !user.isNewUser){
       createProfile()
     }
     console.log('trigger user')

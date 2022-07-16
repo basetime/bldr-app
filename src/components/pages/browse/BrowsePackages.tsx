@@ -1,66 +1,68 @@
-import React, {ReactNode} from 'react';
-import { styled } from '@mui/material/styles';
-import { Paper, Grid, Divider } from '@mui/material';
-import LocalShippingIcon from '@mui/icons-material/LocalShipping';
-import DynamicFeedIcon from '@mui/icons-material/DynamicFeed';
-import Section from '../Section'
-
-interface Props {
-  elevation?: number | 1,
-  image?: {
-    src: string,
-    width?: string | 'auto'
-  },
-  icon?: ReactNode,
-  subtext?: string | any,
-  copy?: string | any,
-  buttons?: Array<{
-    label: string,
-    href: string,
-    variant: "text" | "outlined" | "contained",
-  }>
-}
+import * as React from 'react';
+import List from '@mui/material/List';
+import ListItem from '@mui/material/ListItem';
+import ListItemText from '@mui/material/ListItemText';
+import ListItemAvatar from '@mui/material/ListItemAvatar';
+import Avatar from '@mui/material/Avatar';
+import AuthContext from '../../../context/AuthContext'
+import GlobalContext from '../../../context/GlobalContext'
+import { useContext } from 'react';
+import { Paper, Grid, Divider, Box, Typography, Button, Stack } from '@mui/material';
+import Pagination from '@mui/material/Pagination';
+import PaginationItem from '@mui/material/PaginationItem';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 
 
-export default function PublicSubmit(props: Props) {
-  const SubmitIcon = <LocalShippingIcon sx={{fontSize: 90}} />
-  const SubmitSubtext = `Ready to Submit a package? Login or Create a BLDR account to get started.`;
-  const SubmitCopy = `Creating a BLDR account allows you to be credited for the packages you own and submit to the BLDR registry. Users will be able to search packages by Creators Name, Keywords, and other data points.`;
+export default function BrowsePackages() {
 
-  const PackagesIcon = <DynamicFeedIcon sx={{fontSize: 90}} />
-  const PackagesSubtext = `What is a BLDR Package?`;
-  const PackagesCopy = `A SFMC BLDR package is currently any Content Builder based project or code that is stored in either a HTML Email, Code Snippet Content Block or HTML Content Block. Packages can also include any Cloud Page or Code Resource file stored in the Content Builder root file. Fore more information about BLDR packages visit the Package documentation.`
-  
+  const { user } = useContext(AuthContext)
+  const { global } = useContext(GlobalContext)
+
+  const packages =
+    Object.prototype.hasOwnProperty.call(global, 'pkgs') &&
+    Object.prototype.hasOwnProperty.call(global.pkgs, 'data') &&
+    global.pkgs.data;
+
+  console.log(packages)
+
+  //TODO set pkg type definition
+  const renderPackages = packages && packages.map((pkg: any) => {
+    const user = pkg.userData;
+
+    return (
+      <div key={pkg.id}>
+        <Button fullWidth>
+          <ListItem alignItems="flex-start">
+            <ListItemAvatar>
+              <Avatar alt={user.profile.displayName} src={user.profile.photoURL} />
+            </ListItemAvatar>
+            <ListItemText
+              primary={pkg.id}
+              secondaryTypographyProps={{
+                textTransform: 'none'
+              }}
+              secondary={
+                <>
+                  {pkg.description}
+                </>
+              }
+            />
+          </ListItem>
+        </Button>
+        <Divider component="li" />
+      </div>
+    )
+  })
+
+
   return (
     <>
-    <Section
-        elevation={4}
-        icon={SubmitIcon}
-        subtext={SubmitSubtext}
-        copy={SubmitCopy} 
-        buttons={[
-          {
-            label: 'Create an Account or Log In',
-            href: '/users/login?returnTo=/submit',
-            variant: 'outlined'
-          }
-        ]}
-      />
-
-      <Section
-        elevation={0}
-        icon={PackagesIcon}
-        subtext={PackagesSubtext}
-        copy={PackagesCopy}
-        buttons={[
-          {
-            label: 'Learn about Packages',
-            href: '/documentation/package',
-            variant: 'outlined'
-          }
-        ]}
-      />
+      <Grid item container xs={12} md={10} mx={'auto'}>
+        <List sx={{ width: '100%', bgcolor: 'background.paper' }}>
+          {renderPackages}
+        </List>
+      </Grid>
     </>
-
   );
 }

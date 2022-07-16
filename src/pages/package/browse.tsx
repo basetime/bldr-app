@@ -9,10 +9,7 @@ import PublicSubmit from '../../components/pages/submit/PublicSubmit';
 import Submit from '../../components/pages/submit/Submit'
 import axios from 'axios';
 // import { Auth } from '../components/authentication/FirebaseAuth'
-import { useEffect, useContext } from 'react';
-import AuthContext from '../../context/AuthContext'
-import { useNavigate } from 'react-router-dom';
-import { RouteGuard } from '../../components/functional/RouteGuard'
+import BrowsePackages from '../../components/pages/browse/BrowsePackages'
 import router from 'next/router'
 
 const Item = styled(Paper)(({ theme }) => ({
@@ -23,16 +20,16 @@ const Item = styled(Paper)(({ theme }) => ({
   color: theme.palette.text.secondary,
 }));
 
-const SubmitPage: NextPage = () => {
-  const { user } = useContext(AuthContext)
+const BrowsePage: NextPage = () => {
+
 
   return (
     <Layout>
-      <PublicSubmit />
+      <BrowsePackages />
     </Layout >
 
   )
 }
 
 
-export default SubmitPage
+export default BrowsePage

@@ -29,12 +29,16 @@ router.post("/create", async (req, res, next) => {
     }
 
 
-    const { provider, uid, github = {} } = req.body;
+    const { provider, uid, github = {}, photoURL = '', displayName = '' } = req.body;
     
         const profileData = {
           uid,
           provider,
-          github
+          github,
+          profile: {
+            photoURL,
+            displayName
+          }
         }
 
         await fs

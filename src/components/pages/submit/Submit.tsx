@@ -125,17 +125,22 @@ export default function SubmitPage(props: Props) {
               noValidate
               autoComplete="off"
             >
-              <FormControl fullWidth>
-                <TextField
-                  error={submitStatus.status}
-                  onChange={handlePackageURLUpdate}
-                  id="outlined-basic"
-                  label="Enter Repository URL"
-                  variant="outlined"
-                  helperText={submitStatus.statusText}
-                  required
-                />
-              </FormControl>
+
+              <Grid container spacing={2}>
+                <Grid item xs={12} md={8} sx={{ marginX: 'auto' }}>
+                  <FormControl fullWidth>
+                    <TextField
+                      error={submitStatus.status}
+                      onChange={handlePackageURLUpdate}
+                      id="outlined-basic"
+                      label="Enter Repository URL"
+                      variant="outlined"
+                      helperText={submitStatus.statusText}
+                      required
+                    />
+                  </FormControl>
+                </Grid>
+              </Grid>
             </Box>
 
             <Stack
@@ -223,6 +228,7 @@ export default function SubmitPage(props: Props) {
 
             </Item>
           </Grid>
+
         </Grid>
       </Box >
     </>
