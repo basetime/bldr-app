@@ -77,7 +77,7 @@ module.exports.readCollection = async (
     console.log('getQuery', getQuery)
     getQuery.forEach((doc) => {
       let docData = doc.data();
-      console.log('doc', docData)
+      // console.log('doc', docData)
 
       data.push(docData);
     });

@@ -4,11 +4,13 @@ import { Login } from '../../components/pages/users/Login'
 import { useRouter } from 'next/router'
 import AuthContext from '../../context/AuthContext'
 import {useContext} from 'react'
+import { Typography } from '@mui/material';
 
 const LoginPage: NextPage = () => {
   const { user } = useContext(AuthContext)
   const router = useRouter();
 
+  
   if (user.isLoggedIn) {
       const returnURL = router.query && `${router.query.returnTo}` || '/'
       console.log(returnURL)
@@ -18,6 +20,8 @@ const LoginPage: NextPage = () => {
 
   return (
     <Layout>
+
+      {!user.isLoggedIn && <Typography>test logged in</Typography>}
       <Login />
     </Layout >
   )

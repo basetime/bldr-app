@@ -24,18 +24,16 @@ export const Login = () => {
     signInFlow: 'popup',
     // We will display Google and Facebook as auth providers.
     signInOptions: [
-      // firebase.auth.GoogleAuthProvider.PROVIDER_ID,
-      // firebase.auth.EmailAuthProvider.PROVIDER_ID,
-      firebase.auth.GithubAuthProvider.PROVIDER_ID
+      firebase.auth.GithubAuthProvider.PROVIDER_ID,
+      firebase.auth.GoogleAuthProvider.PROVIDER_ID,
+      firebase.auth.EmailAuthProvider.PROVIDER_ID,
     ],
     callbacks: {
       // Avoid redirects after sign-in.
-      signInSuccessWithAuthResult: function (authResult: any, returnURL: any) {
+      signInSuccessWithAuthResult: function (authResult: any) {
         console.log('authResult', authResult)
 
         if (Object.prototype.hasOwnProperty.call(authResult, 'user')) {
-          console.log(authResult)
-
           let additionalUserData = authResult.additionalUserInfo;
           let provider = additionalUserData.providerId || '';
           let authUserData = authResult.user.multiFactor.user || {};
@@ -54,23 +52,16 @@ export const Login = () => {
             case 'github.com':
               profile = authResult.additionalUserInfo.profile;
 
-
               userObject = {
                 uid: authUserData.uid,
-                photoURL: authUserData.photoURL,
+                photoURL: profile.avatar_url,
+                github: {
+                  url: profile.html_url,
+                  repos: profile.repos_url,
+                  gists: profile.gists_url
+                },
                 provider
               }
-
-              // userObject = {
-              //   uid: authUserData.uid,
-              //   photoURL: profile.avatar_url,
-              //   github: {
-              //     url: profile.html_url,
-              //     repos: profile.repos_url,
-              //     gists: profile.gists_url
-              //   },
-              //   provider
-              // }
               break;
             case 'password':
               userObject = {
@@ -93,25 +84,35 @@ export const Login = () => {
             profile: userObject
           })
 
-          let date = new Date();
-          date.setDate(date.getDate() + 3);
+          let sessionExpire = new Date();
+          sessionExpire.setDate(sessionExpire.getDate() + 3);
           //@ts-ignore
           setCookie('bldr_session', JSON.stringify(userObject), {
             path: '/',
-            expires: date,
+            expires: sessionExpire,
             secure: true,
-            sameSite: true
+            sameSite: 'strict'
+          });
+
+
+          let userConfig = new Date();
+          userConfig.setDate(userConfig.getDate() + 3);
+          //@ts-ignore
+          setCookie('bldr_session', JSON.stringify(userObject), {
+            path: '/',
+            expires: sessionExpire,
+            secure: true,
+            sameSite: 'strict'
           });
 
         }
-
 
         useEffect(() => {
           const createProfile = async () => {
             const createRequest = await axios.post(`${global.apiBase}/user/create`, user.profile)
             console.log(createRequest)
           }
-          if (user.isLoggedIn && !user.isNewUser) {
+          if (user.isLoggedIn && user.isNewUser) {
             createProfile()
           }
           console.log('trigger user')

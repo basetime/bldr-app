@@ -12,19 +12,28 @@ import Settings from '@mui/icons-material/Settings';
 import Logout from '@mui/icons-material/Logout';
 import Image from 'next/image'
 import AccountBoxIcon from '@mui/icons-material/AccountBox';
+import { useCookies } from 'react-cookie';
+import { useRouter } from 'next/router';
 
 //TODO update TS Props for user value
 export const AccountMenu = (authContext: any) => {
+  const router = useRouter();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
+
   const handleClick = (event: { currentTarget: React.SetStateAction<any>; }) => {
     setAnchorEl(event.currentTarget);
   };
   const handleClose = () => {
     setAnchorEl(null);
+    
   };
+  const [cookies, setCookie, removeCookie] = useCookies(['bldr_session'])
 
-  const { photoURL } = authContext.user.profile;
+  const handleLogout = () => {
+    removeCookie('bldr_session')
+    router.push('/')
+  }
 
   return (
     <React.Fragment>
@@ -39,10 +48,10 @@ export const AccountMenu = (authContext: any) => {
             aria-expanded={open ? 'true' : undefined}
           >
             <Avatar sx={{ width: 32, height: 32 }}>
-              {photoURL ?
+              {authContext && authContext.user && authContext.user.photoURL?
                 <Image
                   alt="The guitarist in the concert."
-                  src={photoURL}
+                  src={authContext.user.photoURL}
                   layout="fill"
                 /> :
                 <Avatar />
@@ -108,7 +117,7 @@ export const AccountMenu = (authContext: any) => {
           </ListItemIcon>
           Settings
         </MenuItem>
-        <MenuItem>
+        <MenuItem onClick={handleLogout}>
           <ListItemIcon>
             <Logout fontSize="small" />
           </ListItemIcon>

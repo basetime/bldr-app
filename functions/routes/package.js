@@ -78,7 +78,7 @@ router.post("/submit", async (req, res, next) => {
 
 
     const doesPackageExist = async () => {
-      console.log(packageURL)
+      // console.log(packageURL)
       const snapshot = await fs
         .collection('packages')
         .where('repositoryLink', '==', packageURL)

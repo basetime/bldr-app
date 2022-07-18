@@ -9,30 +9,49 @@ import GlobalContext from '../context/GlobalContext'
 import firebase from 'firebase/compat/app';
 import 'firebase/compat/auth';
 import axios from 'axios';
+import { useCookies } from 'react-cookie';
 
 function MyApp({ Component, pageProps }: AppProps) {
+  const [sessionCookie] = useCookies(['bldr_session']);
   const [user, setUser] = useState({})
-  const [global, setGlobal]= useState({
+  const [global, setGlobal] = useState({
     env: '',
     apiBase: '',
     pkgs: {}
   })
 
-
   const authContext = useMemo(() => ({ user, setUser }), [user, setUser])
   const globalContext = useMemo(() => ({ global, setGlobal }), [global, setGlobal])
-  
+
   const getPackages = useCallback(async (apiBase: string) => {
     const packageRequest = await axios.get(`${apiBase}/package`)
     return packageRequest.data
   }, [])
 
+  const checkUserCookie = useCallback(() => {
+    if (!!sessionCookie.bldr_session) {
+      setUser({
+        isLoggedIn: true,
+        isNewUser: false,
+        profile: sessionCookie.bldr_session
+      })
+      console.log(!!sessionCookie.bldr_session)
+    } else {
+      
+    }
+    //@ts-ignore
+  }, [user, user.isLoggedIn])
 
+  //@ts-ignore
+  useEffect(() => checkUserCookie(), [user, user.isLoggedIn])
+
+  // Set Global vars
+  // Get Initial Packages
   useEffect(() => {
     let apiBase: string;
-    let env:string = process.env.NODE_ENV || 'production';
+    let env: string = process.env.NODE_ENV || 'production';
 
-    if(env === 'development'){
+    if (env === 'development') {
       env = 'development';
       apiBase = 'http://127.0.0.1:5001/bldr-io/us-central1/bldrAPI/api/v1';
     } else {
@@ -41,18 +60,15 @@ function MyApp({ Component, pageProps }: AppProps) {
     }
 
     getPackages(apiBase)
-    .then(response => {
+      .then(response => {
 
-      setGlobal({
-        env,
-        apiBase,
-        pkgs: response
+        setGlobal({
+          env,
+          apiBase,
+          pkgs: response
+        })
       })
-
-    })
- 
   }, [])
-  
 
   // TODO move Firebase fetched from serverside
   // Configure Firebase.
