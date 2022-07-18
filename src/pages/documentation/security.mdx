@@ -1,44 +1,40 @@
 import Layout from '../../components/layouts/MainLayout'
 import DocumentationLayoutAlt from '../../components/layouts/DocumentationLayoutAlt'
+import Link from  'next/link'
 export const meta = {}
 
 
 # Security
-## BLDR CLI
 
-1. Open the terminal and check if you have the following:
-    - Ensure you have Node.js installed by typing  `node --version`
-        - If you do not have Node.js installed visit [nodejs.org](https://www.nodejs.org) and follow the instructions for installation
-    - (optional) Ensure you have GIT installed by typing `git version` 
-        - If you do not have GIT installed go to [git-scm.com/downloads](https://www.git-scm.com/downloads) and follow the instructions for installation
-    - In your terminal run `npm install -g @basetime/bldr-sfmc`
-        - NOTE: You must include the `-g` flag to be able to use this across multiple projects
+BLDR CLI is a tool that interacts and integrates into your Salesforce Marketing Cloud instance; as such it will need to be provisioned with API access through a Server-to-Server installed package. 
+
+> Installed Package setup can be found in <Link href="/documentation/getting-started"><a>Getting Started</a></Link>
+
+The BLDR CLI does not store any API credentials in plain-text or files directly stored on your machine. As a default, BLDR integrates with your machines password/credential management software; Mac users leverage [OSX Keychain Access](https://support.apple.com/guide/mac-help/use-keychains-to-store-passwords-mchlf375f392/mac), and Windows users leverage [Windows Credential Management](https://docs.microsoft.com/en-us/windows/win32/secauthn/credentials-management).
 
 <br />
 
-## Updating BLDR CLI
+In addition to the security Keychain and Credential Management provide, BLDR takes additional steps to secure your credentials.
 
-1. Open your terminal and run `npm update -g @basetime/bldr-sfmc`
+During the initial configuration, an encryption key will be created and stored securely. 
 
-<br />
+Prior to being stored, Client ID and Client Secret values from your Installed Packages will have a salt value added to them and ill be encrypted using [AES-256 encryption](https://en.wikipedia.org/wiki/Advanced_Encryption_Standard).
 
-## Setting up BLDR CLI
 
-The BLDR CLI is designed so you can use it across as many SFMC instances as you require. The interactions with SFMC are completed using a Server-to-Server API Package set up within each SFMC Instance. 
+# Data Handling
 
-In team secnarios, it's recommended that a shared Installed Package be created for the CLI that can be used between all team members.
+## Credentials
+BLDR does not persist any credential information, keys, or secrets in locally stored files.
 
-<br />
+## State Management
+_State management is handled using an npm package - [conf](https://www.npmjs.com/package/conf)_.
 
-### SFMC Installed Package
+BLDR creates a file ([Location based on system default user config](https://github.com/sindresorhus/env-paths#pathsconfig)) to manage the set SFMC instance. 
 
-1. Navigate to `Settings > Setup > Platform Tools > Apps > Installed Packages`
-2. Click on `New` to create a new Package and name it `bldr-cli`
-3. Click on `Add Component` to add a new API Component and select `API Integration` and then `Server-to-Server`
-4. Navigate to `Access` and ensure that the Installed Package is provisioned for all Business Units that you may need access to.
-5. Update the scope of the Installed Package to match the permissions below
+State managed data includes:
+1. Set SFMC Instance/MID
+2. File content waiting to be pushed to SFMC
 
-<br />
 
 
 export default ({ children }) => <Layout> <DocumentationLayoutAlt meta={meta}>{children}</DocumentationLayoutAlt></Layout>

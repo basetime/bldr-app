@@ -5,7 +5,7 @@ export const meta = {}
 
 # Contexts
 
-BLDR defines SFMC Contexts as the _builders/studios_ or _objects/assets_ within SFMC. The processing and BLDR support may vary based on each specific context. In regard to BLDR commands, _search_ and _clone_ require a context flag to be used.
+BLDR defines SFMC Contexts as the _builders/studios_ and _objects/assets_ within SFMC. The processing and BLDR support may vary based on each specific context. In regard to BLDR commands, _search_ and _clone_ require a context flag to be used.
 
 <br />
 
@@ -16,12 +16,13 @@ BLDR defines SFMC Contexts as the _builders/studios_ or _objects/assets_ within 
 | Content Builder      | --cb, --content-builder   |
 | Automation Studio    | --as, --automation-studio |
 
-
 <br />
 ---
 <br />
 
 ## Content Builder Support
+
+All assets within Content Builder are defined by their `assetType` and are identified by their `assetId`; because of this there are no sub-context distinctions made for asset types.
 
 ### Fully Supported Assets
 
@@ -54,6 +55,18 @@ Updating these assets in SFMC will be successful up until the point of `publish`
 <br />
 
 ## Automation Studio
+
+Assets within Automation Studio are separated out into sub-contexts based on activity type. Currently, the following sub-contexts are available based on BLDRs support for activities.
+
+| Sub-Context        | Flag     |
+| -------------------| ---------|
+| SQL Query          | --sql    |
+| Script Activity    | --ssjs   |
+
+Sub-context flags can be used directly following the `--as` flag; `bldr search --as --sql <query name>`.
+
+<br />
+
 ### Fully Supported Assets
 
 Fully supported assets are asset types that when cloned from SFMC are created as fully editable `.html/.sql` files.
