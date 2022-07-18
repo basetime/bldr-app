@@ -1,6 +1,8 @@
 import styled from 'styled-components'
 
 const Table = styled.table`
+    overflow: 'scroll';
+
     th {
       text-align: left;
       border-bottom: 1px solid #1e1e1e;
