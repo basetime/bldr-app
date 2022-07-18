@@ -11,8 +11,11 @@ const CodeBlock = styled.pre`
 
     code {
       color: #fff;
-      line-height:1.5rem;
+      background-color: #1e1e1e;
+      line-height: 1.5rem;
       font-family: Roboto
+      white-space: pre-line;
+      padding: 0px;
     }
 `
 

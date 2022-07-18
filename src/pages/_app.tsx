@@ -13,15 +13,15 @@ import axios from 'axios';
 function MyApp({ Component, pageProps }: AppProps) {
   const [user, setUser] = useState({})
   const [global, setGlobal]= useState({
-    env: 'production',
-    apiBase: '/api/v1',
+    env: '',
+    apiBase: '',
     pkgs: {}
   })
+
 
   const authContext = useMemo(() => ({ user, setUser }), [user, setUser])
   const globalContext = useMemo(() => ({ global, setGlobal }), [global, setGlobal])
   
-
   const getPackages = useCallback(async (apiBase: string) => {
     const packageRequest = await axios.get(`${apiBase}/package`)
     return packageRequest.data
@@ -29,10 +29,10 @@ function MyApp({ Component, pageProps }: AppProps) {
 
 
   useEffect(() => {
-    let env: string;
     let apiBase: string;
+    let env:string = process.env.NODE_ENV || 'production';
 
-    if(window.location.href.includes('localhost') || window.location.href.includes('127.0.0.1')){
+    if(env === 'development'){
       env = 'development';
       apiBase = 'http://127.0.0.1:5001/bldr-io/us-central1/bldrAPI/api/v1';
     } else {

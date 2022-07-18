@@ -3,17 +3,38 @@ import DocumentationLayout from '../../components/layouts/DocumentationLayout'
 import DocumentationLayoutAlt from '../../components/layouts/DocumentationLayoutAlt'
 
 export const meta = {
-  author: 'Rich Haines'
-}
+    previous: {
+      label: 'Status',
+      path: 'status'
+    },
+    next: {
+      label: 'Init',
+      path: 'init'
+    }
+  }
 
+# $ stash
 
-# My MDX page
+BLDR Stash is part of the state management system where content updates are stored prior to being updated within the platform. 
 
-This is a list in markdown:
+## Clear stash
 
-- One
-- Two
-- Three
+`bldr stash -c`
+
+```
+  $ bldr clear -c
+  Current State                                          
+  {                                                                                                         
+    "instance": "BrandyMKTG", 
+    "parentMID": "2928190",                    
+    "activeMID": "2928190"
+  }                                                                                                                       
+Staged Files
+---------------------------------------------------------------
+No Files Staged 
+```
+
+<br />
 
 
 export default ({ children }) => <Layout> <DocumentationLayoutAlt meta={meta}>{children}</DocumentationLayoutAlt></Layout>

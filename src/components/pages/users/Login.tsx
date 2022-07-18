@@ -24,8 +24,8 @@ export const Login = () => {
     signInFlow: 'popup',
     // We will display Google and Facebook as auth providers.
     signInOptions: [
-      firebase.auth.GoogleAuthProvider.PROVIDER_ID,
-      firebase.auth.EmailAuthProvider.PROVIDER_ID,
+      // firebase.auth.GoogleAuthProvider.PROVIDER_ID,
+      // firebase.auth.EmailAuthProvider.PROVIDER_ID,
       firebase.auth.GithubAuthProvider.PROVIDER_ID
     ],
     callbacks: {
@@ -35,6 +35,7 @@ export const Login = () => {
 
         if (Object.prototype.hasOwnProperty.call(authResult, 'user')) {
           console.log(authResult)
+
           let additionalUserData = authResult.additionalUserInfo;
           let provider = additionalUserData.providerId || '';
           let authUserData = authResult.user.multiFactor.user || {};
@@ -53,17 +54,23 @@ export const Login = () => {
             case 'github.com':
               profile = authResult.additionalUserInfo.profile;
 
+
               userObject = {
                 uid: authUserData.uid,
-                displayName: authResult.additionalUserInfo.username,
-                photoURL: profile.avatar_url,
-                github: {
-                  url: profile.html_url,
-                  repos: profile.repos_url,
-                  gists: profile.gists_url
-                },
+                photoURL: authUserData.photoURL,
                 provider
               }
+
+              // userObject = {
+              //   uid: authUserData.uid,
+              //   photoURL: profile.avatar_url,
+              //   github: {
+              //     url: profile.html_url,
+              //     repos: profile.repos_url,
+              //     gists: profile.gists_url
+              //   },
+              //   provider
+              // }
               break;
             case 'password':
               userObject = {
@@ -89,30 +96,34 @@ export const Login = () => {
           let date = new Date();
           date.setDate(date.getDate() + 3);
           //@ts-ignore
-          setCookie('bldr_session', JSON.stringify(userObject), { 
+          setCookie('bldr_session', JSON.stringify(userObject), {
             path: '/',
             expires: date,
             secure: true,
             sameSite: true
           });
-          
+
         }
+
+
+        useEffect(() => {
+          const createProfile = async () => {
+            const createRequest = await axios.post(`${global.apiBase}/user/create`, user.profile)
+            console.log(createRequest)
+          }
+          if (user.isLoggedIn && !user.isNewUser) {
+            createProfile()
+          }
+          console.log('trigger user')
+        }, [user, user.isLoggedIn])
+
+
         return false;
       }
     },
   }
 
 
-  useEffect(() => {
-    const createProfile = async () => {
-      const createRequest = await axios.post(`${global.apiBase}/user/create`, user.profile)
-      console.log(createRequest)
-    }
-    if(user.isLoggedIn && !user.isNewUser){
-      createProfile()
-    }
-    console.log('trigger user')
-  }, [user, user.isLoggedIn])
 
   return (
     <>

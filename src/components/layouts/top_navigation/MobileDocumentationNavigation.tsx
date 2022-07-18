@@ -4,6 +4,7 @@ import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import { MenuList } from '@mui/material';
 import DocumentationNavigation from '../../pages/documentation/DocumentationNavigation';
+import {DocumentationItems} from '../../pages/documentation/DocumentationNavigationOptions';
 import ExpandCircleDownIcon from '@mui/icons-material/ExpandCircleDown';
 import Tooltip from '@mui/material/Tooltip';
 import Button from '@mui/material/Button';
@@ -73,7 +74,7 @@ export default function MobileDocumentationNavigation(props: Props) {
         }}
       >
         <MenuList>
-          <DocumentationNavigation />
+          <DocumentationNavigation navigationItems={DocumentationItems}/>
         </MenuList>
       </Menu>
       </Box>

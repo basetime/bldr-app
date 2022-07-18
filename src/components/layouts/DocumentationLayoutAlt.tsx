@@ -6,6 +6,7 @@ import CssBaseline from '@mui/material/CssBaseline';
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import Paper from '@mui/material/Paper';
+import Button from '@mui/material/Button';
 import Grid from '@mui/material/Grid';
 import DocumentationNavigation from '../pages/documentation/DocumentationNavigation'
 import { DocumentationItems } from '../pages/documentation/DocumentationNavigationOptions'
@@ -19,9 +20,20 @@ import Headers from '../mdx/Headers'
 import Link from '../mdx/Link'
 import List from '@mui/material/List';
 import { MDXProvider } from '@mdx-js/react'
-
+import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
+import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 type Props = {
   children: ReactNode;
+  meta: {
+    previous: {
+      label: string,
+      path: string
+    },
+    next: {
+      label: string,
+      path: string
+    }
+  };
 };
 
 const Item = styled(Paper)(({ theme }) => ({
@@ -50,9 +62,10 @@ const components = {
 
 export default function DocumentationLayoutAlt({
   children,
+  meta
 }: Props) {
   return (
-    <Grid container sx={{ overflow: 'hidden', display: 'flex', justifyContent: 'center', marginTop: { xs: 20, md: 25}, marginBottom: { xs: 10, md: 15} }}>
+    <Grid container sx={{ overflow: 'hidden', display: 'flex', justifyContent: 'center', marginTop: { xs: 20, md: 25 }, marginBottom: { xs: 10, md: 15 } }}>
       <Grid item xs={12} md={5}>
         <Drawer
           variant="permanent"
@@ -71,7 +84,7 @@ export default function DocumentationLayoutAlt({
           <Toolbar />
           <Box sx={{ overflow: 'auto', marginTop: '7rem' }}>
             <List>
-              <DocumentationNavigation navigationItems={DocumentationItems}/>
+              <DocumentationNavigation navigationItems={DocumentationItems} />
             </List>
           </Box>
         </Drawer>
@@ -85,22 +98,36 @@ export default function DocumentationLayoutAlt({
           xl: 20
         },
       }}>
-      <Box
-        component="main"
-        position="relative"
-      >
-        <MDXProvider components={components}>
-          <Grid item xs={12} sx={{
-            px: {
-              xs: 1,
-              md: 0
-            }
-          }}>
-            {children}
-          </Grid>
-        </MDXProvider>
-      </Box>
+        <Box
+          component="main"
+          position="relative"
+        >
+          <MDXProvider components={components}>
+            <Grid item xs={12} sx={{
+              px: {
+                xs: 1,
+                md: 0
+              }
+            }}>
+              {children}
+            </Grid>
+
+            <Grid sx={{ marginTop: '4rem', display: 'flex', justifyContent: 'space-around', alignContent: 'center' }}>
+
+              <Button href={`/documentation/${meta.previous.path}`} variant="outlined" startIcon={<ArrowBackIosIcon />}>
+              {meta.previous.label}
+              </Button>
+
+              <Button href={`/documentation/${meta.next.path}`} variant="outlined" endIcon={<ArrowForwardIosIcon />}>
+              {meta.next.label}
+              </Button>
+            </Grid>
+
+          </MDXProvider>
+        </Box>
       </Grid>
+
+
     </Grid>
   );
 }

@@ -1,7 +1,17 @@
 import Layout from '../../components/layouts/MainLayout'
 import DocumentationLayoutAlt from '../../components/layouts/DocumentationLayoutAlt'
 import Link from  'next/link'
-export const meta = {}
+
+export const meta = {
+    previous: {
+      label: 'Getting Started',
+      path: 'getting-started'
+    },
+    next: {
+      label: 'Contexts',
+      path: 'contexts'
+    }
+  }
 
 
 # Security
@@ -33,7 +43,7 @@ BLDR creates a file ([Location based on system default user config](https://gith
 
 State managed data includes:
 1. Set SFMC Instance/MID
-2. File content waiting to be pushed to SFMC
+2. File content waiting to be pushed to SFMC (this is referenced as <Link href="/documentation/stash"><a>stash</a></Link>)
 
 
 

@@ -1,18 +1,142 @@
 import Layout from '../../components/layouts/MainLayout'
 import DocumentationLayout from '../../components/layouts/DocumentationLayout'
 import DocumentationLayoutAlt from '../../components/layouts/DocumentationLayoutAlt'
+import Link from 'next/link'
+
 
 export const meta = {
-  author: 'Rich Haines'
-}
+    previous: {
+      label: 'Contexts',
+      path: 'contexts'
+    },
+    next: {
+      label: 'Status',
+      path: 'status'
+    }
+  }
+
+# $ config
+
+Getting setup with BLDR is straightforward and can be done in just a few minutes. New configurations require that an Installed Package be created within Salesforce Marketing Cloud following the permissions provided in the <Link href="/documentation/getting-started"><a>Getting Started</a></Link> documentation.
 
 
-# My MDX page
+## New Configuration
 
-This is a list in markdown:
+`bldr config -n` | `bldr config --new`
 
-- One
-- Two
-- Three
+```
+  $ bldr config -n
+  ? SFMC Instance Name: BrandyMKTG
+  ? Parent MID: 2928190
+  ? API Client ID: ydnard9282zeuwo
+  ? API Client Secret: ast3183alskdj282d
+  ? Authentication URI: https://mcsfmc9380sk-0292.auth.marketingcloudapis.com/
+```
+
+<br />
+
+## Show Instance Details
+
+`bldr config <SFMC instance Name>`
+
+```
+$ bldr config BrandyMKTG
+Instance Details (showing first 5 characters of credentials)                    
+---------------------------------------------------------------
+{                                                                               
+  "instance": "BrandyMKTG",                                                        
+  "parentMID": "2928190",                                                     
+  "apiClientId": "ydnar",                                                       
+  "apiClientSecret": "ast31",                                                   
+  "authURI": "https://mcsfmc9380sk-0292.auth.marketingcloudapis.com/",                                 
+  "mids": [                                                                     
+    {                                                                           
+      "mid": 2928190,                                                         
+      "name": "BrandyMKTG"                                                         
+    }                                                                           
+  ]                                                                             
+}                                                  
+```
+
+<br />
+
+## Show Configured Instances
+
+`bldr config -l` | `bldr config --list`
+
+```
+$ bldr config -l
+Instance Names                
+---------------------------------------------------------------
+BrandyMKTG                      
+CodyDev                       
+AstroB2C                      
+```
+
+<br />
+
+## Set Target Configuration
+
+`bldr config -s CodyDev` | `bldr config --set CodyDev`
+
+```
+$ bldr config -s CodyDev
+Configuration Set                                                               
+---------------------------------------------------------------
+{                                                                               
+  "instance": "CodyDev",                                                       
+  "parentMID": "992823772",                                                     
+  "activeMID": "992823772"                                                      
+}      
+```
+
+### Set Target MID
+
+`bldr config -s CodyDev -m 992822209` | `bldr config --set CodyDev --mid 992822209`
+
+```
+$ bldr config -s CodyDev
+Configuration Set                                                               
+---------------------------------------------------------------
+{                                                                               
+  "instance": "CodyDev",                                                       
+  "parentMID": "992823772",                                                     
+  "activeMID": "992822209"                                                      
+}      
+```
+
+
+<br />
+
+## Remove Configuration
+
+`bldr config -r CodyDev` | `bldr config --remove CodyDev`
+
+```
+$ bldr config -r CodyDev
+Instance Details                                                                
+---------------------------------------------------------------
+{                                                                               
+  "instance": "CodyDev",                                                       
+  "parentMID": "992823772",                                                     
+  "apiClientId": "codev",                                                       
+  "apiClientSecret": "cd792",                                                   
+  "authURI": "https://mcdev938-s9djskj.auth.marketingcloudapis.com/",                                 
+  "mids": [                                                                     
+    {                                                                           
+      "mid": 992823772,                                                         
+      "name": "CodyDev"                                                         
+    },
+    {                                                                           
+      "mid": 992822209,                                                         
+      "name": "Dev_Sandbox"                                                         
+    }                                                                           
+  ]                                                                             
+}                                                                               
+? Please confirm deletion of CodyDev (Y/n): y
+
+CodyDev was Deleted Successfully.
+```
+
 
 export default ({ children }) => <Layout> <DocumentationLayoutAlt meta={meta}>{children}</DocumentationLayoutAlt></Layout>
