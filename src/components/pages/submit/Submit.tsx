@@ -83,8 +83,6 @@ export default function SubmitPage(props: Props) {
     }
   }
 
-
-
   return (
     <>
       <Box sx={{ flexGrow: 1, mx: 'auto', maxWidth: { xs: 'sm', md: 'md', lg: 'lg', xl: 'xl' } }}>

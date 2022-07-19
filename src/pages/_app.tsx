@@ -10,40 +10,21 @@ import firebase from 'firebase/compat/app';
 import 'firebase/compat/auth';
 import axios from 'axios';
 import { useCookies } from 'react-cookie';
+import {useRouter} from 'next/router'
+import { Router } from '@mui/icons-material';
 
 function MyApp({ Component, pageProps }: AppProps) {
   const [sessionCookie] = useCookies(['bldr_session']);
   const [user, setUser] = useState({})
   const [global, setGlobal] = useState({
     env: '',
-    apiBase: '',
-    pkgs: {}
+    apiBase: ''
   })
 
+  const router = useRouter();
   const authContext = useMemo(() => ({ user, setUser }), [user, setUser])
   const globalContext = useMemo(() => ({ global, setGlobal }), [global, setGlobal])
 
-  const getPackages = useCallback(async (apiBase: string) => {
-    const packageRequest = await axios.get(`${apiBase}/package`)
-    return packageRequest.data
-  }, [])
-
-  const checkUserCookie = useCallback(() => {
-    if (!!sessionCookie.bldr_session) {
-      setUser({
-        isLoggedIn: true,
-        isNewUser: false,
-        profile: sessionCookie.bldr_session
-      })
-      console.log(!!sessionCookie.bldr_session)
-    } else {
-      
-    }
-    //@ts-ignore
-  }, [user, user.isLoggedIn])
-
-  //@ts-ignore
-  useEffect(() => checkUserCookie(), [user, user.isLoggedIn])
 
   // Set Global vars
   // Get Initial Packages
@@ -59,17 +40,36 @@ function MyApp({ Component, pageProps }: AppProps) {
       apiBase = '/api/v1';
     }
 
-    getPackages(apiBase)
-      .then(response => {
-
-        setGlobal({
-          env,
-          apiBase,
-          pkgs: response
-        })
-      })
+    setGlobal({
+      env,
+      apiBase
+    })
   }, [])
 
+
+  const checkUserCookie = useCallback(() => {
+    if (!!sessionCookie.bldr_session) {
+      setUser({
+        isLoggedIn: true,
+        isNewUser: false,
+        profile: sessionCookie.bldr_session
+      })
+      
+    } else {
+      setUser({
+        isLoggedIn: false,
+        isNewUser: false
+      })
+
+      router.push('/')
+    }
+    //@ts-ignore
+  }, [user.isLoggedIn])
+
+  //@ts-ignore
+
+  useEffect(() => checkUserCookie(), [])
+  
   // TODO move Firebase fetched from serverside
   // Configure Firebase.
   const config = {

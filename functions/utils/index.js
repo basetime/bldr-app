@@ -68,13 +68,9 @@ module.exports.readCollection = async (
     // if(!uid && !filterTS && !start && !end){
     //   collection = collection.where('uid')
     // }
-
-
-    collection = collection.orderBy("createdAtTS", "desc").limit(pageSize)
+    collection = collection.orderBy("createdAtTS", "desc")
 
     const getQuery = await collection.get();
-
-    console.log('getQuery', getQuery)
     getQuery.forEach((doc) => {
       let docData = doc.data();
       // console.log('doc', docData)
@@ -118,3 +114,43 @@ module.exports.readCollection = async (
     console.log(err);
   }
 }
+
+
+module.exports.incrementMetaDataCount = async (doc) => {
+  let metaDoc = fs.collection('metadata').doc(doc)
+  pkgDoc = await metaDoc.get()
+  pkgData = await pkgDoc.data();
+
+  pkgData.count++
+
+  await metaDoc.set(pkgData)
+}
+
+
+module.exports.decrementMetaDataCount = async (doc) => {
+  let metaDoc = fs.collection('metadata').doc(doc)
+  pkgDoc = await metaDoc.get()
+  pkgData = await pkgDoc.data();
+
+  pkgData.count--
+  await metaDoc.set(pkgData)
+}
+
+
+module.exports.getMetaDataDocument = async (doc) => {
+  let metaDoc = fs.collection('metadata').doc(doc)
+  pkgDoc = await metaDoc.get()
+  pkgData = await pkgDoc.data();
+  return pkgData
+}
+/**
+ *
+ * @param {array} arr
+ * @param {number} size
+ * @returns
+ */
+ module.exports.chunk = (arr, size) => {
+  return [...Array(Math.ceil(arr.length / size))].map((_, i) =>
+    arr.slice(size * i, size + size * i)
+  );
+};

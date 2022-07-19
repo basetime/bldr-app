@@ -128,7 +128,7 @@ export default function PrimarySearchAppBar() {
                     Login
                   </Button>
                 </Link> :
-                <AccountMenu user={user}/>
+                <AccountMenu />
             }
             
           </Box>
@@ -144,7 +144,7 @@ export default function PrimarySearchAppBar() {
             <MobileNavigationBar />
           </Box>
         </Toolbar>
-        <Toolbar sx={{ display: "flex", backgroundColor: '#ffffff' }}>
+        {/* <Toolbar sx={{ display: "flex", backgroundColor: '#ffffff' }}>
           <Box
             sx={{
               display: {
@@ -169,7 +169,7 @@ export default function PrimarySearchAppBar() {
               />
             </Search>
           </Box>
-        </Toolbar>
+        </Toolbar> */}
       </AppBar>
     </Box>
 

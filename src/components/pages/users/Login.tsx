@@ -55,6 +55,7 @@ export const Login = () => {
               userObject = {
                 uid: authUserData.uid,
                 photoURL: profile.avatar_url,
+                displayName: authResult.additionalUserInfo.username,
                 github: {
                   url: profile.html_url,
                   repos: profile.repos_url,
@@ -104,20 +105,7 @@ export const Login = () => {
             secure: true,
             sameSite: 'strict'
           });
-
         }
-
-        useEffect(() => {
-          const createProfile = async () => {
-            const createRequest = await axios.post(`${global.apiBase}/user/create`, user.profile)
-            console.log(createRequest)
-          }
-          if (user.isLoggedIn && user.isNewUser) {
-            createProfile()
-          }
-          console.log('trigger user')
-        }, [user, user.isLoggedIn])
-
 
         return false;
       }

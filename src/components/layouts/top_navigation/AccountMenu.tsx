@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, {useContext, useState} from 'react';
 import Box from '@mui/material/Box';
 import Avatar from '@mui/material/Avatar';
 import Menu from '@mui/material/Menu';
@@ -14,11 +14,13 @@ import Image from 'next/image'
 import AccountBoxIcon from '@mui/icons-material/AccountBox';
 import { useCookies } from 'react-cookie';
 import { useRouter } from 'next/router';
+import AuthContext from '../../../context/AuthContext'
 
 //TODO update TS Props for user value
-export const AccountMenu = (authContext: any) => {
+export const AccountMenu = () => {
+  const {user, setUser} = useContext(AuthContext)
   const router = useRouter();
-  const [anchorEl, setAnchorEl] = React.useState(null);
+  const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
 
   const handleClick = (event: { currentTarget: React.SetStateAction<any>; }) => {
@@ -31,12 +33,15 @@ export const AccountMenu = (authContext: any) => {
   const [cookies, setCookie, removeCookie] = useCookies(['bldr_session'])
 
   const handleLogout = () => {
+    setUser({
+      isLoggedIn: false
+    })
     removeCookie('bldr_session')
     router.push('/')
   }
 
   return (
-    <React.Fragment>
+    <>
       <Box sx={{ display: 'flex', alignItems: 'center', textAlign: 'center' }}>
         <Tooltip title="Account settings">
           <IconButton
@@ -48,10 +53,10 @@ export const AccountMenu = (authContext: any) => {
             aria-expanded={open ? 'true' : undefined}
           >
             <Avatar sx={{ width: 32, height: 32 }}>
-              {authContext && authContext.user && authContext.user.photoURL?
+              {user && user.profile && user.profile.photoURL ?
                 <Image
                   alt="The guitarist in the concert."
-                  src={authContext.user.photoURL}
+                  src={user.profile.photoURL}
                   layout="fill"
                 /> :
                 <Avatar />
@@ -101,7 +106,7 @@ export const AccountMenu = (authContext: any) => {
         transformOrigin={{ horizontal: 'right', vertical: 'top' }}
         anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
       >
-        <MenuItem>
+         {/*<MenuItem>
           <AccountBoxIcon /> Profile
         </MenuItem>
         <Divider />
@@ -116,7 +121,7 @@ export const AccountMenu = (authContext: any) => {
             <Settings fontSize="small" />
           </ListItemIcon>
           Settings
-        </MenuItem>
+        </MenuItem> */}
         <MenuItem onClick={handleLogout}>
           <ListItemIcon>
             <Logout fontSize="small" />
@@ -124,6 +129,6 @@ export const AccountMenu = (authContext: any) => {
           Logout
         </MenuItem>
       </Menu>
-    </React.Fragment>
+    </>
   );
 }

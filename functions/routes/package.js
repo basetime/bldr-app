@@ -7,8 +7,6 @@ const utils = require("../utils/index")
 
 // const utils = require("../utils/index");
 
-
-
 /**
  * Request for all package docs
  */
@@ -16,9 +14,11 @@ router.get("/", async function (req, res) {
   try {
     let start = (req.query.start && Number(req.query.start)) || 0;
     let end = (req.query.end && Number(req.query.end)) || 0;
-    let pageSize = (req.query.pagesize && Number(req.query.pagesize)) || 40;
+    let pageSize = (req.query.pagesize && Number(req.query.pagesize)) || 20;
     let filterTS = (req.query.since) || null;
     let uid = (req.query.uid) || null;
+
+    let packageMetaData = await utils.getMetaDataDocument('packages');
 
     let data = await utils.readCollection(
       // @ts-ignore
@@ -29,9 +29,9 @@ router.get("/", async function (req, res) {
       filterTS
     );
 
-    if(data.status === 'ok'){
+    if (data.status === 'ok') {
       let packages = data.data
-      for(const p in packages){
+      for (const p in packages) {
         let package = packages[p];
         const uid = package.uid;
         const profileData = await utils.readProfileData(uid)
@@ -39,6 +39,9 @@ router.get("/", async function (req, res) {
       }
     }
 
+    // data.data = await utils.chunk(data.data, 10)
+
+    console.log(data)
     res.status(200);
     res.json(data);
   } catch (err) {
@@ -117,9 +120,6 @@ router.post("/submit", async (req, res, next) => {
             ? deployArray[2]
             : deployArray[2].substring(0, deployArray[2].indexOf('.'));
 
-        console.log('getRepository', {
-          repository, owner
-        })
 
         checkRepository = await axios.get(
           `https://api.github.com/repos/${owner}/${repository}`
@@ -165,15 +165,25 @@ router.post("/submit", async (req, res, next) => {
             createdAtTS
           }
 
+          await fs
+            .collection("packages")
+            .doc(packageData.id)
+            .set(packageData)
+
+          // await utils.incrementMetaDataCount('packages');
+
           
-          for(let i = 1; i < 60; i++){
-            packageData.id = `${packageData.id}_${i}`
+          let packageName = packageData.id;
+          for(let i = 0; i < 60; i++){
+            packageData.id = `${packageName}_${i}`
             await fs
               .collection("packages")
               .doc(packageData.id)
               .set(packageData)
 
-            i++
+            await utils.incrementMetaDataCount('packages');
+
+            packageData.id = packageName
           }
 
           checkPackage = await doesPackageExist();

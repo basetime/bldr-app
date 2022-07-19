@@ -7,13 +7,16 @@ import "@fontsource/roboto";
 type Props = {
   children: ReactNode;
   title?: string;
+  maxWidth?: object 
 };
 
 const Layout = ({
+  maxWidth,
   children
 }: Props) => (
   <>
     <Container
+      {...maxWidth}
       sx={{
         overflowX: 'hidden',
         position: {
@@ -25,7 +28,7 @@ const Layout = ({
       <NavigationBar />
       <Box
        sx={{
-        marginTop: 25
+        marginTop: 20
       }}
       >
         {children}

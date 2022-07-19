@@ -65,7 +65,7 @@ export default function DocumentationLayoutAlt({
   meta
 }: Props) {
   return (
-    <Grid container sx={{ overflow: 'hidden', display: 'flex', justifyContent: 'center', marginTop: { xs: 20, md: 25 }, marginBottom: { xs: 10, md: 15 } }}>
+    <Grid container sx={{ overflow: 'hidden', display: 'flex', justifyContent: 'center', marginTop: { xs: 10, md: 10 }, marginBottom: { xs: 10, md: 15 } }}>
       <Grid item xs={12} md={5}>
         <Drawer
           variant="permanent"
@@ -82,7 +82,7 @@ export default function DocumentationLayoutAlt({
           }}
         >
           <Toolbar />
-          <Box sx={{ overflow: 'auto', marginTop: '7rem' }}>
+          <Box sx={{ overflow: 'auto', marginTop: '5rem' }}>
             <List>
               <DocumentationNavigation navigationItems={DocumentationItems} />
             </List>
