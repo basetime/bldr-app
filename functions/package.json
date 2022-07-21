@@ -3,6 +3,7 @@
   "description": "Cloud Functions for Firebase",
   "scripts": {
     "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
     "serve": "firebase emulators:start --only functions",
     "format:check": "prettier --check .",
     "format:write": "prettier --write .",

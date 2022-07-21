@@ -15,16 +15,11 @@ const router = express.Router();
 
 // const utils = require("../utils/index");
 
-
-
-
 /**
  *
  */
 router.get("/authenticate", (req, res, next) => {
   try {
-
-    
     console.log(`Authenticate called`);
 
     res.status(200);

@@ -5,22 +5,21 @@ import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import FormControl from '@mui/material/FormControl';
 
-export default function BasicTextFields() {
+export default function BasicTextFields(props: any) {
 
   const { control, register, handleSubmit, watch, formState: { errors } } = useForm();
-  const onSubmit = (data: any) => console.log(data);
-
+ 
   return (
     <>
-      <form onSubmit={handleSubmit(onSubmit)}>
+      <form onChange={handleSubmit(props.onFormChange)}>
         <Box sx={{ flexGrow: 1 }}>
           <Grid container spacing={2}>
             <Grid item sx={{ display: 'flex', justifyContent: 'space-around' }} xs={12}>
               <Controller
                 name="filter"
                 control={control}
-                rules={{ required: true }}
-                render={({ field }) => <FormControl fullWidth sx={{ mx: 5 }}><TextField label="Filter Packages" variant="standard"  {...field} /></FormControl>}
+                rules={{ required: false }}
+                render={({ field }) => <FormControl fullWidth sx={{ mx: 5 }}><TextField label="Filter Packages" defaultValue='' variant="standard"  {...field} /></FormControl>}
               />
               {errors.displayName && <span>This field is required</span>}
 

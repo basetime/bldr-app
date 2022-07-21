@@ -1,59 +1,38 @@
-const { v4: uuidv4 } = require('uuid');
-const { fs } = require('../utils/database/firebase')
+const { v4: uuidv4 } = require("uuid");
+const { fs } = require("../utils/database/firebase");
 
 module.exports = {};
-
 
 module.exports.guid = () => uuidv4();
 
 /**
- * 
- * @param {string} uid 
+ *
+ * @param {string} uid
  */
 module.exports.readProfileData = async (uid) => {
-  let collection = await fs
-    .collection("users")
-    .doc(uid)
-    .get()
-
-    return collection.data()
-}
+  const collection = await fs.collection("users").doc(uid).get();
+  return collection.data();
+};
 
 /**
-  *
-  * @param {string} uid
-  * @param {number} start
-  * @param {number} end
-  * @param {number} pageSize
-  * @param {string} filterTS
-  * @returns {promise}
-  */
-module.exports.readCollection = async (
-  uid,
-  start,
-  end,
-  pageSize,
-  filterTS
-) => {
+ *
+ * @param {string} uid
+ * @param {number} start
+ * @param {number} end
+ * @param {number} pageSize
+ * @param {string} filterTS
+ * @return {promise}
+ */
+module.exports.readCollection = async (uid, start, end, pageSize, filterTS) => {
   try {
-    let data = new Array();
+    const data = [];
+    const metaDoc = fs.collection("metadata").doc("packages");
+    const pkgDoc = await metaDoc.get();
+    const pkgMetadata = await pkgDoc.data();
 
-    let collection = fs
-      .collection("packages")
+    let collection = fs.collection("packages");
 
-    if (uid) {
-      collection = collection.where('uid', '==', uid)
-    }
-
-    if (filterTS) {
-      // @ts-ignore
-      collection = collection.where("createdAtTS", ">=", filterTS);
-    }
-
-    // if (uid || filterTS) {
-    //   // @ts-ignore
-    //   collection = collection.orderBy("createdAtTS", "desc");
-    // }
+    collection = collection.orderBy("createdAtTS");
 
     if (start !== 0) {
       // @ts-ignore
@@ -65,31 +44,27 @@ module.exports.readCollection = async (
       collection = collection.endAt(end);
     }
 
-    // if(!uid && !filterTS && !start && !end){
-    //   collection = collection.where('uid')
-    // }
-    collection = collection.orderBy("createdAtTS", "desc")
-
     const getQuery = await collection.get();
     getQuery.forEach((doc) => {
-      let docData = doc.data();
+      const docData = doc.data();
       // console.log('doc', docData)
 
       data.push(docData);
     });
 
-    let pages = {};
-    let count = getQuery.size;
+    console.log(data);
+    const pages = {};
+    const count = pkgMetadata.count;
 
-    if (count === pageSize) {
-      let nextStart = data[data.length - 1]["createdAtTS"] || "";
-      let nextEnd = data[0]["createdAtTS"] || "";
+    if (count > pageSize) {
+      const nextStart = data[data.length - 1]["createdAtTS"] || "";
+      const nextEnd = data[0]["createdAtTS"] || "";
       let next = `/?start=${nextStart}&end=${nextEnd}`;
       let previous = `/?start=${nextStart}&end=${nextEnd}`;
 
       if (uid) {
-        next += `&uid=${uid}`
-        previous += `&uid=${uid}`
+        next += `&uid=${uid}`;
+        previous += `&uid=${uid}`;
       }
 
       if (filterTS) {
@@ -113,44 +88,41 @@ module.exports.readCollection = async (
   } catch (err) {
     console.log(err);
   }
-}
-
+};
 
 module.exports.incrementMetaDataCount = async (doc) => {
-  let metaDoc = fs.collection('metadata').doc(doc)
-  pkgDoc = await metaDoc.get()
-  pkgData = await pkgDoc.data();
+  const metaDoc = fs.collection("metadata").doc(doc);
+  const pkgDoc = await metaDoc.get();
+  const pkgData = await pkgDoc.data();
 
-  pkgData.count++
+  pkgData.count++;
 
-  await metaDoc.set(pkgData)
-}
-
+  await metaDoc.set(pkgData);
+};
 
 module.exports.decrementMetaDataCount = async (doc) => {
-  let metaDoc = fs.collection('metadata').doc(doc)
-  pkgDoc = await metaDoc.get()
-  pkgData = await pkgDoc.data();
+  const metaDoc = fs.collection("metadata").doc(doc);
+  const pkgDoc = await metaDoc.get();
+  const pkgData = await pkgDoc.data();
 
-  pkgData.count--
-  await metaDoc.set(pkgData)
-}
-
+  pkgData.count--;
+  await metaDoc.set(pkgData);
+};
 
 module.exports.getMetaDataDocument = async (doc) => {
-  let metaDoc = fs.collection('metadata').doc(doc)
-  pkgDoc = await metaDoc.get()
-  pkgData = await pkgDoc.data();
-  return pkgData
-}
+  const metaDoc = fs.collection("metadata").doc(doc);
+  const pkgDoc = await metaDoc.get();
+  const pkgData = await pkgDoc.data();
+  return pkgData;
+};
+
 /**
- *
  * @param {array} arr
  * @param {number} size
- * @returns
+ * @return {array}
  */
- module.exports.chunk = (arr, size) => {
+module.exports.chunk = (arr, size) => {
   return [...Array(Math.ceil(arr.length / size))].map((_, i) =>
-    arr.slice(size * i, size + size * i)
+    arr.slice(size * i, size + size * i),
   );
 };

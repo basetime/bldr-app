@@ -1,47 +1,48 @@
 // @ts-check
-const axios = require('axios').default
+const axios = require("axios").default;
 const express = require("express");
 const router = express.Router();
 const { fs } = require("../utils/database/firebase");
-const utils = require("../utils/index")
+const utils = require("../utils/index");
 
 // const utils = require("../utils/index");
 
 /**
  * Request for all package docs
  */
-router.get("/", async function (req, res) {
+router.get("/", async (req, res) => {
   try {
-    let start = (req.query.start && Number(req.query.start)) || 0;
-    let end = (req.query.end && Number(req.query.end)) || 0;
-    let pageSize = (req.query.pagesize && Number(req.query.pagesize)) || 20;
-    let filterTS = (req.query.since) || null;
-    let uid = (req.query.uid) || null;
+    const start = (req.query.start && Number(req.query.start)) || 0;
+    const end = (req.query.end && Number(req.query.end)) || 0;
+    const pageSize = (req.query.pagesize && Number(req.query.pagesize)) || 20;
+    const filterTS = req.query.since || null;
+    const uid = req.query.uid || null;
 
-    let packageMetaData = await utils.getMetaDataDocument('packages');
-
-    let data = await utils.readCollection(
-      // @ts-ignore
-      uid,
-      start,
-      end,
-      pageSize,
-      filterTS
+    const packageMetaData = await utils.getMetaDataDocument("packages");
+    const data = await utils.readCollection(
+        // @ts-ignore
+        uid,
+        start,
+        end,
+        pageSize,
+        filterTS,
     );
 
-    if (data.status === 'ok') {
-      let packages = data.data
+    if (data.status === "ok") {
+      const packages = data.data;
+
       for (const p in packages) {
-        let package = packages[p];
-        const uid = package.uid;
-        const profileData = await utils.readProfileData(uid)
-        data.data[p].userData = profileData;
+        if (packages[p]) {
+          const package = packages[p];
+          const uid = package.uid;
+          const profileData = await utils.readProfileData(uid);
+          data.data[p].userData = profileData;
+        }
       }
     }
 
-    // data.data = await utils.chunk(data.data, 10)
+    data.totalPackageCount = packageMetaData.count;
 
-    console.log(data)
     res.status(200);
     res.json(data);
   } catch (err) {
@@ -54,47 +55,43 @@ router.get("/", async function (req, res) {
   }
 });
 
-
 /**
  *
  */
 router.post("/submit", async (req, res, next) => {
   try {
-
     if (!req.body) {
-      throw new Error('No Payload Provided')
+      throw new Error("No Payload Provided");
     }
 
     if (!req.body.uid) {
-      throw new Error('No User ID Provided')
+      throw new Error("No User ID Provided");
     }
 
-    if (!req.body.provider || req.body.provider === 'unknown') {
-      throw new Error('No Git Provider')
+    if (!req.body.provider || req.body.provider === "unknown") {
+      throw new Error("No Git Provider");
     }
 
     if (!req.body.packageURL) {
-      throw new Error('No Package Provided')
+      throw new Error("No Package Provided");
     }
 
     const { provider, packageURL, uid } = req.body;
 
-
     const doesPackageExist = async () => {
       // console.log(packageURL)
       const snapshot = await fs
-        .collection('packages')
-        .where('repositoryLink', '==', packageURL)
-        .get()
+          .collection("packages")
+          .where("repositoryLink", "==", packageURL)
+          .get();
 
-      return !snapshot.empty
-    }
+      return !snapshot.empty;
+    };
 
     let getRepository;
     let getRepositoryResponse;
     let cleanPackageURL;
     let checkRepository;
-    let gitResponse;
     let deployArray;
     let owner;
     let repository;
@@ -106,49 +103,55 @@ router.post("/submit", async (req, res, next) => {
 
     let checkPackage = await doesPackageExist();
 
-    let created_at = new Date();
-    let created_at_out = created_at.toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })
-    let createdAtTS = created_at.getTime()
+    const createdAt = new Date();
+    const createdAtOut = createdAt.toLocaleDateString("en-US", {
+      weekday: "long",
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+    });
+    const createdAtTS = createdAt.getTime();
 
     if (!checkPackage) {
-      if (provider === 'github') {
-        cleanPackageURL = packageURL.replace(/^\/\/|^.*?:(\/\/)?/, '');
-        deployArray = cleanPackageURL.split('/');
+      if (provider === "github") {
+        cleanPackageURL = packageURL.replace(/^\/\/|^.*?:(\/\/)?/, "");
+        deployArray = cleanPackageURL.split("/");
         owner = deployArray[1];
         repository =
-          deployArray[2].indexOf('.') === -1
-            ? deployArray[2]
-            : deployArray[2].substring(0, deployArray[2].indexOf('.'));
-
+          deployArray[2].indexOf(".") === -1 ?
+            deployArray[2] :
+            deployArray[2].substring(0, deployArray[2].indexOf("."));
 
         checkRepository = await axios.get(
-          `https://api.github.com/repos/${owner}/${repository}`
+            `https://api.github.com/repos/${owner}/${repository}`,
         );
 
         if (
           checkRepository &&
-          Object.prototype.hasOwnProperty.call(checkRepository, 'message') &&
+          Object.prototype.hasOwnProperty.call(checkRepository, "message") &&
           // @ts-ignore
-          checkRepository.message === 'Not Found'
+          checkRepository.message === "Not Found"
         ) {
-          throw new Error(`${packageURL} cannot be found or is a private repository`)
+          throw new Error(
+              `${packageURL} cannot be found or is a private repository`,
+          );
         }
 
         getRepository = await axios.get(
-          `https://api.github.com/repos/${owner}/${repository}/contents/`
+            `https://api.github.com/repos/${owner}/${repository}/contents/`,
         );
 
         if (getRepository.status !== 200) {
-          throw new Error(getRepository.statusText)
+          throw new Error(getRepository.statusText);
         }
 
         getRepositoryResponse = getRepository.data;
-        gitPackageJSONFile = getRepositoryResponse.find((file) => file.name === '.package.manifest.json')
+        gitPackageJSONFile = getRepositoryResponse.find(
+            (file) => file.name === ".package.manifest.json",
+        );
 
         if (gitPackageJSONFile) {
-          packageJSONRequest = await axios.get(
-            gitPackageJSONFile.download_url
-          );
+          packageJSONRequest = await axios.get(gitPackageJSONFile.download_url);
 
           packageJSON = packageJSONRequest.data;
 
@@ -156,60 +159,58 @@ router.post("/submit", async (req, res, next) => {
             id: packageJSON.name,
             version: packageJSON.version,
             description: packageJSON.description,
+            tags: packageJSON.tags,
             uid,
             owner,
             repository,
             installLink: gitPackageJSONFile.url,
             repositoryLink: packageURL,
-            createdAt: created_at_out,
-            createdAtTS
-          }
+            createdAt: createdAtOut,
+            createdAtTS,
+          };
 
-          await fs
-            .collection("packages")
-            .doc(packageData.id)
-            .set(packageData)
+          await fs.collection("packages").doc(packageData.id).set(packageData);
 
           // await utils.incrementMetaDataCount('packages');
 
-          
-          let packageName = packageData.id;
-          for(let i = 0; i < 60; i++){
-            packageData.id = `${packageName}_${i}`
+          const packageName = packageData.id;
+          for (let i = 0; i < 60; i++) {
+            packageData.id = `${packageName}_${i}`;
+
             await fs
-              .collection("packages")
-              .doc(packageData.id)
-              .set(packageData)
+                .collection("packages")
+                .doc(packageData.id)
+                .set(packageData);
 
-            await utils.incrementMetaDataCount('packages');
+            await utils.incrementMetaDataCount("packages");
 
-            packageData.id = packageName
+            packageData.id = packageName;
           }
 
           checkPackage = await doesPackageExist();
           if (checkPackage) {
             data = {
-              status: 'ok',
-              statusText: `${packageData.id} has been saved.`
-            }
+              status: "ok",
+              statusText: `${packageData.id} has been saved.`,
+            };
           } else {
             data = {
-              status: 'error',
-              statusText: `There was an error saving ${packageData.id}.`
-            }
+              status: "error",
+              statusText: `There was an error saving ${packageData.id}.`,
+            };
           }
         } else {
           data = {
-            status: 'error',
-            statusText: `${packageURL} does not have a bldr package file.`
-          }
+            status: "error",
+            statusText: `${packageURL} does not have a bldr package file.`,
+          };
         }
       }
     } else {
       data = {
-        status: 'error',
-        statusText: `A package already exists for ${packageURL}`
-      }
+        status: "error",
+        statusText: `A package already exists for ${packageURL}`,
+      };
     }
 
     res.status(200);
@@ -217,8 +218,11 @@ router.post("/submit", async (req, res, next) => {
   } catch (err) {
     err.message;
 
-    let message = err && err.response && err.response.statusText
-    let statusText = message === 'Not Found' ? 'Repository cannot be found or may be private.' : err.message
+    const message = err && err.response && err.response.statusText;
+    const statusText =
+      message === "Not Found" ?
+        "Repository cannot be found or may be private." :
+        err.message;
 
     next({
       status: "error",

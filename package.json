@@ -7,6 +7,7 @@
     "build": "next build && next export",
     "start": "next start",
     "lint": "next lint",
+    "deploy": "next build && next export && firebase deploy --only hosting, functions",
     "deploy:hosting": "next build && next export && firebase deploy --only hosting"
   },
   "dependencies": {

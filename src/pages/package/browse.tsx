@@ -9,6 +9,7 @@ import { Paper, Grid, Divider, Box, Typography, Button, Stack } from '@mui/mater
 import axios from 'axios'
 import PackageFilter from '../../components/pages/browse/PackageFilter'
 import Pagination from '../../components/pages/browse/Pagination'
+import CircularProgress from '@mui/material/CircularProgress';
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
@@ -23,6 +24,7 @@ const BrowsePage: NextPage = () => {
   const { global } = useContext(GlobalContext)
   const [packages, setPackages] = useState({ status: '', count: 0, pages: {}, data: [] })
   const [filteredPackages, setFilteredPackages] = useState([])
+  const [isLoading, setIsLoading] = useState(true)
 
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
@@ -39,6 +41,7 @@ const BrowsePage: NextPage = () => {
       const intPackages = packageRequest.data.data.slice(0 * 10, 0 * 10 + 10);
       setFilteredPackages(intPackages)
       setPackages(packageRequest.data)
+
     }
 
   }, [router.isReady])
@@ -63,28 +66,46 @@ const BrowsePage: NextPage = () => {
 
   useEffect(() => {
     getPackages()
+
+
   }, [router.isReady])
 
 
   useEffect(() => {
-    const pagination = paginate(packages.data, rowsPerPage, page)
-    setFilteredPackages(pagination)
+    if (packages.data) {
+      const pagination = paginate(packages.data, rowsPerPage, page)
+      setFilteredPackages(pagination)
+    }
+
+    setIsLoading(false)
   }, [page])
 
-  if (packages.data.length) {
-    console.log(packages.data)
+  const onFormChange = (data: any) => {
+    let searchTerm = data.filter;
+
+    let updatedFilteredPackages = filteredPackages.map((pkg: { id: string }) => {
+      if (
+        pkg.id.includes(searchTerm)
+      ) {
+        return pkg
+      }
+    })
+
+    console.log(searchTerm)
+  };
+
+  if (!isLoading && packages.data.length) {
     return (
-      <Layout maxWidth={{ maxWidth: false }}>
+      <Layout maxWidth={{ maxWidth: 'xl' }}>
         <Grid item container>
-         
           <Grid xs={12} md={4} sx={{ marginRight: 10 }}>
-            <PackageFilter />
+            <PackageFilter onFormChange={onFormChange} />
           </Grid>
-          <Grid xs={12} md={7}>
-          <Grid xs={12} mb={3} mx={'auto'}>
-            <Pagination count={packages.count} onPage={page} rowsPerPage={rowsPerPage} onHandleChangePage={handleChangePage} onHandleChangeRowsPerPage={handleChangeRowsPerPage} />
-          </Grid>
-            {packages.data && <BrowsePackages packages={filteredPackages} />}
+          <Grid xs={12} md={6}>
+            <Grid xs={12} mb={3} mx={'auto'}>
+              <Pagination count={packages.count} onPage={page} rowsPerPage={rowsPerPage} onHandleChangePage={handleChangePage} onHandleChangeRowsPerPage={handleChangeRowsPerPage} />
+            </Grid>
+            {filteredPackages && <BrowsePackages packages={filteredPackages} />}
             <Grid xs={12} my={3} mx={'auto'}>
               <Pagination count={packages.count} onPage={page} rowsPerPage={rowsPerPage} onHandleChangePage={handleChangePage} onHandleChangeRowsPerPage={handleChangeRowsPerPage} />
             </Grid>
@@ -95,10 +116,23 @@ const BrowsePage: NextPage = () => {
     )
   }
 
-  return (
-    <></>
-  )
+  if (!isLoading) {//TODO add loading state
+    return (
+      <>
+        <Layout maxWidth={{ maxWidth: 'xl' }}>
+          <Typography>No packages to display.</Typography>
+        </Layout>
+      </>
+    )
+  }
 
+  return (
+    <>
+      <Layout maxWidth={{ maxWidth: 'xl' }}>
+        <CircularProgress />
+      </Layout>
+    </>
+  )
 
 }
 
