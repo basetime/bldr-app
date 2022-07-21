@@ -41,7 +41,7 @@ router.get("/", async (req, res) => {
       }
     }
 
-    data.totalPackageCount = packageMetaData.count;
+    data.totalPackageCount = packageMetaData && packageMetaData.count || 0;
 
     res.status(200);
     res.json(data);
@@ -173,19 +173,19 @@ router.post("/submit", async (req, res, next) => {
 
           // await utils.incrementMetaDataCount('packages');
 
-          const packageName = packageData.id;
-          for (let i = 0; i < 60; i++) {
-            packageData.id = `${packageName}_${i}`;
+          // const packageName = packageData.id;
+          // for (let i = 0; i < 60; i++) {
+          //   packageData.id = `${packageName}_${i}`;
 
-            await fs
-                .collection("packages")
-                .doc(packageData.id)
-                .set(packageData);
+          await fs
+              .collection("packages")
+              .doc(packageData.id)
+              .set(packageData);
 
-            await utils.incrementMetaDataCount("packages");
+          await utils.incrementMetaDataCount("packages");
 
-            packageData.id = packageName;
-          }
+          //   packageData.id = packageName;
+          // }
 
           checkPackage = await doesPackageExist();
           if (checkPackage) {

@@ -37,7 +37,7 @@ function MyApp({ Component, pageProps }: AppProps) {
       apiBase = 'http://127.0.0.1:5001/bldr-io/us-central1/bldrAPI/api/v1';
     } else {
       env = 'production';
-      apiBase = '/api/v1';
+      apiBase = 'https://us-central1-bldr-io.cloudfunctions.net/bldrAPI/api/v1';
     }
 
     setGlobal({

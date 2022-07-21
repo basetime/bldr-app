@@ -25,11 +25,10 @@ const LoginPage: NextPage = () => {
       const createRequest = await axios.post(`${global.apiBase}/user/create`, user.profile)
       console.log(createRequest)
     }
-    // if (user.isLoggedIn && !user.isNewUser) {
-    if (user.isLoggedIn) {
+    if (user.isLoggedIn && !user.isNewUser) {
       createProfile()
     }
-    console.log('trigger user')
+
   }, [user.isLoggedIn])
 
   return (
