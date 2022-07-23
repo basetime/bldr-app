@@ -1,24 +1,34 @@
 import Layout from '../../components/layouts/MainLayout'
+import Link from  'next/link'
+
 import DocumentationLayoutAlt from '../../components/layouts/DocumentationLayoutAlt'
 
 export const meta = {
     previous: {
-      label: 'Stash',
-      path: 'stash'
+      label: 'Clone',
+      path: 'clone'
     },
     next: {
-      label: 'Search',
-      path: 'search'
+      label: 'Push',
+      path: 'push'
     }
   }
 
-# My MDX page
+# $ add \<filepath\>
 
-This is a list in markdown:
+The Add command allows you to store your updated content and its details in a stash file. This stash file is what's used when pushing assets into your SFMC instance.
 
-- One
-- Two
-- Three
+Subsequent adds of the same file will update the stash file.
 
+```
+$ bldr add Content\ Builder/preference_center/modules/hero_subscribed
+
+Staged Files          
+------------------------------------------
+Content Builder/preference_center/modules/hero_subscribed  
+```
+
+
+<br />
 
 export default ({ children }) => <Layout> <DocumentationLayoutAlt meta={meta}>{children}</DocumentationLayoutAlt></Layout>

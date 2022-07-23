@@ -1,26 +1,102 @@
 import Layout from '../../components/layouts/MainLayout'
-import DocumentationLayoutAlt from '../../components/layouts/DocumentationLayoutAlt'
+import Link from  'next/link'
 
+import DocumentationLayoutAlt from '../../components/layouts/DocumentationLayoutAlt'
 
 export const meta = {
     previous: {
-      label: 'Stash',
-      path: 'stash'
-    },
-    next: {
       label: 'Search',
       path: 'search'
+    },
+    next: {
+      label: 'Add',
+      path: 'add'
     }
   }
-  
-# My MDX page
 
-This is a list in markdown:
+# $ clone
 
-- One
-- Two
-- Three
+Cloning for folders and assets requires the use of a context flag along with the name of the folder/asset you are cloaning. 
 
+## Cloning Folders
+When cloning from a folder ID, BLDR will identify all nested subfolders under the root ID. All folders and their assets will be gathered and created locally.
 
+```
+$ bldr clone --cb -f 93839
+created: Welcome Email 1
+created: Welcome Email 2
+created: welcome_hero_module_1
+created: coupon_module_1
+created: coupon_module_2
+created: Promotional Offer
+created: Winback Email 1 
+```
+
+### Folder and File Output
+
+```
+.
+|-- Welcome Program Assets (git repository)
+|---- Content Builder
+|   |---- Welcome Emails 
+|   |   |---- welcome_v1
+|   |   |   |---- Welcome Email 1.html
+|   |   |   |---- Promotional Offer.html
+|   |   |   |---- coupon_module_1.html
+|   |   |---- welcome_v2
+|   |   |   |---- Welcome Email 2.html
+|   |   |   |---- Winback Email 2.html
+|   |   |   |---- coupon_module_2.html
+|   |   |   |---- welcome_hero_module_1.html
+|---- .bldr
+|---- .local.manifest.json
+```
+<br />
+
+## Cloning Assets
+
+When cloning a specific asset, for example an automation, BLDR will start with the automation itself and work its way through all activities within it. In the example below, the automation `Welcome Automation Process` has: two SQL Queries, a Data Extension Extract, and an Email Send.
+
+When cloning an automation that has Email Sends, BLDR will pull both the user-initiated shell as well as the Content Builder email itself.
+
+```
+$ bldr clone --as -a 7e626e82-0831-4ade-9b24-2d2a6c8a7deb
+
+created: Welcome Automation Process
+created: init_welcome_audience
+created: welcome_suppression_purchase
+created: extract_analytics_data_extension
+created: Welcome Email 1.html
+
+```
+
+### Folder and File Output
+
+```
+.
+|-- Welcome Program Processing (git repository)
+|---- Automation Studio
+|   |---- my automations 
+|   |   |---- Welcome Automation Process.json
+|   |---- Query 
+|   |   |---- init_welcome_audience.sql
+|   |   |---- welcome_suppression_purchase.sql
+|   |---- Extracts 
+|   |   |---- extract_analytics_data_extension.json
+|   |---- User-Initiated 
+|   |   |---- Welcome Email 1.html.json
+|---- Content Builder
+|   |---- Welcome Emails 
+|   |   |---- welcome_v1
+|   |   |   |---- Welcome Email 1.html
+|---- .bldr
+|---- .local.manifest.json
+```
+
+## Asset Support
+
+All files that are fully supported will be created as either a `.html`, `.sql`, or `.js` file. Files that are partially supported will be created as a `.json` file.
+
+> For full details, see <Link href="/documentation/contexts"><a>Contexts</a></Link>
 
 export default ({ children }) => <Layout> <DocumentationLayoutAlt meta={meta}>{children}</DocumentationLayoutAlt></Layout>

@@ -55,7 +55,6 @@ const BrowsePage: NextPage = () => {
     setPage(newPage);
   };
 
-
   const handleChangeRowsPerPage = (
     event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
   ) => {
@@ -66,7 +65,6 @@ const BrowsePage: NextPage = () => {
 
   useEffect(() => {
     getPackages()
-
 
   }, [router.isReady])
 
@@ -94,44 +92,33 @@ const BrowsePage: NextPage = () => {
     console.log(searchTerm)
   };
 
-  if (!isLoading && packages.data.length) {
-    return (
-      <Layout maxWidth={{ maxWidth: 'xl' }}>
-        <Grid item container>
-          <Grid xs={12} md={4} sx={{ marginRight: 10 }}>
-            <PackageFilter onFormChange={onFormChange} />
-          </Grid>
-          <Grid xs={12} md={6}>
-            <Grid xs={12} mb={3} mx={'auto'}>
-              <Pagination count={packages.count} onPage={page} rowsPerPage={rowsPerPage} onHandleChangePage={handleChangePage} onHandleChangeRowsPerPage={handleChangeRowsPerPage} />
-            </Grid>
-            {filteredPackages && <BrowsePackages packages={filteredPackages} />}
-            <Grid xs={12} my={3} mx={'auto'}>
-              <Pagination count={packages.count} onPage={page} rowsPerPage={rowsPerPage} onHandleChangePage={handleChangePage} onHandleChangeRowsPerPage={handleChangeRowsPerPage} />
-            </Grid>
-          </Grid>
-
-        </Grid>
-      </Layout>
-    )
-  }
-
-  if (!isLoading) {//TODO add loading state
+  if (isLoading) {
     return (
       <>
         <Layout maxWidth={{ maxWidth: 'xl' }}>
-          <Typography>No packages to display.</Typography>
+          <CircularProgress />
         </Layout>
       </>
     )
   }
 
   return (
-    <>
-      <Layout maxWidth={{ maxWidth: 'xl' }}>
-        <CircularProgress />
-      </Layout>
-    </>
+    <Layout maxWidth={{ maxWidth: 'xl' }}>
+      <Grid item container>
+        {/* <Grid xs={12} md={4} sx={{ marginRight: 10 }}>
+          <PackageFilter onFormChange={onFormChange} />
+        </Grid> */}
+        <Grid xs={12} md={6} mx={'auto'}>
+          <Grid xs={12} mb={3} mx={'auto'}>
+            <Pagination count={packages.count} onPage={page} rowsPerPage={rowsPerPage} onHandleChangePage={handleChangePage} onHandleChangeRowsPerPage={handleChangeRowsPerPage} />
+          </Grid>
+          {filteredPackages && <BrowsePackages packages={filteredPackages} />}
+          <Grid xs={12} my={3} mx={'auto'}>
+            <Pagination count={packages.count} onPage={page} rowsPerPage={rowsPerPage} onHandleChangePage={handleChangePage} onHandleChangeRowsPerPage={handleChangeRowsPerPage} />
+          </Grid>
+        </Grid>
+      </Grid>
+    </Layout>
   )
 
 }

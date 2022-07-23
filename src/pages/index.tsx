@@ -53,6 +53,11 @@ const Index: NextPage = () => {
               label: 'Get BLDR CLI',
               href: 'https://www.npmjs.com/package/@basetime/bldr-sfmc',
               variant: 'outlined'
+            },
+            {
+              label: 'View Documentation',
+              href: '/documentation/getting-started',
+              variant: 'outlined'
             }
           ]}
         />
@@ -64,10 +69,10 @@ const Index: NextPage = () => {
             width: '20%'
           }}
           subtext='Bring Open-Source Front and Center in SFMC'
-          copy='Basetime.io is passionate about supporting open-source projects and forward focused Salesforce Marketing Cloud initiatives. Creating a way for users to share and deploy SFMC projects easily just made sense. Contributing to the BLDR Package Registry will not only give developers a chance to get their names out in the community but give users a way to accelerate what they are able to learn and achieve in SFMC.'
+          copy='Basetime.io is passionate about supporting open-source projects and Salesforce Marketing Cloud initiatives. Creating a way for users to share and deploy SFMC projects easily just made sense. Contributing to the BLDR Package Registry will not only give developers a chance to put their work out in the community but give users a way to accelerate what they are able to learn and achieve in SFMC.'
         />
 
-        <Box sx={{ flexGrow: 1, mx: 'auto', maxWidth: { xs: 'sm', md: 'md', lg: 'lg', xl: 'xl' } }}>
+        {/* <Box sx={{ flexGrow: 1, mx: 'auto', maxWidth: { xs: 'sm', md: 'md', lg: 'lg', xl: 'xl' } }}>
           <Grid
             container
             display='flex'
@@ -247,7 +252,7 @@ const Index: NextPage = () => {
               </Item>
             </Grid>
           </Grid>
-        </Box >
+        </Box > */}
       </Box>
     </Layout >
   )
