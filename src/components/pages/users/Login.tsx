@@ -1,22 +1,14 @@
-import React, { useContext, useEffect, useState } from 'react'
-import { useRouter } from 'next/router'
-import Box from '@mui/material/Box';
-import { Typography } from '@mui/material';
-import Layout from '../../layouts/MainLayout'
+import React, { useContext, useCallback, useEffect, useState } from 'react'
 import StyledFirebaseAuth from 'react-firebaseui/StyledFirebaseAuth';
 import firebase from 'firebase/compat/app';
 import AuthContext from '../../../context/AuthContext'
-import GlobalContext from '../../../context/GlobalContext'
 import SectionWrapper from '../SectionWrapper'
-import { useCookies } from 'react-cookie';
-import axios from 'axios';
 
-export const Login = () => {
-  const [cookies, setCookie] = useCookies(['bldr_session']);
+
+export const Login = (props: {
+  onCookieRedirect: Function;
+}) => {
   const { user, setUser } = useContext(AuthContext)
-  const { global } = useContext(GlobalContext)
-
-  const router = useRouter();
 
   // Configure FirebaseUI.
   const uiConfig = {

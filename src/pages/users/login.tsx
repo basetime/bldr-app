@@ -16,24 +16,27 @@ const LoginPage: NextPage = () => {
 
   if (user.isLoggedIn) {
       const returnURL = router.query && `${router.query.returnTo}` || '/'
-      console.log(returnURL)
       router.push(returnURL)
   }
 
   useEffect(() => {
     const createProfile = async () => {
       const createRequest = await axios.post(`${global.apiBase}/user/create`, user.profile)
-      console.log(createRequest)
     }
+
     if (user.isLoggedIn && !user.isNewUser) {
       createProfile()
     }
-
   }, [user.isLoggedIn])
+
+  const useHandleCookieRedirect = (returnURL: string) => {
+    console.log('handle cookie', returnURL)
+    router.push(returnURL)
+  }
 
   return (
     <Layout>
-      <Login />
+      <Login onCookieRedirect={useHandleCookieRedirect}/>
     </Layout >
   )
 }

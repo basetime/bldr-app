@@ -46,29 +46,6 @@ function MyApp({ Component, pageProps }: AppProps) {
     })
   }, [])
 
-
-  const checkUserCookie = useCallback(() => {
-    if (!!sessionCookie.bldr_session) {
-      setUser({
-        isLoggedIn: true,
-        isNewUser: false,
-        profile: sessionCookie.bldr_session
-      })
-      
-    } else {
-      setUser({
-        isLoggedIn: false,
-        isNewUser: false
-      })
-
-      router.push('/')
-    }
-    //@ts-ignore
-  }, [user.isLoggedIn])
-
-  //@ts-ignore
-
-  useEffect(() => checkUserCookie(), [])
   
   // TODO move Firebase fetched from serverside
   // Configure Firebase.
