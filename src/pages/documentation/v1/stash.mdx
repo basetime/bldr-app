@@ -1,0 +1,71 @@
+import Layout from '../../../components/layouts/MainLayout'
+import DocumentationLayoutAlt from '../../../components/layouts/DocumentationLayoutAlt'
+
+export const meta = {
+    previous: {
+      label: 'Status',
+      path: 'status'
+    },
+    next: {
+      label: 'Init',
+      path: 'init'
+    }
+  }
+
+# $ stash
+
+BLDR Stash is part of the state management system where content updates are stored prior to being updated within the platform. 
+
+
+```
+  {
+    "CodyDev": {
+      "stash": [{
+          "path": ".../Content Builder/preference_center/modules/hero_subscribed.html",
+          "bldr": {
+            "id": 449849,
+            "context": "contentBuilder",
+            "bldrId": "57ed70ce-c813-4255-8fd1-15dcd2e11daa",
+            "folderPath": "Content Builder/preference_center/modules/hero_subscribed.html"
+          },
+          "fileContent": "..."
+      }]
+    },
+    "BrandyMKTG": {
+      "stash": [{
+          "path": ".../Content Builder/Welcome Emails/welcome_v2/Welcome Email 1.html",
+          "bldr": {
+            "id": 339282,
+            "context": "contentBuilder",
+            "bldrId": "827ekc9w-u837-2209-9gk2-hcj837kj39dd",
+            "folderPath": "Content Builder/Welcome Emails/welcome_v2/Welcome Email 1.html"
+          },
+          "fileContent": "..."
+      }]
+    }
+  }
+```
+<br />
+
+## Clear stash
+
+`bldr stash -c`
+
+```
+  $ bldr clear -c
+
+  Current State                                          
+  {                                                                                                         
+    "instance": "BrandyMKTG", 
+    "parentMID": "2928190",                    
+    "activeMID": "2928190"
+  }    
+
+  Staged Files
+  ---------------------------------------------------------------
+  No Files Staged 
+```
+
+<br />
+
+export default ({ children }) => <Layout> <DocumentationLayoutAlt meta={meta}>{children}</DocumentationLayoutAlt></Layout>

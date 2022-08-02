@@ -1,6 +1,4 @@
 import '../../styles/globals.css'
-// import '../../styles/forms.css'
-
 import { AppProps } from 'next/app'
 import { useState, useMemo, useEffect, useCallback } from 'react'
 import { CookiesProvider } from 'react-cookie';
@@ -8,23 +6,20 @@ import AuthContext from '../context/AuthContext'
 import GlobalContext from '../context/GlobalContext'
 import firebase from 'firebase/compat/app';
 import 'firebase/compat/auth';
-import axios from 'axios';
 import { useCookies } from 'react-cookie';
-import {useRouter} from 'next/router'
-import { Router } from '@mui/icons-material';
+import { useRouter } from 'next/router'
 
 function MyApp({ Component, pageProps }: AppProps) {
   const [sessionCookie] = useCookies(['bldr_session']);
   const [user, setUser] = useState({})
   const [global, setGlobal] = useState({
     env: '',
-    apiBase: ''
+    apiBase: '',
+    docVersion: 1
   })
 
-  const router = useRouter();
   const authContext = useMemo(() => ({ user, setUser }), [user, setUser])
   const globalContext = useMemo(() => ({ global, setGlobal }), [global, setGlobal])
-
 
   // Set Global vars
   // Get Initial Packages
@@ -40,13 +35,24 @@ function MyApp({ Component, pageProps }: AppProps) {
       apiBase = 'https://us-central1-bldr-io.cloudfunctions.net/bldrAPI/api/v1';
     }
 
-    setGlobal({
-      env,
-      apiBase
+    setGlobal((prevState) => {
+      return {
+        ...prevState,
+        env,
+        apiBase,
+      }
     })
+
+    if(sessionCookie && sessionCookie.bldr_session){
+      setUser({
+        isLoggedIn: true,
+        isNewUser: false,
+        profile: sessionCookie.bldr_session
+      })
+    }
   }, [])
 
-  
+
   // TODO move Firebase fetched from serverside
   // Configure Firebase.
   const config = {

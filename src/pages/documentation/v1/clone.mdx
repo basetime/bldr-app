@@ -1,7 +1,6 @@
-import Layout from '../../components/layouts/MainLayout'
 import Link from  'next/link'
-
-import DocumentationLayoutAlt from '../../components/layouts/DocumentationLayoutAlt'
+import Layout from '../../../components/layouts/MainLayout'
+import DocumentationLayoutAlt from '../../../components/layouts/DocumentationLayoutAlt'
 
 export const meta = {
     previous: {
@@ -97,6 +96,6 @@ created: Welcome Email 1.html
 
 All files that are fully supported will be created as either a `.html`, `.sql`, or `.js` file. Files that are partially supported will be created as a `.json` file.
 
-> For full details, see <Link href="/documentation/contexts"><a>Contexts</a></Link>
+> For full details, see <Link href="/documentation/v1/contexts"><a>Contexts</a></Link>
 
 export default ({ children }) => <Layout> <DocumentationLayoutAlt meta={meta}>{children}</DocumentationLayoutAlt></Layout>

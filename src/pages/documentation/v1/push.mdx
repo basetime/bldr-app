@@ -1,0 +1,35 @@
+import Layout from '../../../components/layouts/MainLayout'
+import DocumentationLayoutAlt from '../../../components/layouts/DocumentationLayoutAlt'
+
+
+export const meta = {
+    previous: {
+      label: 'Stash',
+      path: 'stash'
+    },
+    next: {
+      label: 'Search',
+      path: 'search'
+    }
+  }
+
+# $ Push
+
+The Push command allows you to take the files that have been added to the stash and create or update them in your targeted SFMC isntance. Once files have been created or updated in SFMC, the contents of the file will be updated in the `.local.manifest.json` file for that entry.
+
+```
+$ bldr push
+
+Updated Files          
+------------------------------------------
+Content Builder/brandy_welcome_emails/journey_v1/welcome_email_1                                                      
+Content Builder/brandy_welcome_emails/journey_v1/welcome_coupon                                                     
+Content Builder/brandy_welcome_emails/journey_v1/welcome_coupon_reminder                                                  
+Content Builder/brandy_welcome_emails/journey_v1/welcome_last_chance                                             
+Content Builder/brandy_welcome_emails/journey_v2/welcome_account_setup  
+```
+
+<br />
+
+
+export default ({ children }) => <Layout> <DocumentationLayoutAlt meta={meta}>{children}</DocumentationLayoutAlt></Layout>

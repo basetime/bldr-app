@@ -29,14 +29,10 @@ const LoginPage: NextPage = () => {
     }
   }, [user.isLoggedIn])
 
-  const useHandleCookieRedirect = (returnURL: string) => {
-    console.log('handle cookie', returnURL)
-    router.push(returnURL)
-  }
 
   return (
     <Layout>
-      <Login onCookieRedirect={useHandleCookieRedirect}/>
+      <Login />
     </Layout >
   )
 }

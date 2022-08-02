@@ -6,7 +6,7 @@ import SectionWrapper from '../SectionWrapper'
 
 
 export const Login = (props: {
-  onCookieRedirect: Function;
+ 
 }) => {
   const { user, setUser } = useContext(AuthContext)
 

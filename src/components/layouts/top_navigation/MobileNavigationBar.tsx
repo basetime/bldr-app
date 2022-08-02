@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, {useContext} from 'react';
 import Box from '@mui/material/Box';
 import Avatar from '@mui/material/Avatar';
 import Menu from '@mui/material/Menu';
@@ -14,6 +14,7 @@ import Settings from '@mui/icons-material/Settings';
 import Logout from '@mui/icons-material/Logout';
 import { pages } from './TopNavigationOptions'
 import Link from 'next/link'
+import GlobalContext from '../../../context/GlobalContext';
 
 
 
@@ -27,7 +28,8 @@ export const MobileNavigationBar = () => {
   const handleClose = () => {
     setAnchorEl(null);
   };
-
+  const { global} = useContext(GlobalContext)
+  const navPages = pages(global.docVersion)
   return (
     <>
       <Box sx={{ width: '100%', display: 'bock', alignItems: 'center', textAlign: 'center' }}>
@@ -80,7 +82,7 @@ export const MobileNavigationBar = () => {
         anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
       >
 
-        {pages.map((page) => (
+        {navPages.map((page) => (
           <Link key={page.label} passHref href={`${page.route}`}>
             <MenuItem
               sx={{

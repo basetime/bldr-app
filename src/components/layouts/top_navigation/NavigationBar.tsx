@@ -23,6 +23,8 @@ import Link from 'next/link'
 import { pages } from './TopNavigationOptions'
 import { MobileNavigationBar } from './MobileNavigationBar'
 import AuthContext from '../../../context/AuthContext'
+import GlobalContext from '../../../context/GlobalContext'
+
 type Event = {
   currentTarget: any
 }
@@ -69,7 +71,10 @@ export default function PrimarySearchAppBar() {
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
 
   const { user } = useContext(AuthContext)
+  const { global } = useContext(GlobalContext)
+  const navPages = pages(global.docVersion)
 
+  console.log(navPages)
   const handleProfileMenuOpen = (event: Event) => {
     setAnchorEl(event.currentTarget);
   };
@@ -109,7 +114,7 @@ export default function PrimarySearchAppBar() {
           </Typography>
           <Box sx={{ flexGrow: 1 }} />
           <Box sx={{ maxWidth: 'md', flexGrow: 1, justifyContent: 'end', display: { xs: 'none', md: 'flex' } }}>
-            {pages.map((page) => (
+            {navPages.map((page) => (
               <Link key={page.label} passHref href={`${page.route}`}>
                 <Button
                   sx={{ my: 2, mx: 4, color: 'white', display: 'block', letterSpacing: '.2rem', fontSize: 15 }}
@@ -141,7 +146,7 @@ export default function PrimarySearchAppBar() {
               }
             }}
           >
-            <MobileNavigationBar />
+            <MobileNavigationBar navPages={navPages}/>
           </Box>
         </Toolbar>
         {/* <Toolbar sx={{ display: "flex", backgroundColor: '#ffffff' }}>

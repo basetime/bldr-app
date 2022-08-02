@@ -1,6 +1,5 @@
-import Layout from '../../components/layouts/MainLayout'
-import DocumentationLayoutAlt from '../../components/layouts/DocumentationLayoutAlt'
-
+import Layout from '../../../components/layouts/MainLayout'
+import DocumentationLayoutAlt from '../../../components/layouts/DocumentationLayoutAlt'
 
 export const meta = {
     previous: {
@@ -12,7 +11,7 @@ export const meta = {
       path: 'search'
     }
   }
-
+  
 # My MDX page
 
 This is a list in markdown:
@@ -20,5 +19,6 @@ This is a list in markdown:
 - One
 - Two
 - Three
+
 
 export default ({ children }) => <Layout> <DocumentationLayoutAlt meta={meta}>{children}</DocumentationLayoutAlt></Layout>

@@ -1,0 +1,50 @@
+import Link from  'next/link'
+import Layout from '../../../components/layouts/MainLayout'
+import DocumentationLayoutAlt from '../../../components/layouts/DocumentationLayoutAlt'
+
+export const meta = {
+    previous: {
+      label: 'Clone',
+      path: 'clone'
+    },
+    next: {
+      label: 'Push',
+      path: 'push'
+    }
+  }
+
+# $ add
+
+The Add command allows you to store your updated content and its details in a stash file. This stash file is what's used when pushing assets into your SFMC instance.
+
+Subsequent adds of the same file will update content in the stash file.
+
+
+## Add Single Files
+Note: Your terminal should be able to complete the file path by pressing `Tab`. Spaces also must be escaped by placing a `\` before the space.
+
+```
+$ bldr add Content\ Builder/preference_center/modules/hero_subscribed
+
+Staged Files          
+------------------------------------------
+Content Builder/brandy_welcome_emails/journey_v1/welcome_email_1 
+```
+
+## Add all files in a folder
+
+```
+$ bldr add .
+
+Staged Files          
+------------------------------------------
+Content Builder/brandy_welcome_emails/journey_v1/welcome_email_1                                                      
+Content Builder/brandy_welcome_emails/journey_v1/welcome_coupon                                                     
+Content Builder/brandy_welcome_emails/journey_v1/welcome_coupon_reminder                                                  
+Content Builder/brandy_welcome_emails/journey_v1/welcome_last_chance                                             
+Content Builder/brandy_welcome_emails/journey_v2/welcome_account_setup  
+```
+
+<br />
+
+export default ({ children }) => <Layout> <DocumentationLayoutAlt meta={meta}>{children}</DocumentationLayoutAlt></Layout>

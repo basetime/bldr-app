@@ -89,6 +89,10 @@ export const DocumentationItems = [
     doc: 'push'
   },
   {
+    type: 'divider',
+    label: 'divider-pkgs'
+  },
+  {
     type: 'item',
     label: 'package',
     icon: <DynamicFeedIcon />,

@@ -1,5 +1,5 @@
-import Layout from '../../components/layouts/MainLayout'
-import DocumentationLayoutAlt from '../../components/layouts/DocumentationLayoutAlt'
+import Layout from '../../../components/layouts/MainLayout'
+import DocumentationLayoutAlt from '../../../components/layouts/DocumentationLayoutAlt'
 
 export const meta = {
     previous: {
@@ -56,7 +56,7 @@ Asset types that are partially supported are any not listed in the _Fully Suppor
 
 Support for CloudPages and Code Resource Pages falls somewhere in-between _fully supported_ and _partially supported_.
 
-These asset types will not show up or be cloned down when running the clone command for a folder Id -- these assets are stored under the root _Content Builder_ folder. To access and clone CloudPages and Code Resource Pages, run `bldr search --cb {page/resource name}`. As long as the asset exists it will be displayed, then run `bldr clone --cb -a <assetId>`.
+These asset types will not show up or be cloned down when running the clone command for a folder Id -- these assets are stored under the root _Content Builder_ folder. To access and clone CloudPages and Code Resource Pages, run `bldr search --cb {cloudpage/resource name}`. As long as the asset exists it will be displayed, then run `bldr clone --cb -a <assetId>`.
 
 Once cloned, they will be created in the root `Content Builder` folder in your local directory.
 
