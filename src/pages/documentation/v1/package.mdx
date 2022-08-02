@@ -3,22 +3,27 @@ import DocumentationLayoutAlt from '../../../components/layouts/DocumentationLay
 
 export const meta = {
     previous: {
-      label: 'Stash',
-      path: 'stash'
+      label: 'Push',
+      path: 'push'
     },
     next: {
-      label: 'Search',
-      path: 'search'
+      label: 'Install',
+      path: 'install'
     }
   }
   
-# My MDX page
+# $ package
 
-This is a list in markdown:
+Aside from being a development tool, BLDR provides a way for you to migrate or share your code among your team or within the SFMC community. 
 
-- One
-- Two
-- Three
+With the `bldr package` command, bldr will take the following actions:
+1. Slim down your `.local.manifest.json` file by removing the asset details that are not needed to create your assets elsewhere
+2. If you have a `.sfmc.config.json` file, bldr will run the process to update your configuration keys
+3. Scan all files to locate dependencies within HTML, AMPscript, and SSJS
+4. Grab all dependencies as needed and replace their spot in your file with the generated bldrIds
+5. Creates your `.package.manifest.json` file
+
+
 
 
 export default ({ children }) => <Layout> <DocumentationLayoutAlt meta={meta}>{children}</DocumentationLayoutAlt></Layout>

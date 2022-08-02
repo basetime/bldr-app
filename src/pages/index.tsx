@@ -56,7 +56,7 @@ const Index: NextPage = () => {
             },
             {
               label: 'View Documentation',
-              href: '/documentation/',
+              href: '/documentation/v1/getting-started',
               variant: 'outlined'
             }
           ]}

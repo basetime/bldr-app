@@ -7,7 +7,6 @@ import GlobalContext from '../context/GlobalContext'
 import firebase from 'firebase/compat/app';
 import 'firebase/compat/auth';
 import { useCookies } from 'react-cookie';
-import { useRouter } from 'next/router'
 
 function MyApp({ Component, pageProps }: AppProps) {
   const [sessionCookie] = useCookies(['bldr_session']);

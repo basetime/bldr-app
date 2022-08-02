@@ -17,9 +17,11 @@ import Link from 'next/link'
 import GlobalContext from '../../../context/GlobalContext';
 
 
+interface Props {
+  navPages: object[]
+}
 
-
-export const MobileNavigationBar = () => {
+export const MobileNavigationBar = (props: Props) => {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
   const handleClick = (event: { currentTarget: React.SetStateAction<any>; }) => {
