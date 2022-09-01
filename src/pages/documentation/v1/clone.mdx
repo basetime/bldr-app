@@ -15,20 +15,34 @@ export const meta = {
 
 # $ clone
 
-Cloning for folders and assets requires the use of a context flag along with the name of the folder/asset you are cloaning. 
+Cloning for folders and assets requires the use of a context flag along with the ID of the folder/asset you are cloning. 
 
+| flags        | description                          |
+| ------------ | ------------------------------------ |
+| --cb -f      | Content Builder Folder ID to Clone   |
+| --cb -a      | Content Builder Asset ID to Clone    |
+| --as -f      | Automation Folder ID to Clone        |
+| --as -a      | Automation Object ID to Clone        |
+| --as -f:sql  | SQL Activity Folders                 |
+| --as -a:sql  | SQL Activity Assets                  |
+| --as -f:ssjs | SSJS Activity Folders                |
+| --as -a:ssjs | SSJS Activity Assets                 |
+| --de -f      | Data Extension Folder Id to Clone    |
+| --de -a      | Data Extension Customer Key to Clone |
+                
 ## Cloning Folders
-When cloning from a folder ID, BLDR will identify all nested subfolders under the root ID. All folders and their assets will be gathered and created locally.
+When cloning from a folder ID, BLDR will identify all nested sub-folders under the root ID. All folders and their assets will be gathered and created locally and added to the `.local.manifest.json` file.
 
 ```
 $ bldr clone --cb -f 93839
-created: Welcome Email 1
-created: Welcome Email 2
-created: welcome_hero_module_1
-created: coupon_module_1
-created: coupon_module_2
-created: Promotional Offer
-created: Winback Email 1 
+Starting Clone
+created [local]: Welcome Email 1
+created [local]: Welcome Email 2
+created [local]: welcome_hero_module_1
+created [local]: coupon_module_1
+created [local]: coupon_module_2
+created [local]: Promotional Offer
+created [local]: Winback Email 1 
 ```
 
 ### Folder and File Output
@@ -47,12 +61,11 @@ created: Winback Email 1
 |   |   |   |---- Winback Email 2.html
 |   |   |   |---- coupon_module_2.html
 |   |   |   |---- welcome_hero_module_1.html
-|---- .bldr
 |---- .local.manifest.json
 ```
 <br />
 
-## Cloning Assets
+## Cloning Automation Assets
 
 When cloning a specific asset, for example an automation, BLDR will start with the automation itself and work its way through all activities within it. In the example below, the automation `Welcome Automation Process` has: two SQL Queries, a Data Extension Extract, and an Email Send.
 
@@ -66,7 +79,6 @@ created: init_welcome_audience
 created: welcome_suppression_purchase
 created: extract_analytics_data_extension
 created: Welcome Email 1.html
-
 ```
 
 ### Folder and File Output
@@ -88,7 +100,6 @@ created: Welcome Email 1.html
 |   |---- Welcome Emails 
 |   |   |---- welcome_v1
 |   |   |   |---- Welcome Email 1.html
-|---- .bldr
 |---- .local.manifest.json
 ```
 
@@ -96,6 +107,6 @@ created: Welcome Email 1.html
 
 All files that are fully supported will be created as either a `.html`, `.sql`, or `.js` file. Files that are partially supported will be created as a `.json` file.
 
-> For full details, see <Link href="/documentation/v1/contexts"><a>Contexts</a></Link>
+For full details, see <Link href="/documentation/v1/contexts"><a>Contexts</a></Link>
 
 export default ({ children }) => <Layout> <DocumentationLayoutAlt meta={meta}>{children}</DocumentationLayoutAlt></Layout>

@@ -25,6 +25,7 @@ BLDR defines SFMC Contexts as the _builders/studios_ and _objects/assets_ within
 | -------------------- | ------------------------- |
 | Content Builder      | --cb, --content-builder   |
 | Automation Studio    | --as, --automation-studio |
+| Data Extension       | --de, --data-extension    |
 
 <br />
 ---
@@ -70,10 +71,13 @@ Assets within Automation Studio are separated out into sub-contexts based on act
 
 | Sub-Context        | Flag     |
 | -------------------| ---------|
-| SQL Query          | --sql    |
-| Script Activity    | --ssjs   |
+| SQL Query          | :sql     |
+| Script Activity    | :ssjs    |
 
-Sub-context flags can be used directly following the `--as` flag; `bldr search --as --sql <query name>`.
+Sub-context flags can be used directly following the `-f` and `-a` flags.
+`bldr search --as -a:sql <query name>` <br/>
+`bldr clone --as -f:ssjs <ssjs folder id>`
+
 
 <br />
 

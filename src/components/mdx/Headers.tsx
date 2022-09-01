@@ -13,10 +13,16 @@ const H3 = styled.h3`
     font-family: Roboto;
 `
 
+const H4 = styled.h4`
+    color: #1e1e1e;
+    font-family: Roboto;
+`
+
 const Headers = {
   H1,
   H2,
-  H3
+  H3,
+  H4
 }
 
 export default Headers;

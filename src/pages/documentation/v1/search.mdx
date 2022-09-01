@@ -15,18 +15,47 @@ export const meta = {
 # $ search
 
 Searching for folders and assets requires the use of a context flag along with the name of the folder/asset you are searching for. The search will match anything with your search term in the name, both full and partial matches.
+  
+
+  | flags        | description             |
+  | ------------ | ----------------------- |
+  | --cb -f      | Content Builder Folders |
+  | --cb -a      | Content Builder Assets  |
+  | --as -f      | Automation Folders      |
+  | --as -a      | Automation Assets       |
+  | --as -f:sql  | SQL Activity Folders    |
+  | --as -a:sql  | SQL Activity Assets     |
+  | --as -f:ssjs | SSJS Activity Folders   |
+  | --as -a:ssjs | SSJS Activity Assets    |
+  | --de -f      | Data Extension Folders  |
+  | --de -a      | Data Extension Assets   |
+
 
 ## Folder Searches
 All folder searches will return the following format.
 
 `bldr search --cb -f welcome`
 
-  | Name           | ID    | Parent Name     | Content Type |
-  | -------------- | ----- | --------------- | ------------ |
-  | Welcome Emails | 93839 | Content Builder | asset        |
-  | welcome_v1     | 93840 | Welcome Emails  | asset        |
-  | welcome_v2     | 93841 | Welcome Emails  | asset        |
+```
+welcome Search Results | 120 Results
+---
+ID 97203
+Name Welcome Emails
+CreatedDate 2022-05-17T11:12:52.337
+ModifiedDate 2022-05-17T11:12:52.337
+ParentFolder.Name Content Builder
+ParentFolder.ID 35088
+ 
+---
+ID 97204
+Name welcome_v1
+CreatedDate 2022-05-17T11:13:59.367
+ModifiedDate 2022-05-17T11:13:59.367
+ParentFolder.Name Welcome Emails
+ParentFolder.ID 97203
 
+...
+```
 
 ## Asset Searches
 
@@ -35,30 +64,48 @@ Content Builder asset searches will identify the assetId and assetType with othe
 
 `bldr search --cb -a welcome`
 
-| Name            | ID    | Type               | Folder Name | Folder ID | Last Modified |
-| --------------- | ----- | ------------------ | ----------- | --------- | ------------- |
-| Welcome Email 1 | 96330 | templatebasedemail | welcome_v1  | 93840     | 2022-05-26    |
+```
+  welcome Search Results | 1 Results
+  ---
+  ID 96330
+  Name Welcome Email 1
+  AssetType htmlemail
+  CreatedDate 2022-05-26T09:03:45.137-06:00
+  ModifiedDate 2022-05-26T14:17:15.737-06:00
+  Category.Name welcome_v1
+  Category.ParentId 97204
+```
 
 <br />
+
 ### Automation Studio
 Automation Studio asset searches will return the ObjectId with other important details to identify the correct asset.
 
 `bldr search --as -a welcome` 
+```
+  welcome Search Results | 1 Results
+  ---
+  ObjectId 7e626e82-0831-4ade-9b24-2d2a6c8a7deb
+  Name welcome_process
+  Description Welcome Automation for new subscribers
+  Status 2
+  CreatedDate 2022-04-22T10:34:32.91
+  ModifiedDate 2022-05-03T10:32:58.123
+  IsActive true
+```
 
-  | Name            | Object ID                            | Active | Status | Last Modified |
-  | --------------- | ------------------------------------ | ------ | ------ | ------------- |
-  | welcome_process | 7e626e82-0831-4ade-9b24-jsks08903822 | true   | Ready  | 2022-05-03    |
+`bldr search --as -a:sql welcome` 
 
+```
+  welcome Search Results | 1 Results
+  ---
+  Name welcome_segment
+  queryDefinitionId f0a09df6-5611-4eca-8aeb-65a7be9decef
+  CategoryID 117528
+  ModifiedDate 2022-08-24T12:41:33.73
 
-The Automation Studio context also allows for searching for both SQL Queries and SSJS Activities.
+```
 
-`bldr search --as --sql welcome` 
-
-| Name                           | Object ID                            | Folder ID | Last Modified |
-| ------------------------------ | ------------------------------------ | --------- | ------------- |
-| init_welcome_audience          | f0a09df6-5611-4eca-8aeb-65a7be9decef | 35075     | 2022-05-10    |
-| suppress_from_welcome_purchase | 419f2971-6684-4015-87f2-1bb83dbb0167 | 35075     | 2022-05-10    |
-
-
+<br />
 
 export default ({ children }) => <Layout> <DocumentationLayoutAlt meta={meta}>{children}</DocumentationLayoutAlt></Layout>

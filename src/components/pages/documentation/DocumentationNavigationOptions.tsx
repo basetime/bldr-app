@@ -21,18 +21,6 @@ export const DocumentationItems = [
     doc: 'getting-started'
   },
   {
-    type: 'item',
-    label: 'Security',
-    icon: <LockIcon />,
-    doc: 'security'
-  },
-  {
-    type: 'item',
-    label: 'Contexts',
-    icon: <SwitchLeftIcon />,
-    doc: 'contexts'
-  },
-  {
     type: 'divider',
     label: 'divider'
   },
@@ -89,10 +77,6 @@ export const DocumentationItems = [
     doc: 'push'
   },
   {
-    type: 'divider',
-    label: 'divider-pkgs'
-  },
-  {
     type: 'item',
     label: 'package',
     icon: <DynamicFeedIcon />,
@@ -102,12 +86,34 @@ export const DocumentationItems = [
     type: 'item',
     label: 'install',
     icon: <DownloadIcon />,
-    doc: 'configuration'
+    doc: 'install'
   },
   {
     type: 'item',
     label: 'deploy',
     icon: <SendIcon />,
     doc: 'deploy'
+  },
+  {
+    type: 'divider',
+    label: 'divider'
+  },
+  {
+    type: 'item',
+    label: 'Security',
+    icon: <LockIcon />,
+    doc: 'security'
+  },
+  {
+    type: 'item',
+    label: 'Contexts',
+    icon: <SwitchLeftIcon />,
+    doc: 'contexts'
+  },
+  {
+    type: 'item',
+    label: 'Environment Variables',
+    icon: <SwitchLeftIcon />,
+    doc: 'environment-variables'
   },
 ]

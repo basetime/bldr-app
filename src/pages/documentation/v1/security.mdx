@@ -22,13 +22,12 @@ BLDR CLI is a tool that interacts and integrates into your Salesforce Marketing 
 
 The BLDR CLI does not store any API credentials in plain-text or files directly stored on your machine. As a default, BLDR integrates with your machines password/credential management software; Mac users leverage [OSX Keychain Access](https://support.apple.com/guide/mac-help/use-keychains-to-store-passwords-mchlf375f392/mac), and Windows users leverage [Windows Credential Management](https://docs.microsoft.com/en-us/windows/win32/secauthn/credentials-management).
 
-<br />
 
 In addition to the security Keychain and Credential Management provide, BLDR takes additional steps to secure your credentials.
 
 During the initial configuration, an encryption key will be created and stored securely. 
 
-Prior to being stored, Client ID and Client Secret values from your Installed Packages will have a salt value added to them and ill be encrypted using [AES-256 encryption](https://en.wikipedia.org/wiki/Advanced_Encryption_Standard).
+Prior to being stored, Client ID and Client Secret values from your Installed Packages will have a salt value added to them and will be encrypted using [AES-256 encryption](https://en.wikipedia.org/wiki/Advanced_Encryption_Standard).
 
 
 # Data Handling

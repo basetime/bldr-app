@@ -27,7 +27,7 @@ Note: Your terminal should be able to complete the file path by pressing `Tab`. 
 $ bldr add Content\ Builder/preference_center/modules/hero_subscribed
 
 Staged Files          
-------------------------------------------
+----
 Content Builder/brandy_welcome_emails/journey_v1/welcome_email_1 
 ```
 
@@ -37,14 +37,26 @@ Content Builder/brandy_welcome_emails/journey_v1/welcome_email_1
 $ bldr add .
 
 Staged Files          
-------------------------------------------
-Content Builder/brandy_welcome_emails/journey_v1/welcome_email_1                                                      
-Content Builder/brandy_welcome_emails/journey_v1/welcome_coupon                                                     
-Content Builder/brandy_welcome_emails/journey_v1/welcome_coupon_reminder                                                  
+----
+Content Builder/brandy_welcome_emails/journey_v1/welcome_email_1
+Content Builder/brandy_welcome_emails/journey_v1/welcome_coupon 
+Content Builder/brandy_welcome_emails/journey_v1/welcome_coupon_reminder 
 Content Builder/brandy_welcome_emails/journey_v1/welcome_last_chance                                             
 Content Builder/brandy_welcome_emails/journey_v2/welcome_account_setup  
 ```
 
 <br />
+
+## Adding Newly Created Files
+
+Similar to the `init` command, bldr has the ability to create new files on the fly during any stage in the project. In addition to files, new folders (single or nested) can be created. 
+
+During the `add` command, if no file is found in the `.local.manifest.json` file, you will be asked to select an asset type for the new file. Once selected, it will be added to the stash.
+
+The following asset types can be created:
+- codesnippetblock
+- htmlemail
+- htmlblock
+
 
 export default ({ children }) => <Layout> <DocumentationLayoutAlt meta={meta}>{children}</DocumentationLayoutAlt></Layout>

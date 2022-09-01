@@ -4,12 +4,12 @@ import DocumentationLayoutAlt from '../../../components/layouts/DocumentationLay
 
 export const meta = {
     previous: {
-      label: 'Stash',
-      path: 'stash'
+      label: 'Add',
+      path: 'add'
     },
     next: {
-      label: 'Search',
-      path: 'search'
+      label: 'Package',
+      path: 'package'
     }
   }
 
@@ -18,18 +18,33 @@ export const meta = {
 The Push command allows you to take the files that have been added to the stash and create or update them in your targeted SFMC isntance. Once files have been created or updated in SFMC, the contents of the file will be updated in the `.local.manifest.json` file for that entry.
 
 ```
-$ bldr push
-
-Updated Files          
-------------------------------------------
-Content Builder/brandy_welcome_emails/journey_v1/welcome_email_1                                                      
-Content Builder/brandy_welcome_emails/journey_v1/welcome_coupon                                                     
-Content Builder/brandy_welcome_emails/journey_v1/welcome_coupon_reminder                                                  
-Content Builder/brandy_welcome_emails/journey_v1/welcome_last_chance                                             
-Content Builder/brandy_welcome_emails/journey_v2/welcome_account_setup  
+  $ bldr push
+  
+  Working on contentBuilder
+  Creating assets for BrandyMKTG
+  Welcome_v2 has been created; CategoryId: 119591
+  >> 1 folders created
+  Successfully Updated Assets
+  journey_v1 welcome_email_1           
+  journey_v1 welcome_coupon          
+  journey_v1 welcome_coupon_reminder       
+  journey_v1 welcome_last_chance  
+  journey_v2/welcome_account_setup  
+  >> 5 Assets Updated
+  Successfully Created Assets
+  welcome_module_v2
+  >> 1 Assets Created
 ```
 
 <br />
+
+## Creating New Folders
+
+During the push commands processing, any files that do not currently exist in SFMC will have some additional steps taken prior to being created in SFMC. 
+
+BLDR will look through the file path of the asset and look for a folder in the `.local.manifest.json` file. If a folder is not found it will be created accordingly in SFMC for that context.
+
+Once created, it will be added to the `.local.manifest.json` file.
 
 
 export default ({ children }) => <Layout> <DocumentationLayoutAlt meta={meta}>{children}</DocumentationLayoutAlt></Layout>

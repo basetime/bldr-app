@@ -5,8 +5,8 @@ import DocumentationLayoutAlt from '../../../components/layouts/DocumentationLay
 
 export const meta = {
     previous: {
-      label: 'Contexts',
-      path: 'contexts'
+      label: 'Getting Started',
+      path: 'getting-started'
     },
     next: {
       label: 'Status',
@@ -18,6 +18,16 @@ export const meta = {
 
 Getting setup with BLDR is straightforward and can be done in just a few minutes. New configurations require that an Installed Package be created within Salesforce Marketing Cloud following the permissions provided in the <Link href="/documentation/getting-started"><a>Getting Started</a></Link> documentation.
 
+
+```
+  -n, --new               Create New Configuration
+  <instance name>         View Instance Configuration
+  -l, --list              List all Configurations
+  -s --set                Set Target Configuration to Use
+  >> -m, --mid            Set Target MID to Use
+  -r, --remove            Remove Configuration
+  --verbose               Toggle Verbose Messaging
+```
 
 ## New Configuration
 
@@ -41,7 +51,7 @@ Getting setup with BLDR is straightforward and can be done in just a few minutes
 ```
 $ bldr config BrandyMKTG
 Instance Details (showing first 5 characters of credentials)                    
----------------------------------------------------------------
+----
 {                                                                               
   "instance": "BrandyMKTG",                                                        
   "parentMID": "2928190",                                                     
@@ -65,8 +75,8 @@ Instance Details (showing first 5 characters of credentials)
 
 ```
 $ bldr config -l
-Instance Names                
----------------------------------------------------------------
+Configured Instances                
+----
 BrandyMKTG                      
 CodyDev                       
 AstroB2C                      
@@ -81,10 +91,10 @@ AstroB2C
 ```
 $ bldr config -s CodyDev
 Configuration Set                                                               
----------------------------------------------------------------
+----
 {                                                                               
   "instance": "CodyDev",                                                       
-  "parentMID": "992823772",                                                     
+  "parentMID": "992823772",                                                
   "activeMID": "992823772"                                                      
 }      
 ```
@@ -94,9 +104,9 @@ Configuration Set
 `bldr config -s CodyDev -m 992822209` | `bldr config --set CodyDev --mid 992822209`
 
 ```
-$ bldr config -s CodyDev
-Configuration Set                                                               
----------------------------------------------------------------
+$ bldr config -s CodyDev -m 992822209
+CodyDev has been set to target instance                                                               
+----
 {                                                                               
   "instance": "CodyDev",                                                       
   "parentMID": "992823772",                                                     
@@ -114,7 +124,7 @@ Configuration Set
 ```
 $ bldr config -r CodyDev
 Instance Details                                                                
----------------------------------------------------------------
+----
 {                                                                               
   "instance": "CodyDev",                                                       
   "parentMID": "992823772",                                                     

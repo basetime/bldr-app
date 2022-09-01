@@ -1,0 +1,47 @@
+import Layout from '../../../components/layouts/MainLayout'
+import DocumentationLayoutAlt from '../../../components/layouts/DocumentationLayoutAlt'
+
+export const meta = {
+    previous: {
+      label: 'Init',
+      path: 'init'
+    },
+    next: {
+      label: 'Clone',
+      path: 'clone'
+    }
+  }
+
+# Environment Variables
+
+For projects that require the use of API Keys, any values that need to be kept secure, or any variable content that you want to be replaced upon deployment, BLDR will create two files within your project -- `.sfmc.env.json` and `template.sfmc.env.json` -- that are equivalent to an [environment variables](https://en.wikipedia.org/wiki/Environment_variable) (.env) file that take the form of a JSON object.
+
+When these files are created, BLDR will also add the `.sfmc.env.json` file to a `.gitignore` file so it does not get saved to version control.
+
+# When is this file used
+
+If there is a `.sfmc.env.json` file created, the following actions will trigger a checking of content. 
+
+- Running `bldr init --update-env-keys`
+- Adding/pushing files to SFMC
+- Packaging projects
+- Deploying projects
+
+The config file can contain any values that need to be replaced/updated. When the value of a key is found, bldr will replace the matched content with the JSON key.
+
+```javascript
+  // .sfmc.config.json
+  {
+      "client_id": "abc12345"
+  }
+
+  // Updated Asset Content
+  var apiConfig = {
+      clientId: "{{client_id}}"
+  }
+```
+<br /> 
+
+When in use, all files in your project (including bldr specific files) will have your values removed and replaced with `{{env key}}`. Assets within your SFMC instance will have your values in place.
+
+export default ({ children }) => <Layout> <DocumentationLayoutAlt meta={meta}>{children}</DocumentationLayoutAlt></Layout>

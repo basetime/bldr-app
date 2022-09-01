@@ -7,8 +7,8 @@ export const meta = {
       path: ''
     },
     next: {
-      label: 'Security',
-      path: 'security'
+      label: 'Config',
+      path: 'config'
     }
   }
 
@@ -16,7 +16,7 @@ export const meta = {
 # Getting Started
 ## Install BLDR CLI
 
-1. Open the terminal and check if you have the following:
+- Open the terminal and check if you have the following:
     - Ensure you have Node.js installed by typing  `node --version`
         - If you do not have Node.js installed visit [nodejs.org](https://www.nodejs.org) and follow the instructions for installation
     - (optional) Ensure you have GIT installed by typing `git version` 
@@ -24,15 +24,13 @@ export const meta = {
     - In your terminal run `npm install -g @basetime/bldr-sfmc`
         - NOTE: You must include the `-g` flag to be able to use this across multiple projects
 
-<br />
-
 ## Updating BLDR CLI
 
-1. Open your terminal and run `npm update -g @basetime/bldr-sfmc`
+Open your terminal and run `npm update -g @basetime/bldr-sfmc`
 
 <br />
 
-## Setting up BLDR CLI
+## Prepair for Configuration
 
 The BLDR CLI is designed so you can use it across as many SFMC instances as you require. The interactions with SFMC are completed using a Server-to-Server API Package set up within each SFMC Instance. 
 
@@ -45,7 +43,7 @@ In team secnarios, it's recommended that a shared Installed Package be created f
 1. Navigate to `Settings > Setup > Platform Tools > Apps > Installed Packages`
 2. Click on `New` to create a new Package and name it `bldr-cli`
 3. Click on `Add Component` to add a new API Component and select `API Integration` and then `Server-to-Server`
-4. Navigate to `Access` and ensure that the Installed Package is provisioned for all Business Units that you may need access to.
+4. Navigate to `Access` and ensure that the Installed Package is provisioned for all Business Units that you may need access to
 5. Update the scope of the Installed Package to match the permissions below
 
 <br />
@@ -64,5 +62,23 @@ In team secnarios, it's recommended that a shared Installed Package be created f
 | File Locations       | Read, Write |
 | Accounts             | Read        |
 
+<br />
+
+---
+
+<br/>
+
+## Troubleshooting installation
+### Permission Issues
+If you run into permissions issues while installing bldr, you can run the install command as `sudo npm install -g @basetime/bldr-sfmc`.
+
+### Libsecret Issue
+BLDRs enhanced secrity to handle the storing of your API Credentials is handled through the [keytar library](https://www.npmjs.com/package/keytar). As such, the keytar library uses a library called `libsecret` to access the systems credential manager. Libsecret cannot be included as a dependency so you may need to install it prior to installing BLDR. Follow the instructions on the keytar npm page or try the below instructions to install the libsecret library.
+
+**MacOs**
+1. [Install Homebrew](https://brew.sh/) 
+2. [Install Libsecret](https://formulae.brew.sh/formula/libsecret#default)
+
+<br />
 
 export default ({ children }) => <Layout> <DocumentationLayoutAlt meta={meta}>{children}</DocumentationLayoutAlt></Layout>

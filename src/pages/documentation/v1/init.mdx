@@ -1,5 +1,6 @@
 import Layout from '../../../components/layouts/MainLayout'
 import DocumentationLayoutAlt from '../../../components/layouts/DocumentationLayoutAlt'
+import Link from 'next/link'
 
 export const meta = {
     previous: {
@@ -16,6 +17,12 @@ export const meta = {
 To start building a project outside of the platform, you can initiate the starting folders and files that BLDR needs to track, create, and update files. This allows you to set up nested folders and initiate any content blocks or emails needed for your project.
 
 Currently, project initiation is only supported in Content Builder.
+
+```
+  --cb                 Initiate Content Builder Project
+  --env-only           Setup Environment Variables for Project
+  --update-env-keys    Update .sfmc.env.json keys found in content
+```
 
 ## Initiate Project
 
@@ -35,17 +42,15 @@ During project initiation, you will be asked to provide a project name that will
    1. Root Context Folder
    2. Subfolder for Project
 2. Files
-   1. .bldr
-   2. .local.manifest.json
-   3. .sfmc.config.json [optional configuration => Y]
+   1. .local.manifest.json
+   2. .sfmc.config.json [optional configuration => Y]
    3. template.sfmc.config.json [optional configuration => Y]
-   3. .gitignore [optional configuration => Y]
+   4. .gitignore [optional configuration => Y]
 
 <br />
 
 #### File Definitions
 
-- `.bldr` is used during the add process to map bldrIds.
 - `.local.manifest.json` is the source of truth for your project that maps your assets to the assets in SFMC including folder paths and content.
 - `.sfmc.config.json` is used to store keys/values that you don't want saved to version control and your compiled packages.
 - `template.sfmc.config.json` is used when you are using the configurations and is saved to version control and your compiled package. This file should be a mirror of `.sfmc.config.json` without the values.
@@ -55,44 +60,16 @@ During project initiation, you will be asked to provide a project name that will
 
 ## Initiate Configuration Only
 
-`bldr init --config-only`
+`bldr init --env-only`
 
 <br />
 
 ## Update Files With Config Keys
 
-`bldr init --update-config-keys`
+`bldr init --update-env-keys`
 
-`bldr init --update-config-keys` will go through all files in your project folders, including configuration files, to match and update values found in the `.sfmc.config.json` file.
+For full details, see <Link href="/documentation/v1/environment-variables"><a>Environment Variables</a></Link>
 
-<br />
-
-# Key/Secret Configurations
-
-For projects that require the use of API Keys or any values that need to be kept secure, BLDR will create two files within your project -- `.sfmc.config.json` and `template.sfmc.config.json` -- that are equivalent to an [environment variables](https://en.wikipedia.org/wiki/Environment_variable) (.env) file.
-
-When these files are created, BLDR will also add the `.sfmc.config.json` file to a `.gitignore` file so it does not get saved to version control.
-
-If there is a `.sfmc.config.json` file created, the following actions will trigger a checking of content. The config file can contain any values that need to be replaced/updated. When the value of a key is found, bldr will replace the matched content with the JSON key.
-
-```javascript
-  // .sfmc.config.json
-  {
-      "client_id": "abc12345"
-  }
-
-  // Updated Asset Content
-  var apiConfig = {
-      clientId: "{{client_id}}"
-  }
-```
-
-These actions are taken during:
-- the add/push flow
-- packaging projects
-- manual initiation `bldr init --update-config-keys`
-
-Updates going **into** the platform will keep the values in-tact but files at rest will have the `{{key name}}` in place.
 <br /> 
 
 

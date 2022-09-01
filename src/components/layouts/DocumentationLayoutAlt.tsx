@@ -56,7 +56,8 @@ const components = {
   code: InlineCode,
   h1: Headers.H1,
   h2: Headers.H2,
-  h3: Headers.H3
+  h3: Headers.H3,
+  h4: Headers.H4
 }
 
 
