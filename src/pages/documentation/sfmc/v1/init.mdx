@@ -1,5 +1,5 @@
-import Layout from '../../../components/layouts/MainLayout'
-import DocumentationLayoutAlt from '../../../components/layouts/DocumentationLayoutAlt'
+import Layout from '../../../../components/layouts/MainLayout'
+import DocumentationLayoutAlt from '../../../../components/layouts/DocumentationLayoutAlt'
 import Link from 'next/link'
 
 export const meta = {
@@ -18,11 +18,12 @@ To start building a project outside of the platform, you can initiate the starti
 
 Currently, project initiation is only supported in Content Builder.
 
-```
-  --cb                 Initiate Content Builder Project
-  --env-only           Setup Environment Variables for Project
-  --update-env-keys    Update .sfmc.env.json keys found in content
-```
+| flags             | description                                 |
+| ----------------- | ------------------------------------------- |
+| --cb              | Initiate Content Builder Project            |
+| --env-only        | Setup Environment Variables for Project     |
+| --update-env-keys | Update .sfmc.env.json keys found in content |
+
 
 ## Initiate Project
 
@@ -33,27 +34,27 @@ During project initiation, you will be asked to provide a project name that will
 ```
   $ bldr init --cb
   ? Project Name: Welcome Emails
-  ? Does your project need a configuration? (Y/n): n
+  ? Does your project need environment variables? (Y/n): n
 ```
 
-### What Gets Created?
+### What Gets Created
 
 1. Folders
    1. Root Context Folder
    2. Subfolder for Project
 2. Files
    1. .local.manifest.json
-   2. .sfmc.config.json [optional configuration => Y]
-   3. template.sfmc.config.json [optional configuration => Y]
-   4. .gitignore [optional configuration => Y]
+   2. .sfmc.env.json [optional environment variables => Y]
+   3. template.sfmc.env.json [optional environment variables => Y]
+   4. .gitignore [optional environment variables => Y]
 
 <br />
 
 #### File Definitions
 
 - `.local.manifest.json` is the source of truth for your project that maps your assets to the assets in SFMC including folder paths and content.
-- `.sfmc.config.json` is used to store keys/values that you don't want saved to version control and your compiled packages.
-- `template.sfmc.config.json` is used when you are using the configurations and is saved to version control and your compiled package. This file should be a mirror of `.sfmc.config.json` without the values.
+- `.sfmc.env.json` is used to store keys/values that you don't want saved to version control and your compiled packages.
+- `template.sfmc.env.json` is used when you are using the configurations and is saved to version control and your compiled package. This file should be a mirror of `.sfmc.env.json` without the values.
 - `.gitignore` tells git to ignore specific files when pushing updates to your git provider.
 
 <br />
@@ -68,7 +69,9 @@ During project initiation, you will be asked to provide a project name that will
 
 `bldr init --update-env-keys`
 
-For full details, see <Link href="/documentation/v1/environment-variables"><a>Environment Variables</a></Link>
+<br />
+
+For full Environment Variable details, see <Link href="/documentation/v1/environment-variables"><a>Environment Variables</a></Link>
 
 <br /> 
 

@@ -1,0 +1,86 @@
+import Layout from '../../../../components/layouts/MainLayout'
+import DocumentationLayoutAlt from '../../../../components/layouts/DocumentationLayoutAlt'
+
+
+export const meta = {
+    previous: {
+      label: 'Install',
+      path: 'install'
+    },
+    next: {
+      label: 'Security',
+      path: 'security'
+    }
+  }
+
+# $ deploy
+
+Once you have a downloaded `.package.manifest.json` file and any initial updates have been made, you can run the `bldr deploy` command.
+
+The deploy command will perform the following actions (updating the manifest file as needed):
+- Create a `.local.manifest.json` file
+- Gather all folder paths and create them in SFMC
+- Split packaged assets into zero-dependency assets and dependency assets
+- Create all zero-dependency assets
+- Create dependency assets
+
+
+```
+$ bldr deploy
+
+Creating contentBuilder Local Files
+created [local]: processing_api
+created [local]: app_html
+created [local]: app_js
+created [local]: channel_drawer
+created [local]: branding_bar
+created [local]: preference_form
+created [local]: submit_button_animation
+created [local]: wsProxy
+created [local]: subscriber_validation
+created [local]: unauthorized_user
+created [local]: utils
+created [local]: legal
+created [local]: _component_imports
+created [local]: app_configuration
+created [local]: preference_options
+Creating contentBuilder folders in sfmc
+BLDR_OneClick_Unsub_Pkg has been created; CategoryId: 119694
+backend has been created; CategoryId: 119695
+>> 2 folders created
+frontend has been created; CategoryId: 119696
+>> 1 folders created
+components has been created; CategoryId: 119697
+>> 1 folders created
+styles has been created; CategoryId: 119698
+>> 1 folders created
+lib has been created; CategoryId: 119699
+ssjs has been created; CategoryId: 119700
+>> 2 folders created
+validation has been created; CategoryId: 119701
+>> 1 folders created
+configurations has been created; CategoryId: 119702
+default has been created; CategoryId: 119703
+en-us has been created; CategoryId: 119704
+>> 3 folders created
+created [sfmc]: app_html
+created [sfmc]: app_js
+created [sfmc]: channel_drawer
+created [sfmc]: branding_bar
+created [sfmc]: preference_form
+created [sfmc]: submit_button_animation
+created [sfmc]: wsProxy
+created [sfmc]: subscriber_validation
+created [sfmc]: unauthorized_user
+created [sfmc]: utils
+created [sfmc]: legal
+created [sfmc]: app_configuration
+created [sfmc]: preference_options
+created [sfmc]: processing_api
+created [local]: processing_api
+created [sfmc]: _component_imports
+created [local]: _component_imports
+```
+
+
+export default ({ children }) => <Layout> <DocumentationLayoutAlt meta={meta}>{children}</DocumentationLayoutAlt></Layout>

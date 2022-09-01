@@ -1,0 +1,38 @@
+import Layout from '../../../../components/layouts/MainLayout'
+import DocumentationLayoutAlt from '../../../../components/layouts/DocumentationLayoutAlt'
+
+
+export const meta = {
+    previous: {
+      label: 'Stash',
+      path: 'stash'
+    },
+    next: {
+      label: 'Search',
+      path: 'search'
+    }
+  }
+
+
+# $ install
+
+Install allows users to access the public GitHub repository to download the following files:
+- .package.manifest.json
+- README.md
+- .sfmc.env.json
+- .template.sfmc.env.json
+
+
+```
+$ bldr install https://github.com/{{owner}}/{{repository}}
+```
+
+Once the files have been created locally, you have the ability to update any folder. This is helpful when you have duplicate folder names, preventing you from deploying the project.
+
+In the event that you update the folder paths, ensure you update all occurances to ensure all files/folders can create successfully.
+
+<br />
+
+
+
+export default ({ children }) => <Layout> <DocumentationLayoutAlt meta={meta}>{children}</DocumentationLayoutAlt></Layout>

@@ -56,7 +56,7 @@ const Index: NextPage = () => {
             },
             {
               label: 'View Documentation',
-              href: '/documentation/v1/getting-started',
+              href: '/documentation/sfmc/v1/getting-started',
               variant: 'outlined'
             }
           ]}

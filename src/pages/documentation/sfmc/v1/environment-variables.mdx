@@ -1,5 +1,5 @@
-import Layout from '../../../components/layouts/MainLayout'
-import DocumentationLayoutAlt from '../../../components/layouts/DocumentationLayoutAlt'
+import Layout from '../../../../components/layouts/MainLayout'
+import DocumentationLayoutAlt from '../../../../components/layouts/DocumentationLayoutAlt'
 
 export const meta = {
     previous: {
@@ -30,7 +30,7 @@ If there is a `.sfmc.env.json` file created, the following actions will trigger 
 The config file can contain any values that need to be replaced/updated. When the value of a key is found, bldr will replace the matched content with the JSON key.
 
 ```javascript
-  // .sfmc.config.json
+  // .sfmc.env.json
   {
       "client_id": "abc12345"
   }

@@ -1,6 +1,6 @@
 import Link from 'next/link'
-import Layout from '../../../components/layouts/MainLayout'
-import DocumentationLayoutAlt from '../../../components/layouts/DocumentationLayoutAlt'
+import Layout from '../../../../components/layouts/MainLayout'
+import DocumentationLayoutAlt from '../../../../components/layouts/DocumentationLayoutAlt'
 
 
 export const meta = {
@@ -19,15 +19,16 @@ export const meta = {
 Getting setup with BLDR is straightforward and can be done in just a few minutes. New configurations require that an Installed Package be created within Salesforce Marketing Cloud following the permissions provided in the <Link href="/documentation/getting-started"><a>Getting Started</a></Link> documentation.
 
 
-```
-  -n, --new               Create New Configuration
-  <instance name>         View Instance Configuration
-  -l, --list              List all Configurations
-  -s --set                Set Target Configuration to Use
-  >> -m, --mid            Set Target MID to Use
-  -r, --remove            Remove Configuration
-  --verbose               Toggle Verbose Messaging
-```
+  | flags           | description                     |
+  | --------------- | ------------------------------- |
+  | -n, --new       | Create New Configuration        |
+  | [instance name] | View Instance Configuration     |
+  | -l, --list      | List all Configurations         |
+  | -s --set        | Set Target Configuration to Use |
+  | >> -m, --mid    | Set Target MID to Use           |
+  | -r, --remove    | Remove Configuration            |
+  | --verbose       | Toggle Verbose Messaging        |
+
 
 ## New Configuration
 

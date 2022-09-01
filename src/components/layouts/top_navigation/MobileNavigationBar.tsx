@@ -31,7 +31,7 @@ export const MobileNavigationBar = (props: Props) => {
     setAnchorEl(null);
   };
   const { global} = useContext(GlobalContext)
-  const navPages = pages(global.docVersion)
+  const navPages = pages(global.esp, global.docVersion)
   return (
     <>
       <Box sx={{ width: '100%', display: 'bock', alignItems: 'center', textAlign: 'center' }}>

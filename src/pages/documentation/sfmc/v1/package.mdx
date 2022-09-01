@@ -1,0 +1,64 @@
+import Layout from '../../../../components/layouts/MainLayout'
+import DocumentationLayoutAlt from '../../../../components/layouts/DocumentationLayoutAlt'
+
+export const meta = {
+    previous: {
+      label: 'Push',
+      path: 'push'
+    },
+    next: {
+      label: 'Install',
+      path: 'install'
+    }
+  }
+  
+# $ package
+
+In addition to being a development tool, BLDR provides a way for you to migrate and share your code with your team or within the SFMC community. 
+
+With the `bldr package` command, bldr will take the following actions:
+1. Slim down your `.local.manifest.json` file by removing the asset details that are not needed to create your assets elsewhere
+2. If you have a `.sfmc.env.json` file, bldr will run the process to update your configuration keys
+3. Scan all files to locate dependencies within HTML, AMPscript, and SSJS
+4. Grab all dependencies as needed and replace their spot in your file with the generated bldrIds
+5. Creates your `.package.manifest.json` file
+
+Once created, your `.package.manifest.json` file can be committed to your public GitHub repository to be distributed.
+
+It's recommended that along with your package file, you create a README.md for the repository with any installation instructions or documentation for the project.
+
+## Supported assets
+
+Currently, BLDR supports packaging files for Content Builder and Data Extensions. Extended support for packages will be in development and released in the near future.
+
+Supported Content Builder assets are HTML Emails, HTML Blocks, and Codesnippet Content Blocks.
+
+## Dependencies
+
+During the package command, bldr will attempt to find any dependencies in your files. Below is the current list of AMPScript/SSJS functions that will be picked up as dependencies:
+
+Dependency support is a part of bldr that will be constently expanding, to request dependency support [submit an issue to the bldr-sfmc-sdk repository](https://github.com/basetime/bldr-sfmc-sdk/issues).
+
+
+**Data Extensions**
+  - Lookup
+  - LookupOrderedRows
+  - LookupOrderedRowsCS
+  - LookupRows
+  - LookupRowsCS
+  - DataExtensionRowCount
+  - DeleteData
+  - DeleteDE
+  - InsertDE
+  - UpdateData
+  - UpdateDE
+  - UpsertData
+  - UpsertDE
+  - ClaimRow
+
+**Content Blocks**
+  - ContentBlockById
+  - ContentBlockByName
+
+
+export default ({ children }) => <Layout> <DocumentationLayoutAlt meta={meta}>{children}</DocumentationLayoutAlt></Layout>

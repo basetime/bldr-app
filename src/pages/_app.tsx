@@ -14,7 +14,8 @@ function MyApp({ Component, pageProps }: AppProps) {
   const [global, setGlobal] = useState({
     env: '',
     apiBase: '',
-    docVersion: 1
+    docVersion: 1,
+    esp: 'sfmc'
   })
 
   const authContext = useMemo(() => ({ user, setUser }), [user, setUser])

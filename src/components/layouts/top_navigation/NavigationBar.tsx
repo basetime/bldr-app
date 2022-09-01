@@ -70,11 +70,10 @@ export default function PrimarySearchAppBar() {
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
 
-  const { user } = useContext(AuthContext)
+  // const { user } = useContext(AuthContext)
   const { global } = useContext(GlobalContext)
-  const navPages = pages(global.docVersion)
+  const navPages = pages(global.esp, global.docVersion)
 
-  console.log(navPages)
   const handleProfileMenuOpen = (event: Event) => {
     setAnchorEl(event.currentTarget);
   };
@@ -124,7 +123,7 @@ export default function PrimarySearchAppBar() {
               </Link>
             ))}
 
-            {
+            {/* {
               !user || !user.isLoggedIn ?
                 <Link key='Login' href='/users/login?returnTo=/'>
                   <Button
@@ -134,7 +133,7 @@ export default function PrimarySearchAppBar() {
                   </Button>
                 </Link> :
                 <AccountMenu />
-            }
+            } */}
             
           </Box>
           <Box

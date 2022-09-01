@@ -12,6 +12,7 @@ import SwitchLeftIcon from '@mui/icons-material/SwitchLeft';
 import SearchIcon from '@mui/icons-material/Search';
 import CopyAllIcon from '@mui/icons-material/CopyAll';
 import LockIcon from '@mui/icons-material/Lock';
+import SyncAltIcon from '@mui/icons-material/SyncAlt';
 
 export const DocumentationItems = [
   {
@@ -22,7 +23,7 @@ export const DocumentationItems = [
   },
   {
     type: 'divider',
-    label: 'divider'
+    label: 'divider-1'
   },
   {
     type: 'header',
@@ -96,7 +97,7 @@ export const DocumentationItems = [
   },
   {
     type: 'divider',
-    label: 'divider'
+    label: 'divider-2'
   },
   {
     type: 'item',
@@ -113,7 +114,7 @@ export const DocumentationItems = [
   {
     type: 'item',
     label: 'Environment Variables',
-    icon: <SwitchLeftIcon />,
+    icon: <SyncAltIcon />,
     doc: 'environment-variables'
   },
 ]

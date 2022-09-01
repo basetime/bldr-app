@@ -15,6 +15,7 @@ interface Props {
   navigationItems: object[];
   setVersionChange: any;
   docVersion: number;
+  esp: string;
 }
 
 export default function DocumentationNavigation(props: Props) {
@@ -32,7 +33,7 @@ export default function DocumentationNavigation(props: Props) {
   }
 
   const navigation = props.navigationItems.map((item: DocumentationItem) => {
-    const doc = `/documentation/v${props.docVersion}/${item.doc}` || '#';
+    const doc = `/documentation/${props.esp}/v${props.docVersion}/${item.doc}` || '#';
     const label = item.label;
     const type = item.type;
 
@@ -54,7 +55,7 @@ export default function DocumentationNavigation(props: Props) {
         <ListItemIcon>
           {item.icon}
         </ListItemIcon>
-        <ListItemText primary={label} />
+        <ListItemText key={label} primary={label} />
       </ListItemButton>
       </>
     )

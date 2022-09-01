@@ -1,4 +1,4 @@
-import React, { ReactNode, useState } from 'react';
+import React, { ReactNode, useState, useContext } from 'react';
 import { styled } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import Drawer from '@mui/material/Drawer';
@@ -21,6 +21,7 @@ import List from '@mui/material/List';
 import { MDXProvider } from '@mdx-js/react'
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
+import GlobalContext from '../../context/GlobalContext'
 
 type Props = {
   children: ReactNode;
@@ -65,6 +66,8 @@ export default function DocumentationLayoutAlt({
   children,
   meta
 }: Props) {
+  const { global } = useContext(GlobalContext)
+  const esp = global.esp;
 
   const [docVersion, setDocVersion] = useState(1)
 
@@ -92,7 +95,7 @@ export default function DocumentationLayoutAlt({
           <Toolbar />
           <Box sx={{ overflow: 'auto', marginTop: '5rem' }}>
             <List>
-              <DocumentationNavigation docVersion={docVersion} setVersionChange={onVersionChange} navigationItems={DocumentationItems} />
+              <DocumentationNavigation esp={esp} docVersion={docVersion} setVersionChange={onVersionChange} navigationItems={DocumentationItems} />
             </List>
           </Box>
         </Drawer>
@@ -121,16 +124,16 @@ export default function DocumentationLayoutAlt({
 
             {meta.previous.path &&
               <Grid sx={{ marginTop: '4rem', display: 'flex', justifyContent: 'space-between', alignContent: 'center' }}>
-                {meta.previous.path && <Button href={`/documentation/v${docVersion}/${meta.previous.path}`} variant="outlined" startIcon={<ArrowBackIosIcon />}>
+                {meta.previous.path && <Button href={`/documentation/${esp}/v${docVersion}/${meta.previous.path}`} variant="outlined" startIcon={<ArrowBackIosIcon />}>
                   {meta.previous.label}
                 </Button>}
 
-                <Button href={`/documentation/v${docVersion}/${meta.next.path}`} variant="outlined" endIcon={<ArrowForwardIosIcon />}>
+                <Button href={`/documentation/${esp}/v${docVersion}/${meta.next.path}`} variant="outlined" endIcon={<ArrowForwardIosIcon />}>
                   {meta.next.label}
                 </Button>
               </Grid> ||
               <Grid sx={{ marginTop: '4rem', display: 'flex', justifyContent: 'end', alignContent: 'center' }}>
-                <Button href={`/documentation/v${docVersion}/${meta.next.path}`} variant="outlined" endIcon={<ArrowForwardIosIcon />}>
+                <Button href={`/documentation/${esp}/v${docVersion}/${meta.next.path}`} variant="outlined" endIcon={<ArrowForwardIosIcon />}>
                   {meta.next.label}
                 </Button>
               </Grid>

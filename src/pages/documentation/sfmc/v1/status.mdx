@@ -1,5 +1,5 @@
-import Layout from '../../../components/layouts/MainLayout'
-import DocumentationLayoutAlt from '../../../components/layouts/DocumentationLayoutAlt'
+import Layout from '../../../../components/layouts/MainLayout'
+import DocumentationLayoutAlt from '../../../../components/layouts/DocumentationLayoutAlt'
 
 export const meta = {
     previous: {
@@ -17,23 +17,22 @@ export const meta = {
 ## Get Status
 Quick recap of where you are at with BLDR. The status command will show you the current target Instance and MID, as well as any files that have been added to your stash that are waiting to be updated within the platform.
 
-`bldr status`
-
 ```
   $ bldr status
-  Current Status                                                                                                                                                
+  Current Status
+
   instance: BrandyMKTG                                                                                               
   parentMID: 2928190                                                                                             
   activeMID: 2928190                                                                                             
                                                                                                                     
   Staged Files                             
   ---------------------------------------------------------------
-  Content Builder/brandy_welcome_emails/journey_v1/welcome_email_1.html                                                      
-  Content Builder/brandy_welcome_emails/journey_v1/welcome_coupon.html                                                     
-  Content Builder/brandy_welcome_emails/journey_v1/welcome_coupon_reminder.html                                                  
-  Content Builder/brandy_welcome_emails/journey_v1/welcome_last_chance.html                                             
-  Content Builder/brandy_welcome_emails/journey_v2/welcome_account_setup.html                                            
-  Content Builder/brandy_welcome_emails/journey_v2/welcome_new_features.html                                           
+  Content Builder/brandy_welcome_emails/journey_v1/welcome_email_1.html
+  Content Builder/brandy_welcome_emails/journey_v1/welcome_coupon.html
+  Content Builder/brandy_welcome_emails/journey_v1/welcome_coupon_reminder.html
+  Content Builder/brandy_welcome_emails/journey_v1/welcome_last_chance.html
+  Content Builder/brandy_welcome_emails/journey_v2/welcome_account_setup.html
+  Content Builder/brandy_welcome_emails/journey_v2/welcome_new_features.html
   Content Builder/brandy_welcome_emails/journey_v2/welcome_next_steps.html 
 ```
 
