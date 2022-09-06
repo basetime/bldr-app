@@ -7,6 +7,7 @@ import GlobalContext from '../context/GlobalContext'
 import firebase from 'firebase/compat/app';
 import 'firebase/compat/auth';
 import { useCookies } from 'react-cookie';
+import { GoogleAnalytics } from "nextjs-google-analytics";
 
 function MyApp({ Component, pageProps }: AppProps) {
   const [sessionCookie] = useCookies(['bldr_session']);
@@ -43,7 +44,7 @@ function MyApp({ Component, pageProps }: AppProps) {
       }
     })
 
-    if(sessionCookie && sessionCookie.bldr_session){
+    if (sessionCookie && sessionCookie.bldr_session) {
       setUser({
         isLoggedIn: true,
         isNewUser: false,
@@ -71,6 +72,7 @@ function MyApp({ Component, pageProps }: AppProps) {
     <GlobalContext.Provider value={globalContext}>
       <AuthContext.Provider value={authContext}>
         <CookiesProvider>
+          <GoogleAnalytics />
           <Component {...pageProps} />
         </CookiesProvider>
       </AuthContext.Provider>

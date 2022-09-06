@@ -76,7 +76,7 @@ export default function DocumentationLayoutAlt({
   }
 
   return (
-    <Grid container sx={{ overflow: 'hidden', display: 'flex', justifyContent: 'center', marginTop: { xs: 10, md: 10 }, marginBottom: { xs: 10, md: 15 }, paddingX: {xs: 5, md: 10} }}>
+    <Grid container sx={{ overflow: 'hidden', display: 'flex', justifyContent: 'center', marginTop: { xs: 10, md: 10 }, marginBottom: { xs: 10, md: 15 }, paddingX: {xs: 1, md: 10} }}>
       <Grid item xs={12} md={5}>
         <Drawer
           variant="permanent"
@@ -99,7 +99,6 @@ export default function DocumentationLayoutAlt({
             </List>
           </Box>
         </Drawer>
-
       </Grid>
       <Grid item xs={12} md={10} sx={{
         ml: {
@@ -115,7 +114,7 @@ export default function DocumentationLayoutAlt({
           <MDXProvider components={components}>
             <Grid item xs={12} sx={{
               px: {
-                xs: 1,
+                xs: 0,
                 md: 0
               }
             }}>
@@ -124,16 +123,16 @@ export default function DocumentationLayoutAlt({
 
             {meta.previous.path &&
               <Grid sx={{ marginTop: '4rem', display: 'flex', justifyContent: 'space-between', alignContent: 'center' }}>
-                {meta.previous.path && <Button href={`/documentation/${esp}/v${docVersion}/${meta.previous.path}`} variant="outlined" startIcon={<ArrowBackIosIcon />}>
+                {meta.previous.path && <Button size="small" href={`/documentation/${esp}/v${docVersion}/${meta.previous.path}`} variant="outlined" startIcon={<ArrowBackIosIcon />}>
                   {meta.previous.label}
                 </Button>}
 
-                <Button href={`/documentation/${esp}/v${docVersion}/${meta.next.path}`} variant="outlined" endIcon={<ArrowForwardIosIcon />}>
+                <Button size="small" href={`/documentation/${esp}/v${docVersion}/${meta.next.path}`} variant="outlined" endIcon={<ArrowForwardIosIcon />}>
                   {meta.next.label}
                 </Button>
               </Grid> ||
               <Grid sx={{ marginTop: '4rem', display: 'flex', justifyContent: 'end', alignContent: 'center' }}>
-                <Button href={`/documentation/${esp}/v${docVersion}/${meta.next.path}`} variant="outlined" endIcon={<ArrowForwardIosIcon />}>
+                <Button size="small" href={`/documentation/${esp}/v${docVersion}/${meta.next.path}`} variant="outlined" endIcon={<ArrowForwardIosIcon />}>
                   {meta.next.label}
                 </Button>
               </Grid>
