@@ -21,15 +21,16 @@ Currently, project initiation is only supported in Content Builder.
 | flags             | description                                 |
 | ----------------- | ------------------------------------------- |
 | --cb              | Initiate Content Builder Project            |
+| --de              | Initiate Data Extension                     |
 | --env-only        | Setup Environment Variables for Project     |
 | --update-env-keys | Update .sfmc.env.json keys found in content |
 
 
-## Initiate Project
+## Content Builder
+
+`bldr init --cb`
 
 During project initiation, you will be asked to provide a project name that will be used for your root folder name and be asked if you need a configuration file.
-
-`bldr init <context flag>`
 
 ```
   $ bldr init --cb
@@ -50,14 +51,73 @@ During project initiation, you will be asked to provide a project name that will
 
 <br />
 
-#### File Definitions
+## Data Extension
 
-- `.local.manifest.json` is the source of truth for your project that maps your assets to the assets in SFMC including folder paths and content.
-- `.sfmc.env.json` is used to store keys/values that you don't want saved to version control and your compiled packages.
-- `template.sfmc.env.json` is used when you are using the configurations and is saved to version control and your compiled package. This file should be a mirror of `.sfmc.env.json` without the values.
-- `.gitignore` tells git to ignore specific files when pushing updates to your git provider.
+`bldr init --de`
 
-<br />
+During project initiation, you will be asked to provide a Data Extension, the path to create the Data Extension, if it is Sendable, and if there is a Retenion Period.
+
+```
+  $ bldr init --de
+  ? Data Extension Name: Welcome_Subscribers
+  ? Data Extension Path: Data Extensions/Welcome/Subscriber Audiences
+  ? Sendable Data Extension? Y
+  ? Retetention Period: None
+```
+
+### Retention Options
+
+- None
+- Individual Records 
+- All Records and Data Extension 
+- All Records 
+
+
+### What Gets Created
+
+1. Folders
+   1. Root Context Folder
+   2. Subfolders for Data Extension Path
+2. Files
+   1. .local.manifest.json
+   2. `{{Data Extension Name}}.json`
+
+### Data Extension Configuration
+
+Once the template file has been created with the JSON structure below, you can start to configure your data extension. 
+
+```
+{
+  "name": "Welcome_Subscribers",
+  "customerKey": "d66f05f0-069c-4711-a2b0-636fcca9a290",
+  "description": "",
+  "fields": [
+    {
+      "name": "SubscriberKey",
+      "defaultValue": "",
+      "isRequired": true,
+      "isPrimaryKey": true,
+      "fieldType": "Text",
+      "maxLength": "4000"
+    },
+    {
+      "name": "EmailAddress",
+      "defaultValue": "",
+      "isRequired": true,
+      "isPrimaryKey": false,
+      "fieldType": "EmailAddress"
+    }
+  ],
+  "category": {
+    "folderPath": "Data Extensions/Welcome/Subscriber Audiences"
+  }
+}
+```
+
+- Field types follow the [official documentation](https://help.salesforce.com/s/articleView?id=sf.mc_es_data_extension_data_types.htm&type=5)
+- A GUID value will be created for `customerKey` which can be overwritten with your custom value
+- Sendable Data Extension configurations and Retention Period configurations will be included in the template file as needed
+
 
 ## Initiate Configuration Only
 
@@ -74,6 +134,15 @@ During project initiation, you will be asked to provide a project name that will
 For full Environment Variable details, see <Link href="/documentation/v1/environment-variables"><a>Environment Variables</a></Link>
 
 <br /> 
+
+
+## File Definitions
+
+- `.local.manifest.json` is the source of truth for your project that maps your assets to the assets in SFMC including folder paths and content.
+- `.sfmc.env.json` is used to store keys/values that you don't want saved to version control and your compiled packages.
+- `template.sfmc.env.json` is used when you are using the configurations and is saved to version control and your compiled package. This file should be a mirror of `.sfmc.env.json` without the values.
+- `.gitignore` tells git to ignore specific files when pushing updates to your git provider.
+
 
 
 export default ({ children }) => <Layout> <DocumentationLayoutAlt meta={meta}>{children}</DocumentationLayoutAlt></Layout>
