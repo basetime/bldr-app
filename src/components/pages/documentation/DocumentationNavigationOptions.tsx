@@ -13,6 +13,8 @@ import SearchIcon from '@mui/icons-material/Search';
 import CopyAllIcon from '@mui/icons-material/CopyAll';
 import LockIcon from '@mui/icons-material/Lock';
 import SyncAltIcon from '@mui/icons-material/SyncAlt';
+import SourceIcon from '@mui/icons-material/Source';
+import { ReactElement } from 'react';
 
 export const DocumentationItems = [
   {
@@ -98,6 +100,12 @@ export const DocumentationItems = [
   {
     type: 'divider',
     label: 'divider-2'
+  },
+  {
+    type: 'item',
+    label: 'File Definitions',
+    icon: <SourceIcon />,
+    doc: 'file-definitions'
   },
   {
     type: 'item',

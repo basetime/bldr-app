@@ -107,6 +107,8 @@ export default function DocumentationLayoutAlt({
           xl: 20
         },
       }}>
+        <DocumentationNavigation esp={esp} docVersion={docVersion} setVersionChange={onVersionChange} navigationItems={DocumentationItems} />
+        
         <Box
           component="main"
           position="relative"

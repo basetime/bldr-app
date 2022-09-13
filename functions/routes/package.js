@@ -147,7 +147,7 @@ router.post("/submit", async (req, res, next) => {
 
         getRepositoryResponse = getRepository.data;
         gitPackageJSONFile = getRepositoryResponse.find(
-            (file) => file.name === ".package.manifest.json",
+            (file) => file.name === "package.manifest.json",
         );
 
         if (gitPackageJSONFile) {

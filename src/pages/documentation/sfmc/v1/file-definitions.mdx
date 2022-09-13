@@ -1,0 +1,29 @@
+import Layout from '../../../../components/layouts/MainLayout'
+import DocumentationLayoutAlt from '../../../../components/layouts/DocumentationLayoutAlt'
+import Link from  'next/link'
+
+export const meta = {
+    previous: {
+      label: 'Deploy',
+      path: 'deploy'
+    },
+    next: {
+      label: 'Security',
+      path: 'security'
+    }
+  }
+
+# File Definitions
+
+`.local.manifest.json` is the source of truth for your project that maps your assets to the assets in SFMC including folder paths and content.
+<br />
+`.sfmc.env.json` is used to store keys/values that you don't want saved to version control and your compiled packages.
+<br />
+`template.sfmc.env.json` is used when you are using the configurations and is saved to version control and your compiled package. This file should be a mirror of `.sfmc.env.json` without the values.
+<br />
+`.gitignore` tells git to ignore specific files when pushing updates to your git provider.
+<br />
+
+Note: Files that start with a `.` are typically hidden files. If these files do not appear and you want to make them visible press `Command + Shift + . (period)` on Mac and follow [these steps for Windows](https://support.microsoft.com/en-us/windows/show-hidden-files-0320fe58-0117-fd59-6851-9b7f9840fdb2)
+
+export default ({ children }) => <Layout> <DocumentationLayoutAlt meta={meta}>{children}</DocumentationLayoutAlt></Layout>

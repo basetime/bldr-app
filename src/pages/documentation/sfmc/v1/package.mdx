@@ -21,9 +21,9 @@ With the `bldr package` command, bldr will take the following actions:
 2. If you have a `.sfmc.env.json` file, bldr will run the process to update your configuration keys
 3. Scan all files to locate dependencies within HTML, AMPscript, and SSJS
 4. Grab all dependencies as needed and replace their spot in your file with the generated bldrIds
-5. Creates your `.package.manifest.json` file
+5. Creates your `package.manifest.json` file
 
-Once created, your `.package.manifest.json` file can be committed to your public GitHub repository to be distributed.
+Once created, your `package.manifest.json` file can be committed to your public GitHub repository to be distributed.
 
 It's recommended that along with your package file, you create a README.md for the repository with any installation instructions or documentation for the project.
 
@@ -38,7 +38,6 @@ Supported Content Builder assets are HTML Emails, HTML Blocks, and Codesnippet C
 During the package command, bldr will attempt to find any dependencies in your files. Below is the current list of AMPScript/SSJS functions that will be picked up as dependencies:
 
 Dependency support is a part of bldr that will be constently expanding, to request dependency support [submit an issue to the bldr-sfmc-sdk repository](https://github.com/basetime/bldr-sfmc-sdk/issues).
-
 
 **Data Extensions**
   - Lookup

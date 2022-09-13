@@ -8,6 +8,8 @@ import firebase from 'firebase/compat/app';
 import 'firebase/compat/auth';
 import { useCookies } from 'react-cookie';
 import { GoogleAnalytics } from "nextjs-google-analytics";
+import PlayCircleOutlineIcon from '@mui/icons-material/PlayCircleOutline';
+
 
 function MyApp({ Component, pageProps }: AppProps) {
   const [sessionCookie] = useCookies(['bldr_session']);
@@ -16,6 +18,12 @@ function MyApp({ Component, pageProps }: AppProps) {
     env: '',
     apiBase: '',
     docVersion: 1,
+    mobileDocNav: {
+      type: 'item',
+      label: 'Getting Started',
+      icon: <PlayCircleOutlineIcon />,
+      doc: 'getting-started'
+    },
     esp: 'sfmc'
   })
 

@@ -16,7 +16,6 @@ export const meta = {
 # $ init
 To start building a project outside of the platform, you can initiate the starting folders and files that BLDR needs to track, create, and update files. This allows you to set up nested folders and initiate any content blocks or emails needed for your project.
 
-Currently, project initiation is only supported in Content Builder.
 
 | flags             | description                                 |
 | ----------------- | ------------------------------------------- |
@@ -134,15 +133,5 @@ Once the template file has been created with the JSON structure below, you can s
 For full Environment Variable details, see <Link href="/documentation/v1/environment-variables"><a>Environment Variables</a></Link>
 
 <br /> 
-
-
-## File Definitions
-
-- `.local.manifest.json` is the source of truth for your project that maps your assets to the assets in SFMC including folder paths and content.
-- `.sfmc.env.json` is used to store keys/values that you don't want saved to version control and your compiled packages.
-- `template.sfmc.env.json` is used when you are using the configurations and is saved to version control and your compiled package. This file should be a mirror of `.sfmc.env.json` without the values.
-- `.gitignore` tells git to ignore specific files when pushing updates to your git provider.
-
-
 
 export default ({ children }) => <Layout> <DocumentationLayoutAlt meta={meta}>{children}</DocumentationLayoutAlt></Layout>
