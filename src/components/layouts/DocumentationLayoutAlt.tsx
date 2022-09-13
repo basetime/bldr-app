@@ -22,6 +22,7 @@ import { MDXProvider } from '@mdx-js/react'
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import GlobalContext from '../../context/GlobalContext'
+import { NoEncryption } from '@mui/icons-material';
 
 type Props = {
   children: ReactNode;
@@ -107,8 +108,13 @@ export default function DocumentationLayoutAlt({
           xl: 20
         },
       }}>
+
+        <Box sx={{display: {
+          xs: 'block',
+          md: 'none'
+        }}}>
         <DocumentationNavigation esp={esp} docVersion={docVersion} setVersionChange={onVersionChange} navigationItems={DocumentationItems} />
-        
+        </Box>
         <Box
           component="main"
           position="relative"
