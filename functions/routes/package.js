@@ -18,7 +18,9 @@ router.get("/", async (req, res) => {
     const filterTS = req.query.since || null;
     const uid = req.query.uid || null;
 
-    const packageMetaData = await utils.getMetaDataDocument("packages");
+    const countsMetaData = await utils.getMetaDataDocument("counts");
+    const packageCount = countsMetaData?.packages;
+
     const data = await utils.readCollection(
         // @ts-ignore
         uid,
@@ -27,6 +29,8 @@ router.get("/", async (req, res) => {
         pageSize,
         filterTS,
     );
+
+    console.log("data", data);
 
     if (data.status === "ok") {
       const packages = data.data;
@@ -41,7 +45,7 @@ router.get("/", async (req, res) => {
       }
     }
 
-    data.totalPackageCount = packageMetaData && packageMetaData.count || 0;
+    data.totalPackageCount = packageCount || 0;
 
     res.status(200);
     res.json(data);
@@ -163,7 +167,7 @@ router.post("/submit", async (req, res, next) => {
             uid,
             owner,
             repository,
-            installLink: gitPackageJSONFile.url,
+            installCMD: `bldr install ${packageURL}`,
             repositoryLink: packageURL,
             createdAt: createdAtOut,
             createdAtTS,
@@ -177,10 +181,7 @@ router.post("/submit", async (req, res, next) => {
           // for (let i = 0; i < 60; i++) {
           //   packageData.id = `${packageName}_${i}`;
 
-          await fs
-              .collection("packages")
-              .doc(packageData.id)
-              .set(packageData);
+          await fs.collection("packages").doc(packageData.id).set(packageData);
 
           await utils.incrementMetaDataCount("packages");
 

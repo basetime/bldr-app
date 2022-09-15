@@ -1,5 +1,6 @@
 {
   "projects": {
-    "default": "bldr-io"
+    "production": "bldr-io",
+    "development": "bldr-io-dev"
   }
 }

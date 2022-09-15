@@ -70,7 +70,7 @@ export default function PrimarySearchAppBar() {
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
 
-  // const { user } = useContext(AuthContext)
+  const { user } = useContext(AuthContext)
   const { global } = useContext(GlobalContext)
   const navPages = pages(global.esp, global.docVersion)
 

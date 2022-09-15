@@ -30,7 +30,7 @@ export default function BrowsePackages(props: Props) {
     return (
       <div key={pkg.id}>
         <Grid item xs={12} sx={{ display: 'flex', justifyContent: 'start' }} >
-          <Button fullWidth>
+          <Button onClick={() => window.open(pkg.repositoryLink, "_blank")} fullWidth>
             <ListItem>
               <ListItemText
                 primary={pkg.id}
@@ -46,18 +46,33 @@ export default function BrowsePackages(props: Props) {
               />
             </ListItem>
           </Button>
-          <Stack direction="row" spacing={1} sx={{display: {xs: 'none', md:'flex'}, marginTop:'1rem'}}>
+          <Stack direction="row" spacing={1} sx={{ display: { xs: 'none', md: 'flex' }, marginTop: '1rem' }}>
             {pkg.tags && pkg.tags.length && pkg.tags.map((tag: string) => {
               return (
                 <Chip key={tag} label={tag} size="small" variant="outlined" />
               )
             })}
           </Stack>
-
         </Grid>
         <Grid item xs={12} sx={{ display: 'flex' }}>
           <ListItem>
-            <Button sx={{ marginRight: 2 }}>
+          <ListItemText
+                secondaryTypographyProps={{
+                  textTransform: 'none',
+                  maxWidth: '80%'
+                }}
+                secondary={
+                  <>
+                    {pkg.installCMD}
+                  </>
+                }
+              />
+            
+          </ListItem>
+        </Grid>
+        <Grid item xs={12} sx={{ display: 'flex' }}>
+          <ListItem>
+            <Button>
               <ListItemAvatar>
                 <Avatar alt={user.profile.displayName} src={user.profile.photoURL} />
               </ListItemAvatar>
@@ -71,19 +86,20 @@ export default function BrowsePackages(props: Props) {
             </Button>
             <Stack direction="row" alignItems="center" spacing={1}>
               {user.github && user.github.url &&
-                <IconButton href={user.github.url} aria-label="delete" size="small">
+                <IconButton onClick={() => window.open(user.github.url, "_blank")}
+                  aria-label="github" size="small">
                   <GitHubIcon fontSize="inherit" />
                 </IconButton>}
               {user.profile && user.profile.twitter && user.profile.twitter !== '' &&
-                <IconButton href={user.profile.twitter} aria-label="delete" size="small">
+                <IconButton onClick={() => window.open(user.profile.twitter, "_blank")} aria-label="twitter" size="small">
                   <TwitterIcon fontSize="inherit" />
                 </IconButton>}
               {user.profile && user.profile.linkedin && user.profile.linkedin !== '' &&
-                <IconButton href={user.profile.linkedin} aria-label="delete" size="small">
+                <IconButton onClick={() => window.open(user.profile.linkedin, "_blank")} aria-label="linkedin" size="small">
                   <LinkedInIcon fontSize="inherit" />
                 </IconButton>}
               {user.profile && user.profile.trailblazer && user.profile.trailblazer !== '' &&
-                <IconButton href={user.profile.trailblazer} aria-label="delete" size="small">
+                <IconButton onClick={() => window.open(user.profile.trailblazer, "_blank")} aria-label="trailblazer" size="small">
                   <CloudIcon fontSize="inherit" />
                 </IconButton>}
             </Stack>
@@ -98,8 +114,8 @@ export default function BrowsePackages(props: Props) {
 
   return (
     <>
-      <Grid xs={12}>
-        <List sx={{ width: '100%', bgcolor: 'background.paper' }}>
+      <Grid item sx={{ width: '100%', bgcolor: 'background.paper' }} xs={12}>
+        <List >
           {props.packages.length && renderPackages}
           {!props.packages.length &&
             <Typography>

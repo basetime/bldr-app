@@ -219,7 +219,7 @@ export default function SubmitPage(props: Props) {
               </Typography>
               <ul>
                 <li>Package has been tested</li>
-                <li>Configurations have been set using the <Link href="#">.sfmc.config.json file.</Link></li>
+                <li>Configurations have been set using the <Link href="#">.sfmc.env.json file.</Link></li>
                 <li><code>bldr package</code> has run successfully</li>
                 <li>Package has been committed to a public GitHub repository on the main branch</li>
               </ul>

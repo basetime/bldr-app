@@ -26,9 +26,9 @@ module.exports.readProfileData = async (uid) => {
 module.exports.readCollection = async (uid, start, end, pageSize, filterTS) => {
   try {
     const data = [];
-    const metaDoc = fs.collection("metadata").doc("packages");
+    const metaDoc = fs.collection("metadata").doc("counts");
     const pkgDoc = await metaDoc.get();
-    const pkgMetadata = await pkgDoc.data();
+    const metadata = await pkgDoc.data();
 
     let collection = fs.collection("packages");
 
@@ -52,9 +52,9 @@ module.exports.readCollection = async (uid, start, end, pageSize, filterTS) => {
       data.push(docData);
     });
 
-    console.log(data);
     const pages = {};
-    const count = pkgMetadata.count;
+    console.log(metadata);
+    const count = metadata.packages;
 
     if (count > pageSize) {
       const nextStart = data[data.length - 1]["createdAtTS"] || "";
@@ -79,33 +79,44 @@ module.exports.readCollection = async (uid, start, end, pageSize, filterTS) => {
       }
     }
 
-    return {
+    const outputReturn = {
       status: "ok",
       count,
       pages,
       data,
     };
+
+    console.log("outputReturn", outputReturn);
+    return outputReturn;
   } catch (err) {
     console.log(err);
   }
 };
 
 module.exports.incrementMetaDataCount = async (doc) => {
-  const metaDoc = fs.collection("metadata").doc(doc);
+  const metaDoc = fs.collection("metadata").doc("counts");
   const pkgDoc = await metaDoc.get();
   const pkgData = await pkgDoc.data();
 
-  pkgData.count++;
+  if (!pkgData) {
+    fs.collection("metadata")
+        .doc("counts")
+        .set({
+          [doc]: 1,
+        });
+  } else {
+    pkgData[doc]++;
 
-  await metaDoc.set(pkgData);
+    await metaDoc.set(pkgData);
+  }
 };
 
 module.exports.decrementMetaDataCount = async (doc) => {
-  const metaDoc = fs.collection("metadata").doc(doc);
+  const metaDoc = fs.collection("metadata").doc("counts");
   const pkgDoc = await metaDoc.get();
   const pkgData = await pkgDoc.data();
 
-  pkgData.count--;
+  pkgData[doc]--;
   await metaDoc.set(pkgData);
 };
 

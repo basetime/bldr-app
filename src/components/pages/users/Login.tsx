@@ -3,12 +3,13 @@ import StyledFirebaseAuth from 'react-firebaseui/StyledFirebaseAuth';
 import firebase from 'firebase/compat/app';
 import AuthContext from '../../../context/AuthContext'
 import SectionWrapper from '../SectionWrapper'
-
+import { useCookies } from 'react-cookie';
 
 export const Login = (props: {
- 
+
 }) => {
   const { user, setUser } = useContext(AuthContext)
+  const [sessionCookie, setCookie] = useCookies(['bldr_session']);
 
   // Configure FirebaseUI.
   const uiConfig = {
@@ -77,6 +78,7 @@ export const Login = (props: {
             profile: userObject
           })
 
+
           let sessionExpire = new Date();
           sessionExpire.setDate(sessionExpire.getDate() + 3);
           //@ts-ignore
@@ -87,22 +89,22 @@ export const Login = (props: {
             sameSite: 'strict'
           });
 
-
-          let userConfig = new Date();
-          userConfig.setDate(userConfig.getDate() + 3);
-          //@ts-ignore
-          setCookie('bldr_session', JSON.stringify(userObject), {
-            path: '/',
-            expires: sessionExpire,
-            secure: true,
-            sameSite: 'strict'
-          });
+          // let userConfig = new Date();
+          // userConfig.setDate(userConfig.getDate() + 3);
+          // //@ts-ignore
+          // setCookie('bldr_session', JSON.stringify(userObject), {
+          //   path: '/',
+          //   expires: sessionExpire,
+          //   secure: true,
+          //   sameSite: 'strict'
+          // });
         }
 
         return false;
       }
     },
   }
+
 
 
 

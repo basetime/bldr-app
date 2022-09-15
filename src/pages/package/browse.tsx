@@ -22,7 +22,7 @@ const Item = styled(Paper)(({ theme }) => ({
 const BrowsePage: NextPage = () => {
   const router = useRouter();
   const { global } = useContext(GlobalContext)
-  const [packages, setPackages] = useState({ status: '', count: 0, pages: {}, data: [] })
+  const [packages, setPackages] = useState({ status: '', totalPackageCount: 0, pages: {}, data: [] })
   const [filteredPackages, setFilteredPackages] = useState([])
   const [isLoading, setIsLoading] = useState(true)
 
@@ -35,13 +35,14 @@ const BrowsePage: NextPage = () => {
   }, [])
 
   const getPackages = useCallback(async () => {
+    console.log(global.apiBase)
     const packageRequest = await axios.get(`${global.apiBase}/package`)
 
+    console.log(packageRequest)
     if (packageRequest.data.status === 'ok') {
       const intPackages = packageRequest.data.data.slice(0 * 10, 0 * 10 + 10);
       setFilteredPackages(intPackages)
       setPackages(packageRequest.data)
-
     }
 
   }, [router.isReady])
@@ -104,17 +105,17 @@ const BrowsePage: NextPage = () => {
 
   return (
     <Layout maxWidth={{ maxWidth: 'xl' }}>
-      <Grid item container>
+      <Grid container>
         {/* <Grid xs={12} md={4} sx={{ marginRight: 10 }}>
           <PackageFilter onFormChange={onFormChange} />
         </Grid> */}
-        <Grid xs={12} md={6} mx={'auto'}>
-          <Grid xs={12} mb={3} mx={'auto'}>
-            <Pagination count={packages.count} onPage={page} rowsPerPage={rowsPerPage} onHandleChangePage={handleChangePage} onHandleChangeRowsPerPage={handleChangeRowsPerPage} />
+        <Grid item xs={12} md={6} mx={'auto'}>
+          <Grid item xs={12} mb={3} mx={'auto'}>
+            <Pagination count={packages.totalPackageCount} onPage={page} rowsPerPage={rowsPerPage} onHandleChangePage={handleChangePage} onHandleChangeRowsPerPage={handleChangeRowsPerPage} />
           </Grid>
           {filteredPackages && <BrowsePackages packages={filteredPackages} />}
-          <Grid xs={12} my={3} mx={'auto'}>
-            <Pagination count={packages.count} onPage={page} rowsPerPage={rowsPerPage} onHandleChangePage={handleChangePage} onHandleChangeRowsPerPage={handleChangeRowsPerPage} />
+          <Grid item xs={12} my={3} mx={'auto'}>
+            <Pagination count={packages.totalPackageCount} onPage={page} rowsPerPage={rowsPerPage} onHandleChangePage={handleChangePage} onHandleChangeRowsPerPage={handleChangeRowsPerPage} />
           </Grid>
         </Grid>
       </Grid>
