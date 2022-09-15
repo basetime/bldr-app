@@ -56,18 +56,17 @@ export default function BrowsePackages(props: Props) {
         </Grid>
         <Grid item xs={12} sx={{ display: 'flex' }}>
           <ListItem>
-          <ListItemText
-                secondaryTypographyProps={{
-                  textTransform: 'none',
-                  maxWidth: '80%'
-                }}
-                secondary={
-                  <>
-                    {pkg.installCMD}
-                  </>
-                }
-              />
-            
+            <ListItemText
+              secondaryTypographyProps={{
+                textTransform: 'none',
+                maxWidth: '80%'
+              }}
+              secondary={
+                <>
+                  {pkg.installCMD}
+                </>
+              }
+            />
           </ListItem>
         </Grid>
         <Grid item xs={12} sx={{ display: 'flex' }}>
