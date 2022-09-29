@@ -13,6 +13,7 @@ const cors = require("cors");
 const authenticationRoute = require("../routes/authentication");
 const packageRoute = require("../routes/package");
 const userRoute = require("../routes/user");
+const cli = require("../routes/cli");
 
 const app = express();
 
@@ -28,6 +29,7 @@ app.use((req, res, next) => {
 app.use("/api/v1/authentication", authenticationRoute);
 app.use("/api/v1/user", userRoute);
 app.use("/api/v1/package", packageRoute);
+app.use("/api/v1/cli", cli);
 
 // app.use("/api/v1/sysadmin", isAdminOrOwner, sysAdminRoute);
 // app.use("/api/v1/admin", requireAuth, adminRoute);

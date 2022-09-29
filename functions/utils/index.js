@@ -93,19 +93,19 @@ module.exports.readCollection = async (uid, start, end, pageSize, filterTS) => {
   }
 };
 
-module.exports.incrementMetaDataCount = async (doc) => {
+module.exports.incrementMetaDataCount = async (doc, count = 1) => {
   const metaDoc = fs.collection("metadata").doc("counts");
   const pkgDoc = await metaDoc.get();
   const pkgData = await pkgDoc.data();
 
-  if (!pkgData) {
+  if (!pkgData || !pkgData[doc]) {
     fs.collection("metadata")
         .doc("counts")
-        .set({
-          [doc]: 1,
+        .update({
+          [doc]: count,
         });
   } else {
-    pkgData[doc]++;
+    pkgData[doc] = pkgData[doc] + count;
 
     await metaDoc.set(pkgData);
   }

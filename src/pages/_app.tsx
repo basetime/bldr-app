@@ -9,7 +9,8 @@ import 'firebase/compat/auth';
 import { useCookies } from 'react-cookie';
 import { GoogleAnalytics } from "nextjs-google-analytics";
 import PlayCircleOutlineIcon from '@mui/icons-material/PlayCircleOutline';
-
+import { useRouter } from 'next/router';
+import { config } from '../../constants'
 
 function MyApp({ Component, pageProps }: AppProps) {
   const [sessionCookie] = useCookies(['bldr_session']);
@@ -17,6 +18,8 @@ function MyApp({ Component, pageProps }: AppProps) {
   const [global, setGlobal] = useState({
     env: '',
     apiBase: '',
+    host: '',
+    firebaseConfig: {},
     docVersion: 1,
     mobileDocNav: {
       type: 'item',
@@ -29,26 +32,32 @@ function MyApp({ Component, pageProps }: AppProps) {
 
   const authContext = useMemo(() => ({ user, setUser }), [user, setUser])
   const globalContext = useMemo(() => ({ global, setGlobal }), [global, setGlobal])
+  const router = useRouter();
 
   // Set Global vars
   // Get Initial Packages
   useEffect(() => {
     let apiBase: string;
     let env: string = process.env.NODE_ENV || 'production';
+    let host: string;
+    let firebaseConfig: any;
 
-    if (env === 'development') {
+    if (window.location.href.includes('localhost')) {
       env = 'development';
-      apiBase = 'http://127.0.0.1:5001/bldr-io/us-central1/bldrAPI/api/v1';
+      host = window.location.href;
     } else {
       env = 'production';
-      apiBase = 'https://us-central1-bldr-io.cloudfunctions.net/bldrAPI/api/v1';
+      host = window.location.href;
     }
+
+    apiBase = config.apiBase;
 
     setGlobal((prevState) => {
       return {
         ...prevState,
         env,
         apiBase,
+        host
       }
     })
 
@@ -62,19 +71,30 @@ function MyApp({ Component, pageProps }: AppProps) {
   }, [])
 
 
-  // TODO move Firebase fetched from serverside
-  // Configure Firebase.
-  const config = {
-    apiKey: "AIzaSyCwCgOFIuhCD5R6GoY9BW0bMZ7SIhF579c",
-    authDomain: "bldr-io.firebaseapp.com",
-    projectId: "bldr-io",
-    storageBucket: "bldr-io.appspot.com",
-    messagingSenderId: "378041336280",
-    appId: "1:378041336280:web:82500482faf4e879fe72ad",
-    measurementId: "G-ZB2WGJ9QSQ"
-  };
+  //  firebase.initializeApp({
+  //     apiKey: "AIzaSyASzIycxpqkZBy00w_8KtO83K1hvA29iSM",
+  //     authDomain: "bldr-io-dev.firebaseapp.com",
+  //     projectId: "bldr-io-dev",
+  //     storageBucket: "bldr-io-dev.appspot.com",
+  //     messagingSenderId: "989486265725",
+  //     appId: "1:989486265725:web:d673a81aeeec1e34578814"
+  //   })
+    
 
-  firebase.initializeApp(config);
+  // TODO move Firebase fetched from serverside
+  // Configure Firebase
+  // const config = {
+  //   apiKey: "AIzaSyCwCgOFIuhCD5R6GoY9BW0bMZ7SIhF579c",
+  //   authDomain: "bldr-io.firebaseapp.com",
+  //   projectId: "bldr-io",
+  //   storageBucket: "bldr-io.appspot.com",
+  //   messagingSenderId: "378041336280",
+  //   appId: "1:378041336280:web:82500482faf4e879fe72ad",
+  //   measurementId: "G-ZB2WGJ9QSQ"
+  // };
+
+  console.log(config)
+  firebase.initializeApp(config.firebase)
 
   return (
     <GlobalContext.Provider value={globalContext}>

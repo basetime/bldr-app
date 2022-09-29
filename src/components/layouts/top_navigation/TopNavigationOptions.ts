@@ -5,14 +5,14 @@ export const pages = (esp: string, docVersion: number) => {
       label: 'Get Started',
       route: `/documentation/${esp}/v${docVersion}/getting-started`
     },
-    // {
-    //   label: 'Submit',
-    //   route: '/package/submit'
-    // },
-    // {
-    //   label: 'Browse',
-    //   route: '/package/browse'
-    // }
+    {
+      label: 'Submit',
+      route: '/package/submit'
+    },
+    {
+      label: 'Browse',
+      route: '/package/browse'
+    }
 
   ]
 };

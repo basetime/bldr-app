@@ -3,18 +3,34 @@ import React, { useEffect, useState } from 'react';
 import StyledFirebaseAuth from 'react-firebaseui/StyledFirebaseAuth';
 import firebase from 'firebase/compat/app';
 import 'firebase/compat/auth';
+import { useRouter } from 'next/router';
 
 // Configure Firebase.
-const config = {
-  apiKey: "AIzaSyCwCgOFIuhCD5R6GoY9BW0bMZ7SIhF579c",
-  authDomain: "bldr-io.firebaseapp.com",
-  projectId: "bldr-io",
-  storageBucket: "bldr-io.appspot.com",
-  messagingSenderId: "378041336280",
-  appId: "1:378041336280:web:82500482faf4e879fe72ad",
-  measurementId: "G-ZB2WGJ9QSQ"
+let config = {}
+const router = useRouter();
+
+if(router.asPath.includes('dev.web.app')){
+  config = {
+    apiKey: "AIzaSyASzIycxpqkZBy00w_8KtO83K1hvA29iSM",
+    authDomain: "bldr-io-dev.firebaseapp.com",
+    projectId: "bldr-io-dev",
+    storageBucket: "bldr-io-dev.appspot.com",
+    messagingSenderId: "989486265725",
+    appId: "1:989486265725:web:d673a81aeeec1e34578814"
+  }
+} else {
+  config = {
+    apiKey: "AIzaSyCwCgOFIuhCD5R6GoY9BW0bMZ7SIhF579c",
+    authDomain: "bldr-io.firebaseapp.com",
+    projectId: "bldr-io",
+    storageBucket: "bldr-io.appspot.com",
+    messagingSenderId: "378041336280",
+    appId: "1:378041336280:web:82500482faf4e879fe72ad",
+    measurementId: "G-ZB2WGJ9QSQ"
+  }
 };
 
+console.log('config', config)
 firebase.initializeApp(config);
 
 

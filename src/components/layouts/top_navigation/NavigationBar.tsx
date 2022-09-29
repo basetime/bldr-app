@@ -123,7 +123,7 @@ export default function PrimarySearchAppBar() {
               </Link>
             ))}
 
-            {/* {
+            {
               !user || !user.isLoggedIn ?
                 <Link key='Login' href='/users/login?returnTo=/'>
                   <Button
@@ -133,7 +133,7 @@ export default function PrimarySearchAppBar() {
                   </Button>
                 </Link> :
                 <AccountMenu />
-            } */}
+            }
             
           </Box>
           <Box
