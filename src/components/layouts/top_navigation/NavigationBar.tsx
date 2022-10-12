@@ -148,32 +148,6 @@ export default function PrimarySearchAppBar() {
             <MobileNavigationBar navPages={navPages}/>
           </Box>
         </Toolbar>
-        {/* <Toolbar sx={{ display: "flex", backgroundColor: '#ffffff' }}>
-          <Box
-            sx={{
-              display: {
-                xs: 'block',
-              },
-              width: {
-                xs: '100%'
-              }
-            }}
-
-          >
-            <Search>
-              <StyledInputBase
-                placeholder="Search BLDR..."
-                inputProps={{ 'aria-label': 'search' }}
-                sx={{
-                  paddingRight: {
-                    xs: '1rem',
-                    md: '4rem'
-                  }
-                }}
-              />
-            </Search>
-          </Box>
-        </Toolbar> */}
       </AppBar>
     </Box>
 

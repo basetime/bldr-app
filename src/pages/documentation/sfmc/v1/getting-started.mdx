@@ -40,11 +40,12 @@ In team secnarios, it's recommended that a shared Installed Package be created f
 
 ### SFMC Installed Package
 
-1. Navigate to `Settings > Setup > Platform Tools > Apps > Installed Packages`
+1. In SFMC, navigate to `Settings > Setup > Platform Tools > Apps > Installed Packages`
 2. Click on `New` to create a new Package and name it `bldr-cli`
-3. Click on `Add Component` to add a new API Component and select `API Integration` and then `Server-to-Server`
-4. Navigate to `Access` and ensure that the Installed Package is provisioned for all Business Units that you may need access to
-5. Update the scope of the Installed Package to match the permissions below
+3. Click on `Add Component` to add a new API Component and select `API Integration` and then `Server-to-Server` or `Web App`
+   1. For `Web App` configurations, include `https://bldr.io/cli/sfmc/authenticate/` as the Redirect URI
+4. Navigate to `Access` and ensure that the Installed Package is provisioned for all desired Business Units
+5. Update the scope of the Installed Package to match the following:
 
 <br />
 

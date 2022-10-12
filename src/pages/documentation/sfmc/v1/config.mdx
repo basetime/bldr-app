@@ -32,16 +32,55 @@ Getting setup with BLDR is straightforward and can be done in just a few minutes
 
 ## New Configuration
 
+When setting up a new configuration, you will be provided the option to use either a `Server-to-Server` or a `Web App` Installed Package. The configuration is the same, aside from the selection of the Authentication Type.
+
+### Server-To-Server
+
 `bldr config -n` | `bldr config --new`
 
 ```
   $ bldr config -n
+  ? Installed Package/Authentication Type Server-to-Server
   ? SFMC Instance Name: BrandyMKTG
   ? Parent MID: 2928190
   ? API Client ID: ydnard9282zeuwo
   ? API Client Secret: ast3183alskdj282d
   ? Authentication URI: https://mcsfmc9380sk-0292.auth.marketingcloudapis.com/
 ```
+
+### Web App
+
+`bldr config -n` | `bldr config --new`
+
+```
+  $ bldr config -n
+  ? Installed Package/Authentication Type Web App
+  ? SFMC Instance Name: BrandyMKTG
+  ? Parent MID: 2928190
+  ? API Client ID: ydnard9282zeuwo
+  ? API Client Secret: ast3183alskdj282d
+  ? Authentication URI: https://mcsfmc9380sk-0292.auth.marketingcloudapis.com/
+```
+
+<br /> 
+
+**Web App Installed Packages**
+
+Web App Configurations will use the [oAuth 2 authentication flow](https://developer.salesforce.com/docs/marketing/marketing-cloud/guide/integration-app-auth-code.html) which adds an extra layer of security for your organization and the instance you are connecting with. When using the Web App configuration, BLDR will still need to encrypt and store the credentials in your default credential vault as they are needed to initiate the oAuth process.
+
+To facilitate this flow, BLDR will:
+- Use a localhost NodeJS server to open your web browser to the [SFMC Authorization URL](https://developer.salesforce.com/docs/marketing/marketing-cloud/guide/authorization-code.html)
+- Once logged in, SFMC will send the challenge code to `https://bldr.io/cli/sfmc/authenticate/` which points to a Google Cloud function
+- The Google Cloud function will serve a basic HTML page which passes the challenge code back to the localhost server to validate and receive the access token
+- Once the process is complete, the server will close
+
+<br />
+
+**Why do we need the Cloud Function**
+
+SFMC Web and Public App Installed Packages enforce that all Redirect URIs use the https protocol rather than http. This is to ensure that the connection with the Redirect URI is a trusted source. BLDR, being a CLI application, requires the use of a temporary localhost server to receive the oAuth challenge code; by nature a localhost server cannot have the required certificates to enforce https so the function simply passes it along.
+
+[View the Cloud Function code here.](https://github.com/basetime/bldr-sfmc/blob/main/lib/_utils/oAuth_CloudFunction.js)
 
 <br />
 
