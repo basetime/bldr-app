@@ -4,11 +4,16 @@
   "private": true,
   "scripts": {
     "dev": "set NODE_ENV=development && next dev",
+    "local": "set NODE_ENV=test && next dev",
     "build": "next build && next export",
     "start": "next start",
     "lint": "next lint",
+    "lint:fix": "next lint --fix",
     "deploy": "next build && next export && firebase deploy",
-    "deploy:hosting": "next build && next export && firebase deploy --only hosting"
+    "deploy:dev": "next build && next export && firebase use development && firebase deploy -P development --only hosting:bldr-io-dev && firebase deploy --only functions",
+    "deploy:dev:functions": "next build && next export && firebase use development && firebase deploy --only functions",
+    "deploy:prod": "next build && next export && firebase use production && firebase deploy -P production --only hosting:bldr-io && firebase deploy --only functions",
+    "deploy:prod:hosting": "next build && next export && firebase use production && firebase deploy -P production --only hosting:bldr-io"
   },
   "dependencies": {
     "@auth0/nextjs-auth0": "^1.9.1",

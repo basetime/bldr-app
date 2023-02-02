@@ -1,19 +1,20 @@
-import Layout from '../../../../components/layouts/MainLayout'
-import DocumentationLayoutAlt from '../../../../components/layouts/DocumentationLayoutAlt'
-import Link from 'next/link'
+import Layout from "../../../../components/layouts/MainLayout";
+import DocumentationLayoutAlt from "../../../../components/layouts/DocumentationLayoutAlt";
+import Link from "next/link";
 
 export const meta = {
-    previous: {
-      label: 'Stash',
-      path: 'stash'
-    },
-    next: {
-      label: 'Search',
-      path: 'search'
-    }
-  }
+  previous: {
+    label: "Stash",
+    path: "stash",
+  },
+  next: {
+    label: "Search",
+    path: "search",
+  },
+};
 
 # $ init
+
 To start building a project outside of the platform, you can initiate the starting folders and files that BLDR needs to track, create, and update files. This allows you to set up nested folders and initiate any content blocks or emails needed for your project.
 
 Currently, project initiation is only supported in Content Builder.
@@ -21,9 +22,9 @@ Currently, project initiation is only supported in Content Builder.
 | flags             | description                                 |
 | ----------------- | ------------------------------------------- |
 | --cb              | Initiate Content Builder Project            |
+| --de              | Initiate Data Extension                     |
 | --env-only        | Setup Environment Variables for Project     |
 | --update-env-keys | Update .sfmc.env.json keys found in content |
-
 
 ## Initiate Project
 
@@ -44,9 +45,14 @@ During project initiation, you will be asked to provide a project name that will
    2. Subfolder for Project
 2. Files
    1. .local.manifest.json
-   2. .sfmc.env.json [optional environment variables => Y]
-   3. template.sfmc.env.json [optional environment variables => Y]
-   4. .gitignore [optional environment variables => Y]
+   2. .sfmc.env.json [optional with environment variables => Y]
+   3. template.sfmc.env.json [optional with environment variables => Y]
+   4. .gitignore [optional with environment variables => Y]
+
+
+*If you do not see `.local.manifest.json, .sfmc.env.json, .gitignore` after running the command* <br />
+**On Mac:** Open Finder, press `Command + Shift + .(period)` <br/>
+**On Windows:** Open File Explorer, select `View > Show > Hidden Items`
 
 <br />
 
@@ -73,7 +79,8 @@ During project initiation, you will be asked to provide a project name that will
 
 For full Environment Variable details, see <Link href="/documentation/v1/environment-variables"><a>Environment Variables</a></Link>
 
-<br /> 
+<br />{" "}
 
+export default ({ children }) => <Layout> <DocumentationLayoutAlt meta={meta}>{children}</DocumentationLayoutAlt></Layout
 
-export default ({ children }) => <Layout> <DocumentationLayoutAlt meta={meta}>{children}</DocumentationLayoutAlt></Layout>
+>
