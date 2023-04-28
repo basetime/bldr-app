@@ -75,7 +75,10 @@ created [local]: Winback Email 1
 
 When cloning a specific asset, for example an automation, BLDR will start with the automation itself and work its way through all activities within it. In the example below, the automation `Welcome Automation Process` has: two SQL Queries, a Data Extension Extract, and an Email Send.
 
-When cloning an automation that has Email Sends, BLDR will pull both the user-initiated shell as well as the Content Builder email itself.
+For example, when cloning an automation that has Email Sends, BLDR will pull the: 
+- User-Initiated Dend Definition
+- Content Builder email
+- Data Extensions associted with the Send Definition
 
 ```
 $ bldr clone --as -a 7e626e82-0831-4ade-9b24-2d2a6c8a7deb

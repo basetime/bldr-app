@@ -1,36 +1,40 @@
-import Layout from '../../../../components/layouts/MainLayout'
-import DocumentationLayoutAlt from '../../../../components/layouts/DocumentationLayoutAlt'
+import Layout from "../../../../components/layouts/MainLayout";
+import DocumentationLayoutAlt from "../../../../components/layouts/DocumentationLayoutAlt";
 
 export const meta = {
-    previous: {
-      label: 'Init',
-      path: 'init'
-    },
-    next: {
-      label: 'Clone',
-      path: 'clone'
-    }
-  }
+  previous: {
+    label: "Init",
+    path: "init",
+  },
+  next: {
+    label: "Clone",
+    path: "clone",
+  },
+};
 
 # $ search
 
 Searching for folders and assets requires the use of a context flag along with the name of the folder/asset you are searching for. The search will match anything with your search term in the name, both full and partial matches.
-  
-  | flags        | description             |
-  | ------------ | ----------------------- |
-  | --cb -f      | Content Builder Folders |
-  | --cb -a      | Content Builder Assets  |
-  | --as -f      | Automation Folders      |
-  | --as -a      | Automation Assets       |
-  | --as -f:sql  | SQL Activity Folders    |
-  | --as -a:sql  | SQL Activity Assets     |
-  | --as -f:ssjs | SSJS Activity Folders   |
-  | --as -a:ssjs | SSJS Activity Assets    |
-  | --de -f      | Data Extension Folders  |
-  | --de -a      | Data Extension Assets   |
 
+| flags          | description                    |
+| -------------- | ------------------------------ |
+| --cb -f        | Content Builder Folders        |
+| --cb -a        | Content Builder Assets         |
+| --cb -f:shared | Shared Content Builder Folders |
+| --cb -a:shared | Shared Content Builder Assets  |
+| --as -f        | Automation Folders             |
+| --as -a        | Automation Assets              |
+| --as -f:sql    | SQL Activity Folders           |
+| --as -a:sql    | SQL Activity Assets            |
+| --as -f:ssjs   | SSJS Activity Folders          |
+| --as -a:ssjs   | SSJS Activity Assets           |
+| --de -f        | Data Extension Folders         |
+| --de -a        | Data Extension Assets          |
+| --de -f:shared | Shared Data Extension Folders  |
+| --de -a:shared | Shared Data Extension Assets   |
 
 ## Folder Searches
+
 All folder searches will return the following format.
 
 `bldr search --cb -f welcome`
@@ -44,7 +48,7 @@ CreatedDate 2022-05-17T11:12:52.337
 ModifiedDate 2022-05-17T11:12:52.337
 ParentFolder.Name Content Builder
 ParentFolder.ID 35088
- 
+
 ---
 ID 97204
 Name welcome_v1
@@ -59,6 +63,7 @@ ParentFolder.ID 97203
 ## Asset Searches
 
 ### Content Builder
+
 Content Builder asset searches will identify the assetId and assetType with other important details to identify the correct asset.
 
 `bldr search --cb -a welcome`
@@ -78,9 +83,11 @@ Content Builder asset searches will identify the assetId and assetType with othe
 <br />
 
 ### Automation Studio
+
 Automation Studio asset searches will return the ObjectId with other important details to identify the correct asset.
 
-`bldr search --as -a welcome` 
+`bldr search --as -a welcome`
+
 ```
   welcome Search Results | 1 Results
   ---
@@ -93,7 +100,7 @@ Automation Studio asset searches will return the ObjectId with other important d
   IsActive true
 ```
 
-`bldr search --as -a:sql welcome` 
+`bldr search --as -a:sql welcome`
 
 ```
   welcome Search Results | 1 Results
@@ -107,4 +114,6 @@ Automation Studio asset searches will return the ObjectId with other important d
 
 <br />
 
-export default ({ children }) => <Layout> <DocumentationLayoutAlt meta={meta}>{children}</DocumentationLayoutAlt></Layout>
+export default ({ children }) => <Layout> <DocumentationLayoutAlt meta={meta}>{children}</DocumentationLayoutAlt></Layout
+
+>

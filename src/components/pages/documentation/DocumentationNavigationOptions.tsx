@@ -1,17 +1,17 @@
-import SettingsIcon from '@mui/icons-material/Settings';
-import PlayCircleOutlineIcon from '@mui/icons-material/PlayCircleOutline';
-import PlaylistAddCheckCircleIcon from '@mui/icons-material/PlaylistAddCheckCircle';
-import StartIcon from '@mui/icons-material/Start';
-import StorageIcon from '@mui/icons-material/Storage';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import BackupIcon from '@mui/icons-material/Backup';
+import CopyAllIcon from '@mui/icons-material/CopyAll';
 import DownloadIcon from '@mui/icons-material/Download';
 import DynamicFeedIcon from '@mui/icons-material/DynamicFeed';
-import SendIcon from '@mui/icons-material/Send';
-import SwitchLeftIcon from '@mui/icons-material/SwitchLeft';
-import SearchIcon from '@mui/icons-material/Search';
-import CopyAllIcon from '@mui/icons-material/CopyAll';
 import LockIcon from '@mui/icons-material/Lock';
+import PlayCircleOutlineIcon from '@mui/icons-material/PlayCircleOutline';
+import PlaylistAddCheckCircleIcon from '@mui/icons-material/PlaylistAddCheckCircle';
+import SearchIcon from '@mui/icons-material/Search';
+import SendIcon from '@mui/icons-material/Send';
+import SettingsIcon from '@mui/icons-material/Settings';
+import StartIcon from '@mui/icons-material/Start';
+import StorageIcon from '@mui/icons-material/Storage';
+import SwitchLeftIcon from '@mui/icons-material/SwitchLeft';
 import SyncAltIcon from '@mui/icons-material/SyncAlt';
 
 export const DocumentationItems = [
@@ -79,19 +79,19 @@ export const DocumentationItems = [
   },
   {
     type: 'item',
-    label: 'package',
+    label: 'package [beta]',
     icon: <DynamicFeedIcon />,
     doc: 'package'
   },
   {
     type: 'item',
-    label: 'install',
+    label: 'install [beta]',
     icon: <DownloadIcon />,
     doc: 'install'
   },
   {
     type: 'item',
-    label: 'deploy',
+    label: 'deploy [beta]',
     icon: <SendIcon />,
     doc: 'deploy'
   },
